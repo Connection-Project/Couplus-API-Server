@@ -2522,6 +2522,11 @@
   "resolved" "https://registry.npmjs.org/async/-/async-3.2.4.tgz"
   "version" "3.2.4"
 
+"async@3.2.3":
+  "integrity" "sha512-spZRyzKL5l5BZQrr/6m/SqFdBN0q3OCI0f9rjfBzCMBIP4p75P620rR3gTmaksNOhmzgdxcaxdNfMy6anrbM0g=="
+  "resolved" "https://registry.npmjs.org/async/-/async-3.2.3.tgz"
+  "version" "3.2.3"
+
 "asynckit@^0.4.0":
   "integrity" "sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q=="
   "resolved" "https://registry.npmjs.org/asynckit/-/asynckit-0.4.0.tgz"
@@ -2782,13 +2787,14 @@
   dependencies:
     "redis" "^4.3.1"
 
-"cache-manager@*", "cache-manager@^5.1.4":
-  "integrity" "sha512-beXzzuboV6I0AkU25udrd8tRxFbU6c5m7+3eOdmznSVNkyKe0+uTK8EtcuhTwqc/wAYrAGl62w3s58rjKnrO6g=="
-  "resolved" "https://registry.npmjs.org/cache-manager/-/cache-manager-5.1.4.tgz"
-  "version" "5.1.4"
+"cache-manager@*", "cache-manager@^4.1.0":
+  "integrity" "sha512-ZGM6dLxrP65bfOZmcviWMadUOCICqpLs92+P/S5tj8onz+k+tB7Gr+SAgOUHCQtfm2gYEQDHiKeul4+tYPOJ8A=="
+  "resolved" "https://registry.npmjs.org/cache-manager/-/cache-manager-4.1.0.tgz"
+  "version" "4.1.0"
   dependencies:
+    "async" "3.2.3"
     "lodash.clonedeep" "^4.5.0"
-    "lru-cache" "^7.14.0"
+    "lru-cache" "^7.10.1"
 
 "call-bind@^1.0.0", "call-bind@^1.0.2":
   "integrity" "sha512-7O+FbCihrB5WGbFYesctwmTKae6rOiIzmz1icreWJ+0aA7LJfuqhEso2T9ncpcFtzMQtzXf2QGGueWJGTYsqrA=="
@@ -5172,7 +5178,7 @@
   dependencies:
     "yallist" "^4.0.0"
 
-"lru-cache@^7.14.0":
+"lru-cache@^7.10.1":
   "integrity" "sha512-ysxwsnTKdAx96aTRdhDOCQfDgbHnt8SK0KY8SEjO0wHinhWOFTESbjVCMPbU1uGXg/ch4lifqx0wfjOawU2+WA=="
   "resolved" "https://registry.npmjs.org/lru-cache/-/lru-cache-7.14.1.tgz"
   "version" "7.14.1"
