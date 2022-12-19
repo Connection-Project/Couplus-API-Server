@@ -19,7 +19,7 @@ async function bootstrap() {
     //Swagger SetUp
     const config = new DocumentBuilder()
         .setTitle('Swagger API')
-        .setDescription('Swagger docs')
+        .setDescription('http://3.39.191.13/v1/api')
         .setVersion('1.0.0')
         .build();
     const document = SwaggerModule.createDocument(app, config, {
