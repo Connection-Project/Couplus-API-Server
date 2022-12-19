@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { User } from 'src/models/User.entity';
 import { UserRepository } from 'src/repositories/user.repository';
 import { RegistUserReqDto } from './dto/req/create.dto';
+import { getInfoObj } from './dto/res/getInfo.res.dto';
 
 @Injectable()
 export class UserService {
@@ -27,6 +28,23 @@ export class UserService {
         } catch (err) {
             console.log(err);
             return { status: 401, data: { resultCode: 1002, data: null } };
+        }
+    }
+
+    async getInfo(userId: number): Promise<any> {
+        try {
+            const user: User = await this.userRepository.findByKey('id', userId);
+            const data: getInfoObj = {
+                email: user.email,
+                name: user.name,
+                phone: user.phone,
+                gender: user.gender,
+                userCode: user.userCode,
+            };
+            return { status: 200, data: { resultCode: 1, data: data } };
+        } catch (err) {
+            console.log(err);
+            return { status: 401, data: { resultCode: 1011, data: null } };
         }
     }
 }
