@@ -28,6 +28,10 @@ export class UserRepository {
         return await this.userRepository.createQueryBuilder('u').where(`u.${key} = ${value}`).getOne();
     }
 
+    async delete(user: User): Promise<void> {
+        await this.userRepository.delete(user);
+    }
+
     async save(user: User): Promise<void> {
         await this.userRepository.save(user);
     }
