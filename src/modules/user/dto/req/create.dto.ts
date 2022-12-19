@@ -15,7 +15,4 @@ export class RegistUserReqDto {
 
     @ApiProperty()
     phone: string;
-
-    @ApiProperty()
-    profile?: string;
 }

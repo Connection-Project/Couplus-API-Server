@@ -4,5 +4,4 @@ export declare class RegistUserReqDto {
     name: string;
     gender: string;
     phone: string;
-    profile?: string;
 }
