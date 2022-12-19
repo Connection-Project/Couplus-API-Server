@@ -1,3 +1,4 @@
+import { RedisCacheService } from './../../cache/redisCache.service';
 import { UserRepository } from '../../repositories/user.repository';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from 'src/lib/jwt/jwt.service';
@@ -7,7 +8,11 @@ import { GenDigestPwd } from 'src/utils/crypto';
 
 @Injectable()
 export class AuthService {
-    constructor(private userRepository: UserRepository, private readonly jwtServcie: JwtService) {}
+    constructor(
+        private userRepository: UserRepository,
+        private readonly jwtServcie: JwtService,
+        private readonly redisCacheService: RedisCacheService,
+    ) {}
 
     async signIn(body: EmailLoginReqDto): Promise<any> {
         try {
@@ -29,6 +34,8 @@ export class AuthService {
                         accessToken: accessToken,
                         refreshToken: refreshToken,
                     };
+
+                    await this.redisCacheService.set(refreshToken, user.id, 604800);
 
                     status = 200;
                     resultCode = 1;
