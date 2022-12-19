@@ -6,7 +6,7 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 export class AccessTokenStrategy extends PassportStrategy(Strategy, 'jwt') {
     constructor() {
         super({
-            jwtFromRequest: ExtractJwt.fromHeader('user-auth'),
+            jwtFromRequest: ExtractJwt.fromHeader('x-access-auth'),
             secretOrKey: process.env.JWT_SECERET,
             ignoreExpiration: false,
             passReqToCallback: true, // * request를 넘겨주도록
