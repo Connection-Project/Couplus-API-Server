@@ -17,9 +17,6 @@ export class User {
     @Column()
     phone: string;
 
-    @Column()
-    birth: string;
-
     @Column({ default: '' })
     gender: string;
 

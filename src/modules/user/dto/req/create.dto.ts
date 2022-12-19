@@ -1,25 +1,21 @@
-import { ApiProperty } from "@nestjs/swagger"
-import { User } from "src/models/User.entity"
+import { ApiProperty } from '@nestjs/swagger';
 
 export class RegistUserReqDto {
     @ApiProperty({ format: 'email' })
-    email: string
+    email: string;
 
     @ApiProperty()
-    password: string
+    password: string;
 
     @ApiProperty()
-    name: string
+    name: string;
 
     @ApiProperty()
-    gender: string
+    gender: string;
 
     @ApiProperty()
-    phone: string
+    phone: string;
 
     @ApiProperty()
-    birth: string
-
-    @ApiProperty()
-    profile?: string
+    profile?: string;
 }
