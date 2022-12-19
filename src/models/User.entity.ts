@@ -1,53 +1,45 @@
-import { Column, CreateDateColumn, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-
-
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity({ name: 'Users' })
 export class User {
     @PrimaryGeneratedColumn()
-    id: string
+    id: string;
 
     @Column({ unique: true })
-    email: string
+    email: string;
+
+    @Column({ nullable: true })
+    password: string;
 
     @Column()
-    password: string
+    name: string;
 
     @Column()
-    name: string
+    phone: string;
 
     @Column()
-    phone: string
-
-    @Column()
-    birth: string
+    birth: string;
 
     @Column({ default: '' })
-    gender: string
+    gender: string;
+
+    @Column({ nullable: true })
+    profile: string;
 
     @Column()
-    profile: string
-
-    @Column()
-    userCode: string
+    userCode: string;
 
     @Column({ default: 0 })
-    loginCount: number
+    loginCount: number;
 
     @Column({ nullable: true })
-    lastLoginAt: Date
-
-    @Column({ nullable: true })
-    lastPurchaseAt: Date
-
-    @Column({ nullable: true })
-    withdrawalDate: Date
+    lastLoginAt: Date;
 
     @CreateDateColumn({ type: 'timestamp' })
-    createdAt: Date
+    createdAt: Date;
 
     @UpdateDateColumn({ type: 'timestamp' })
-    updatedAt: Date
+    updatedAt: Date;
 
     constructor(partial: Partial<User>) {
         Object.assign(this, partial);
