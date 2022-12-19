@@ -17,7 +17,7 @@ async function bootstrap() {
     });
     const config = new swagger_1.DocumentBuilder()
         .setTitle('Swagger API')
-        .setDescription('Swagger docs')
+        .setDescription('http://3.39.191.13/v1/api')
         .setVersion('1.0.0')
         .build();
     const document = swagger_1.SwaggerModule.createDocument(app, config, {
