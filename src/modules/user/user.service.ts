@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { User } from 'src/models/User.entity';
 import { UserRepository } from 'src/repositories/user.repository';
+import { GenDigestPwd } from 'src/utils/crypto';
 import { RegistUserReqDto } from './dto/req/create.dto';
+import { UpdateUserReqDto } from './dto/req/update.dto';
 import { getInfoObj } from './dto/res/getInfo.res.dto';
 
 @Injectable()
@@ -45,6 +47,35 @@ export class UserService {
         } catch (err) {
             console.log(err);
             return { status: 401, data: { resultCode: 1011, data: null } };
+        }
+    }
+
+    async update(userId: number, body: UpdateUserReqDto): Promise<any> {
+        try {
+            const { password, name, phone, gender } = body;
+            const user: User = await this.userRepository.findByKey('id', userId);
+            if (password.replace(/ /g, '') !== '') {
+                user.password = GenDigestPwd(password);
+            }
+            user.name = name;
+            user.phone = phone;
+            user.gender = gender;
+            await this.userRepository.save(user);
+            return { status: 200, data: { resultCode: 1, data: null } };
+        } catch (err) {
+            console.log(err);
+            return { status: 401, data: { resultCode: 1021, data: null } };
+        }
+    }
+
+    async delete(userId: number): Promise<any> {
+        try {
+            const user: User = await this.userRepository.findByKey('id', userId);
+            await this.userRepository.delete(user);
+            return { status: 200, data: { resultCode: 1, data: null } };
+        } catch (err) {
+            console.log(err);
+            return { status: 401, data: { resultCode: 1031, data: null } };
         }
     }
 }
