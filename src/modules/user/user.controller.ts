@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Patch, Post, Req } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Patch, Post, Req, UseGuards } from '@nestjs/common';
 import { Request } from 'express';
 import { UserService } from './user.service';
 import { RegistUserReqDto } from './dto/req/create.dto';
@@ -9,6 +9,7 @@ import { getInfoFailDto, getInfoSuccessDto } from './dto/res/getInfo.res.dto';
 import { UpdateUserFailDto } from './dto/res/update.res.dto';
 import { UpdateUserReqDto } from './dto/req/update.dto';
 import { WithdrawUserFailDto } from './dto/res/delete.res.dto';
+import { AccessTokenGuard } from 'src/lib/jwt/guards/accessToken.guard';
 
 @ApiTags('유저 정보')
 @Controller('user')
@@ -24,6 +25,7 @@ export class UserController {
         return this.userService.emailSignUp(body);
     }
 
+    @UseGuards(AccessTokenGuard)
     @Get('info')
     @ApiOperation({ summary: '유저 정보' })
     @ApiResponse({ status: 200, type: getInfoSuccessDto, description: '유저 정보 호출 성공' })
@@ -32,6 +34,7 @@ export class UserController {
         return this.userService.getInfo(req.user['userId']);
     }
 
+    @UseGuards(AccessTokenGuard)
     @Patch('update')
     @ApiOperation({ summary: '유저 정보 수정' })
     @ApiResponse({ status: 200, type: ResultSuccessDto, description: '유저 정보 수정 성공' })
@@ -40,6 +43,7 @@ export class UserController {
         return this.userService.update(req.user['userId'], body);
     }
 
+    @UseGuards(AccessTokenGuard)
     @Delete('delete')
     @ApiOperation({ summary: '회원 탈퇴' })
     @ApiResponse({ status: 200, type: ResultSuccessDto, description: '회원 탈퇴 성공' })
