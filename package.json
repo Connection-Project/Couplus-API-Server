@@ -9,7 +9,7 @@
         "prebuild": "rimraf dist",
         "build": "nest build",
         "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-        "start": "cross-env NODE_ENV=prod npm run build && pm2 delete all && pm2 start ecosystem.config.json  --node-args='--max-old-space-size=4096' && pm2 logs",
+        "start": "cross-env NODE_ENV=prod npm run build && pm2 delete all && pm2 start ecosystem.config.json && pm2 logs",
         "start:dev": "cross-env NODE_ENV=dev nest start --watch",
         "start:debug": "nest start --debug --watch",
         "start:prod": "node dist/main",
