@@ -5,6 +5,7 @@ const app_module_1 = require("./app.module");
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
 const logging_interceptor_1 = require("./interceptors/logging.interceptor");
+const index_module_1 = require("./modules/index.module");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     let envAllow = process.env.ALLOW_CORS_LIST;
@@ -20,9 +21,9 @@ async function bootstrap() {
         .setVersion('1.0.0')
         .build();
     const document = swagger_1.SwaggerModule.createDocument(app, config, {
-        include: [app_module_1.AppModule],
+        include: [index_module_1.IndexModule],
         deepScanRoutes: true,
-        ignoreGlobalPrefix: true
+        ignoreGlobalPrefix: true,
     });
     swagger_1.SwaggerModule.setup('/swagger', app, document);
     app.setGlobalPrefix('v1/api');
@@ -34,10 +35,10 @@ async function bootstrap() {
                 status: 400,
                 data: {
                     resultCode: -1,
-                    data: err[0].constraints
-                }
+                    data: err[0].constraints,
+                },
             });
-        }
+        },
     }));
     const port = Number(process.env.SERVER_PORT);
     await app.listen(port, () => {
