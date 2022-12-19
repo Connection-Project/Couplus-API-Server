@@ -14,7 +14,7 @@ import {
 export class AuthController {
     constructor(private authService: AuthService) {}
 
-    @Post('/email/signIn')
+    @Post('email/signIn')
     @ApiOperation({ summary: '로그인' })
     @ApiResponse({ status: 200, type: EmailSignInSuccessDto, description: '로그인 성공' })
     @ApiResponse({ status: 201, type: NotFoundUserDto, description: '계정 없음' })
