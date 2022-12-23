@@ -70,8 +70,7 @@ export class UserService {
 
     async delete(userId: number): Promise<any> {
         try {
-            const user: User = await this.userRepository.findByKey('id', userId);
-            await this.userRepository.delete(user);
+            await this.userRepository.delete(userId);
             return { status: 200, data: { resultCode: 1, data: null } };
         } catch (err) {
             console.log(err);
