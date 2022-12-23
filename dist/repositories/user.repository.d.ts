@@ -6,6 +6,6 @@ export declare class UserRepository {
     constructor(userRepository: Repository<User>);
     create(body: RegistUserReqDto): User;
     findByKey(key: string, value: string | number): Promise<User>;
-    delete(user: User): Promise<void>;
+    delete(userId: number): Promise<void>;
     save(user: User): Promise<void>;
 }

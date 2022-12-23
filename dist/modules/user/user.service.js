@@ -77,8 +77,7 @@ let UserService = class UserService {
     }
     async delete(userId) {
         try {
-            const user = await this.userRepository.findByKey('id', userId);
-            await this.userRepository.delete(user);
+            await this.userRepository.delete(userId);
             return { status: 200, data: { resultCode: 1, data: null } };
         }
         catch (err) {

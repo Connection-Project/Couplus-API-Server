@@ -36,8 +36,12 @@ let UserRepository = class UserRepository {
     async findByKey(key, value) {
         return await this.userRepository.createQueryBuilder('u').where(`u.${key} = '${value}'`).getOne();
     }
-    async delete(user) {
-        await this.userRepository.delete(user);
+    async delete(userId) {
+        await this.userRepository
+            .createQueryBuilder('u')
+            .delete()
+            .where('id = :id', { id: userId })
+            .execute();
     }
     async save(user) {
         await this.userRepository.save(user);
