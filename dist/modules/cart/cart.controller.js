@@ -90,7 +90,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], CartController.prototype, "delete", null);
 CartController = __decorate([
-    (0, swagger_1.ApiTags)('상품 조회'),
+    (0, swagger_1.ApiTags)('장바구니'),
     (0, common_1.Controller)('cart'),
     __metadata("design:paramtypes", [cart_service_1.CartService])
 ], CartController);

@@ -8,7 +8,7 @@ import { DeleteCartItemFailDto } from './dto/res/delete.res.dto';
 import { GetCartFailDto, GetCartSuccessDto } from './dto/res/list.res.dto';
 import { UpdateCartQuantityUpdateFail } from './dto/res/update.res.dto';
 
-@ApiTags('상품 조회')
+@ApiTags('장바구니')
 @Controller('cart')
 export class CartController {
     constructor(private readonly cartService: CartService) {}
