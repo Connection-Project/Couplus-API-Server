@@ -25,6 +25,12 @@ let TestProductRepository = class TestProductRepository {
         const query = this.testProductRepository.createQueryBuilder('tp');
         return await query.getManyAndCount();
     }
+    async findOne(productId) {
+        return await this.testProductRepository
+            .createQueryBuilder('tp')
+            .where('tp.id = :productId', { productId: productId })
+            .getOne();
+    }
 };
 TestProductRepository = __decorate([
     (0, common_1.Injectable)(),

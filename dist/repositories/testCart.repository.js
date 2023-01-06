@@ -21,6 +21,34 @@ let TestCartRepository = class TestCartRepository {
     constructor(testCartRepository) {
         this.testCartRepository = testCartRepository;
     }
+    create(product) {
+        const cart = this.testCartRepository.create();
+        cart.product = product;
+        return cart;
+    }
+    async findOne(productId) {
+        return await this.testCartRepository
+            .createQueryBuilder('tc')
+            .innerJoinAndSelect('tc.product', 'tp')
+            .where('tp.id = :productId', { productId: productId })
+            .getOne();
+    }
+    async findAll() {
+        return await this.testCartRepository
+            .createQueryBuilder('tc')
+            .innerJoinAndSelect('tc.product', 'tp')
+            .getMany();
+    }
+    async delete(cartId) {
+        await this.testCartRepository
+            .createQueryBuilder('tc')
+            .delete()
+            .where('tc.id = :cartId', { cartId: cartId })
+            .execute();
+    }
+    async save(cart) {
+        await this.testCartRepository.save(cart);
+    }
 };
 TestCartRepository = __decorate([
     (0, common_1.Injectable)(),

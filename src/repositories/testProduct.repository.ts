@@ -14,4 +14,11 @@ export class TestProductRepository {
         const query = this.testProductRepository.createQueryBuilder('tp');
         return await query.getManyAndCount();
     }
+
+    async findOne(productId: number): Promise<TestProduct> {
+        return await this.testProductRepository
+            .createQueryBuilder('tp')
+            .where('tp.id = :productId', { productId: productId })
+            .getOne();
+    }
 }

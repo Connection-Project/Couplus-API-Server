@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TestProduct = void 0;
-const swagger_1 = require("@nestjs/swagger");
 const typeorm_1 = require("typeorm");
 const TestCart_entity_1 = require("./TestCart.entity");
 let TestProduct = class TestProduct {
@@ -23,23 +22,23 @@ __decorate([
     __metadata("design:type", Number)
 ], TestProduct.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], TestProduct.prototype, "productName", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)(),
+    (0, typeorm_1.Column)({ default: 0 }),
     __metadata("design:type", Number)
 ], TestProduct.prototype, "price", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)(),
+    (0, typeorm_1.Column)({ nullable: true, length: 3000 }),
     __metadata("design:type", String)
 ], TestProduct.prototype, "detail", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ type: 'double' }),
+    (0, typeorm_1.Column)({ type: 'double', default: 0 }),
     __metadata("design:type", Number)
 ], TestProduct.prototype, "raing", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)(),
+    (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], TestProduct.prototype, "thumb", void 0);
 __decorate([

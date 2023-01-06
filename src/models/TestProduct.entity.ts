@@ -13,21 +13,21 @@ import { TestCart } from './TestCart.entity';
 @Entity({ name: 'TestProducts' })
 export class TestProduct {
     @PrimaryGeneratedColumn()
-    id!: number;
+    id: number;
 
-    @Column()
+    @Column({ nullable: true })
     productName: string;
 
-    @ApiProperty()
+    @Column({ default: 0 })
     price: number;
 
-    @ApiProperty()
+    @Column({ nullable: true, length: 3000 })
     detail: string;
 
-    @ApiProperty({ type: 'double' })
+    @Column({ type: 'double', default: 0 })
     raing: number;
 
-    @ApiProperty()
+    @Column({ nullable: true })
     thumb: string;
 
     @CreateDateColumn({ type: 'timestamp', nullable: true })

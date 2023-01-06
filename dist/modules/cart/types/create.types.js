@@ -9,17 +9,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CartController = void 0;
-const common_1 = require("@nestjs/common");
-const cart_service_1 = require("./cart.service");
-let CartController = class CartController {
-    constructor(cartService) {
-        this.cartService = cartService;
-    }
-};
-CartController = __decorate([
-    (0, common_1.Controller)('cart'),
-    __metadata("design:paramtypes", [cart_service_1.CartService])
-], CartController);
-exports.CartController = CartController;
-//# sourceMappingURL=cart.controller.js.map
+exports.CreateCartTypes = void 0;
+const swagger_1 = require("@nestjs/swagger");
+const TestProduct_entity_1 = require("../../../models/TestProduct.entity");
+class CreateCartTypes {
+}
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", TestProduct_entity_1.TestProduct)
+], CreateCartTypes.prototype, "product", void 0);
+exports.CreateCartTypes = CreateCartTypes;
+//# sourceMappingURL=create.types.js.map
