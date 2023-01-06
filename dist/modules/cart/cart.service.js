@@ -85,13 +85,13 @@ let CartService = class CartService {
             }
             else {
                 status = 201;
-                resultCode = 1222;
+                resultCode = 1232;
             }
             return { status: 200, data: { resultCode: 1, data: null } };
         }
         catch (err) {
             console.log(err);
-            return { status: 401, data: { resultCode: 1221, data: null } };
+            return { status: 401, data: { resultCode: 1231, data: null } };
         }
     }
 };
