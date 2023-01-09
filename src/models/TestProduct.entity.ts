@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { RegistUserReqDto } from 'src/modules/user/dto/req/create.dto';
 import {
     Column,
     CreateDateColumn,
@@ -20,6 +21,9 @@ export class TestProduct {
 
     @Column({ default: 0 })
     price: number;
+
+    @Column({ nullable: true })
+    summary: string;
 
     @Column({ nullable: true, length: 3000 })
     detail: string;

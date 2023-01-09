@@ -16,6 +16,7 @@ export class ProductService {
                     thumb: row[i].thumb,
                     price: row[i].price,
                     rating: row[i].raing,
+                    summary: row[i].summary,
                     detail: row[i].detail,
                 };
             }
