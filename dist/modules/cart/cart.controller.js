@@ -45,6 +45,7 @@ __decorate([
     (0, swagger_1.ApiResponse)({ status: 200, type: result_res_dto_1.ResultSuccessDto, description: '장바구니 추가 성공' }),
     (0, swagger_1.ApiResponse)({ status: 400, type: result_res_dto_1.ResultFailDto, description: '요청 값 에러' }),
     (0, swagger_1.ApiResponse)({ status: 401, type: create_res_dto_1.CreateCartFailDto, description: '장바구니 추가 실패' }),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_req_dto_1.CreateCartReqDto]),
     __metadata("design:returntype", Promise)

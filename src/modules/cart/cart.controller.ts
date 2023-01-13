@@ -1,4 +1,4 @@
-import { Controller, Delete, Get, Param, ParseIntPipe, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ResultFailDto, ResultSuccessDto } from '../common/dto/res/result.res.dto';
 import { CartService } from './cart.service';
@@ -18,7 +18,7 @@ export class CartController {
     @ApiResponse({ status: 200, type: ResultSuccessDto, description: '장바구니 추가 성공' })
     @ApiResponse({ status: 400, type: ResultFailDto, description: '요청 값 에러' })
     @ApiResponse({ status: 401, type: CreateCartFailDto, description: '장바구니 추가 실패' })
-    async create(body: CreateCartReqDto) {
+    async create(@Body() body: CreateCartReqDto) {
         return this.cartService.create(body.productId);
     }
 
