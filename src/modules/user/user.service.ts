@@ -57,9 +57,10 @@ export class UserService {
             if (password.replace(/ /g, '') !== '') {
                 user.password = GenDigestPwd(password);
             }
-            user.name = name;
-            user.phone = phone;
-            user.gender = gender;
+
+            if(name.replace(/ /g, '') !== '') user.name = name
+            if(name.replace(/ /g, '') !== '') user.phone = phone
+            if(gender.replace(/ /g, '') !== '') user.gender = gender
             await this.userRepository.save(user);
             return { status: 200, data: { resultCode: 1, data: null } };
         } catch (err) {
