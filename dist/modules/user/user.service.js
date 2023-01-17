@@ -66,7 +66,7 @@ let UserService = class UserService {
             }
             if (name.replace(/ /g, '') !== '')
                 user.name = name;
-            if (name.replace(/ /g, '') !== '')
+            if (phone.replace(/ /g, '') !== '')
                 user.phone = phone;
             if (gender.replace(/ /g, '') !== '')
                 user.gender = gender;
