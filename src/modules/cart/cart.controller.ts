@@ -3,6 +3,7 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ResultFailDto, ResultSuccessDto } from '../common/dto/res/result.res.dto';
 import { CartService } from './cart.service';
 import { CreateCartReqDto } from './dto/req/create.req.dto';
+import { UpdateCartReqDto } from './dto/req/update.req.dto';
 import { CreateCartFailDto } from './dto/res/create.res.dto';
 import { DeleteCartItemFailDto } from './dto/res/delete.res.dto';
 import { GetCartFailDto, GetCartSuccessDto } from './dto/res/list.res.dto';
@@ -31,7 +32,7 @@ export class CartController {
         return this.cartService.getCars();
     }
 
-    @Patch('/:cartId')
+    @Patch()
     @ApiOperation({ summary: '장바구니 수량 수정' })
     @ApiResponse({ status: 200, type: ResultSuccessDto, description: '장바구니 수량 수정 성공' })
     @ApiResponse({ status: 400, type: ResultFailDto, description: '요청 값 에러' })
@@ -40,8 +41,8 @@ export class CartController {
         type: UpdateCartQuantityUpdateFail,
         description: '장바구니 수량 수정 실패',
     })
-    async update(@Param('cartId', ParseIntPipe) cartId: number) {
-        return this.cartService.update(cartId);
+    async update(@Body() body: UpdateCartReqDto) {
+        return this.cartService.update(body);
     }
 
     @Delete('/:cartId')

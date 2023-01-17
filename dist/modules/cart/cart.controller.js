@@ -18,6 +18,7 @@ const swagger_1 = require("@nestjs/swagger");
 const result_res_dto_1 = require("../common/dto/res/result.res.dto");
 const cart_service_1 = require("./cart.service");
 const create_req_dto_1 = require("./dto/req/create.req.dto");
+const update_req_dto_1 = require("./dto/req/update.req.dto");
 const create_res_dto_1 = require("./dto/res/create.res.dto");
 const delete_res_dto_1 = require("./dto/res/delete.res.dto");
 const list_res_dto_1 = require("./dto/res/list.res.dto");
@@ -32,8 +33,8 @@ let CartController = class CartController {
     async getCarts() {
         return this.cartService.getCars();
     }
-    async update(cartId) {
-        return this.cartService.update(cartId);
+    async update(body) {
+        return this.cartService.update(body);
     }
     async delete(cartId) {
         return this.cartService.delete(cartId);
@@ -61,7 +62,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], CartController.prototype, "getCarts", null);
 __decorate([
-    (0, common_1.Patch)('/:cartId'),
+    (0, common_1.Patch)(),
     (0, swagger_1.ApiOperation)({ summary: '장바구니 수량 수정' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: result_res_dto_1.ResultSuccessDto, description: '장바구니 수량 수정 성공' }),
     (0, swagger_1.ApiResponse)({ status: 400, type: result_res_dto_1.ResultFailDto, description: '요청 값 에러' }),
@@ -70,9 +71,9 @@ __decorate([
         type: update_res_dto_1.UpdateCartQuantityUpdateFail,
         description: '장바구니 수량 수정 실패',
     }),
-    __param(0, (0, common_1.Param)('cartId', common_1.ParseIntPipe)),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [update_req_dto_1.UpdateCartReqDto]),
     __metadata("design:returntype", Promise)
 ], CartController.prototype, "update", null);
 __decorate([

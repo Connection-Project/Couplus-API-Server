@@ -3,6 +3,7 @@ import { TestCartRepository } from 'src/repositories/testCart.repository';
 import { TestCart } from 'src/models/TestCart.entity';
 import { TestProductRepository } from 'src/repositories/testProduct.repository';
 import { TestProduct } from 'src/models/TestProduct.entity';
+import { UpdateCartReqDto } from './dto/req/update.req.dto';
 
 @Injectable()
 export class CartService {
@@ -53,10 +54,12 @@ export class CartService {
         }
     }
 
-    async update(cartId: number): Promise<any> {
+    async update(body: UpdateCartReqDto): Promise<any> {
         try {
+            const { cartId, plus } = body;
             const cart: TestCart = await this.testCartRepository.findOne(cartId);
-            cart.quantity += 1;
+            if (plus) cart.quantity += 1;
+            else cart.quantity -= 1;
             await this.testCartRepository.save(cart);
             return { status: 200, data: { resultCode: 1, data: null } };
         } catch (err) {

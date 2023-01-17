@@ -61,10 +61,14 @@ let CartService = class CartService {
             return { status: 401, data: { resultCode: 1211, data: null } };
         }
     }
-    async update(cartId) {
+    async update(body) {
         try {
+            const { cartId, plus } = body;
             const cart = await this.testCartRepository.findOne(cartId);
-            cart.quantity += 1;
+            if (plus)
+                cart.quantity += 1;
+            else
+                cart.quantity -= 1;
             await this.testCartRepository.save(cart);
             return { status: 200, data: { resultCode: 1, data: null } };
         }
