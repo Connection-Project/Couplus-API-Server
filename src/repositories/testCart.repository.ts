@@ -45,7 +45,7 @@ export class TestCartRepository {
         await this.testCartRepository
             .createQueryBuilder('tc')
             .delete()
-            .where('tc.id = :cartId', { cartId: cartId })
+            .where('id = :cartId', { cartId: cartId })
             .execute();
     }
 
