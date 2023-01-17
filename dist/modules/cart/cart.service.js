@@ -83,7 +83,6 @@ let CartService = class CartService {
             let resultCode = 0;
             const cart = await this.testCartRepository.findOneById(cartId);
             if (cart) {
-                console.log(cartId);
                 await this.testCartRepository.delete(cartId);
                 status = 200;
                 resultCode = 1;
