@@ -30,7 +30,7 @@ export class TestCartRepository {
     async findOneById(cartId: number): Promise<TestCart> {
         return await this.testCartRepository
             .createQueryBuilder('tc')
-            .where('tp.id = :cartId', { cartId: cartId })
+            .where('tc.id = :cartId', { cartId: cartId })
             .getOne();
     }
 
