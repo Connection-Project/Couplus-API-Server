@@ -5,7 +5,8 @@ export declare class TestCartRepository {
     private testCartRepository;
     constructor(testCartRepository: Repository<TestCart>);
     create(product: TestProduct): TestCart;
-    findOne(productId: number): Promise<TestCart>;
+    findOneByProduct(productId: number): Promise<TestCart>;
+    findOneById(cartId: number): Promise<TestCart>;
     findAll(): Promise<TestCart[]>;
     delete(cartId: number): Promise<void>;
     save(cart: TestCart): Promise<void>;

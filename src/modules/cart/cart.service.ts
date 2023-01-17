@@ -16,7 +16,7 @@ export class CartService {
         try {
             let status = 0;
             let resultCode = 0;
-            const alreadyCart: TestCart = await this.testCartRepository.findOne(productId);
+            const alreadyCart: TestCart = await this.testCartRepository.findOneByProduct(productId);
             if (alreadyCart) {
                 status = 201;
                 resultCode = 1202;
@@ -57,7 +57,7 @@ export class CartService {
     async update(body: UpdateCartReqDto): Promise<any> {
         try {
             const { cartId, plus } = body;
-            const cart: TestCart = await this.testCartRepository.findOne(cartId);
+            const cart: TestCart = await this.testCartRepository.findOneById(cartId);
             if (plus) cart.quantity += 1;
             else cart.quantity -= 1;
             await this.testCartRepository.save(cart);
@@ -72,7 +72,7 @@ export class CartService {
         try {
             let status = 0;
             let resultCode = 0;
-            const cart: TestCart = await this.testCartRepository.findOne(cartId);
+            const cart: TestCart = await this.testCartRepository.findOneById(cartId);
             if (cart) {
                 console.log(cartId);
                 await this.testCartRepository.delete(cartId);

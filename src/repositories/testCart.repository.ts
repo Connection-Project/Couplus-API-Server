@@ -19,11 +19,18 @@ export class TestCartRepository {
         return cart;
     }
 
-    async findOne(productId: number): Promise<TestCart> {
+    async findOneByProduct(productId: number): Promise<TestCart> {
         return await this.testCartRepository
             .createQueryBuilder('tc')
             .innerJoinAndSelect('tc.product', 'tp')
             .where('tp.id = :productId', { productId: productId })
+            .getOne();
+    }
+
+    async findOneById(cartId: number): Promise<TestCart> {
+        return await this.testCartRepository
+            .createQueryBuilder('tc')
+            .where('tp.id = :cartId', { cartId: cartId })
             .getOne();
     }
 
