@@ -36,7 +36,7 @@ let TestCartRepository = class TestCartRepository {
     async findOneById(cartId) {
         return await this.testCartRepository
             .createQueryBuilder('tc')
-            .where('tc.id = :cartId', { cartId: cartId })
+            .where('id = :cartId', { cartId: cartId })
             .getOne();
     }
     async findAll() {
