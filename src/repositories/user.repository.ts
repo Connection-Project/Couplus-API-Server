@@ -1,10 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/models/User.entity';
-import { RegistUserReqDto } from 'src/modules/user/dto/req/create.dto';
 import { CreateTypesDto } from 'src/modules/user/dto/types/create.types';
 import { GenDigestPwd } from 'src/utils/crypto';
-import { generateRandomString } from 'src/utils/generateRandom';
 import { Repository } from 'typeorm';
 
 @Injectable()

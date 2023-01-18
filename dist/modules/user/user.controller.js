@@ -44,12 +44,12 @@ let UserController = class UserController {
 __decorate([
     (0, common_1.Post)('signUp/email'),
     (0, swagger_1.ApiOperation)({ summary: '이메일 회원가입' }),
-    (0, swagger_1.ApiResponse)({ status: 200, type: result_res_dto_1.ResultSuccessDto, description: '로그인 성공' }),
+    (0, swagger_1.ApiResponse)({ status: 200, type: result_res_dto_1.ResultSuccessDto, description: '이메일 회원가입 성공' }),
     (0, swagger_1.ApiResponse)({ status: 201, type: create_res_dto_1.ExistUserDto, description: '이미 존재 하는 계정' }),
-    (0, swagger_1.ApiResponse)({ status: 401, type: create_res_dto_1.EmailSignInFailDto, description: '로그인 실패' }),
+    (0, swagger_1.ApiResponse)({ status: 401, type: create_res_dto_1.EmailSignInFailDto, description: '이메일 회원가입 실패' }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_dto_1.RegistUserReqDto]),
+    __metadata("design:paramtypes", [create_dto_1.EmailRegistUserReqDto]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "emailSignUp", null);
 __decorate([

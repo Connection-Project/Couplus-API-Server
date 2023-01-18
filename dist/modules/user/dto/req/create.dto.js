@@ -9,33 +9,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RegistUserReqDto = void 0;
+exports.EmailRegistUserReqDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
-class RegistUserReqDto {
+class EmailRegistUserReqDto {
 }
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], RegistUserReqDto.prototype, "email", void 0);
+], EmailRegistUserReqDto.prototype, "email", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], RegistUserReqDto.prototype, "password", void 0);
+], EmailRegistUserReqDto.prototype, "password", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], RegistUserReqDto.prototype, "name", void 0);
+], EmailRegistUserReqDto.prototype, "name", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], RegistUserReqDto.prototype, "nickName", void 0);
+], EmailRegistUserReqDto.prototype, "nickName", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], RegistUserReqDto.prototype, "phone", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", String)
-], RegistUserReqDto.prototype, "accountId", void 0);
-exports.RegistUserReqDto = RegistUserReqDto;
+], EmailRegistUserReqDto.prototype, "phone", void 0);
+exports.EmailRegistUserReqDto = EmailRegistUserReqDto;
 //# sourceMappingURL=create.dto.js.map

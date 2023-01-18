@@ -1,5 +1,3 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { RegistUserReqDto } from 'src/modules/user/dto/req/create.dto';
 import {
     Column,
     CreateDateColumn,

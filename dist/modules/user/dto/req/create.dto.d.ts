@@ -1,8 +1,7 @@
-export declare class RegistUserReqDto {
+export declare class EmailRegistUserReqDto {
     email: string;
-    password?: string;
+    password: string;
     name: string;
     nickName: string;
     phone: string;
-    accountId?: string;
 }

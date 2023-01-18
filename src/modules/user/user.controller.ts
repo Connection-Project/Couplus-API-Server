@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Patch, Post, Req, UseGuards } from '@nestjs/common';
 import { Request } from 'express';
 import { UserService } from './user.service';
-import { RegistUserReqDto } from './dto/req/create.dto';
+import { EmailRegistUserReqDto } from './dto/req/create.dto';
 import { ApiCookieAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ResultSuccessDto } from '../common/dto/res/result.res.dto';
 import { EmailSignInFailDto, ExistUserDto } from './dto/res/create.res.dto';
@@ -18,10 +18,10 @@ export class UserController {
 
     @Post('signUp/email')
     @ApiOperation({ summary: '이메일 회원가입' })
-    @ApiResponse({ status: 200, type: ResultSuccessDto, description: '로그인 성공' })
+    @ApiResponse({ status: 200, type: ResultSuccessDto, description: '이메일 회원가입 성공' })
     @ApiResponse({ status: 201, type: ExistUserDto, description: '이미 존재 하는 계정' })
-    @ApiResponse({ status: 401, type: EmailSignInFailDto, description: '로그인 실패' })
-    async emailSignUp(@Body() body: RegistUserReqDto) {
+    @ApiResponse({ status: 401, type: EmailSignInFailDto, description: '이메일 회원가입 실패' })
+    async emailSignUp(@Body() body: EmailRegistUserReqDto) {
         return this.userService.emailSignUp(body);
     }
 

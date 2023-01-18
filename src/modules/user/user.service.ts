@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { User } from 'src/models/User.entity';
 import { UserRepository } from 'src/repositories/user.repository';
 import { GenDigestPwd } from 'src/utils/crypto';
-import { RegistUserReqDto } from './dto/req/create.dto';
+import { EmailRegistUserReqDto } from './dto/req/create.dto';
 import { UpdateUserReqDto } from './dto/req/update.dto';
 import { getInfoObj } from './dto/res/getInfo.res.dto';
 
@@ -10,7 +10,7 @@ import { getInfoObj } from './dto/res/getInfo.res.dto';
 export class UserService {
     constructor(private userRepository: UserRepository) {}
 
-    async emailSignUp(body: RegistUserReqDto): Promise<any> {
+    async emailSignUp(body: EmailRegistUserReqDto): Promise<any> {
         try {
             const { email } = body;
             const existUser: User = await this.userRepository.findByKey('email', email);
