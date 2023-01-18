@@ -19,8 +19,9 @@ async function bootstrap() {
     //Swagger SetUp
     const config = new DocumentBuilder()
         .setTitle('Swagger API')
-        .setDescription('http://3.39.191.13/v1/api')
+        .setDescription('http://3.35.147.147/v1/api')
         .setVersion('1.0.0')
+        .addCookieAuth('x-access-auth')
         .build();
     const document = SwaggerModule.createDocument(app, config, {
         include: [IndexModule],

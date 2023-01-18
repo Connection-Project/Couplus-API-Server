@@ -55,6 +55,7 @@ __decorate([
 __decorate([
     (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
     (0, common_1.Get)('info'),
+    (0, swagger_1.ApiCookieAuth)(),
     (0, swagger_1.ApiOperation)({ summary: '유저 정보' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: getInfo_res_dto_1.getInfoSuccessDto, description: '유저 정보 호출 성공' }),
     (0, swagger_1.ApiResponse)({ status: 401, type: getInfo_res_dto_1.getInfoFailDto, description: '유저 정보 호출 실패' }),
@@ -66,6 +67,7 @@ __decorate([
 __decorate([
     (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
     (0, common_1.Patch)('update'),
+    (0, swagger_1.ApiCookieAuth)(),
     (0, swagger_1.ApiOperation)({ summary: '유저 정보 수정' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: result_res_dto_1.ResultSuccessDto, description: '유저 정보 수정 성공' }),
     (0, swagger_1.ApiResponse)({ status: 401, type: update_res_dto_1.UpdateUserFailDto, description: '유저 정보 수정 실패' }),
@@ -78,6 +80,7 @@ __decorate([
 __decorate([
     (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
     (0, common_1.Delete)('delete'),
+    (0, swagger_1.ApiCookieAuth)(),
     (0, swagger_1.ApiOperation)({ summary: '회원 탈퇴' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: result_res_dto_1.ResultSuccessDto, description: '회원 탈퇴 성공' }),
     (0, swagger_1.ApiResponse)({ status: 401, type: delete_res_dto_1.WithdrawUserFailDto, description: '회원 탈퇴 실패' }),

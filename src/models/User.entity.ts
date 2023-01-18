@@ -1,4 +1,12 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import {
+    Column,
+    CreateDateColumn,
+    Entity,
+    OneToMany,
+    PrimaryGeneratedColumn,
+    UpdateDateColumn,
+} from 'typeorm';
+import { MyPet } from './MyPets.entity';
 
 @Entity({ name: 'Users' })
 export class User {
@@ -15,28 +23,25 @@ export class User {
     name: string;
 
     @Column()
-    phone: string;
-
-    @Column({ default: '' })
-    gender: string;
-
-    @Column({ nullable: true })
-    profile: string;
+    nickName: string;
 
     @Column()
-    userCode: string;
-
-    @Column({ default: 0 })
-    loginCount: number;
+    phone: string;
 
     @Column({ nullable: true })
-    lastLoginAt: Date;
+    accountId: string;
+
+    @Column()
+    registType: string;
 
     @CreateDateColumn({ type: 'timestamp' })
     createdAt: Date;
 
     @UpdateDateColumn({ type: 'timestamp' })
     updatedAt: Date;
+
+    @OneToMany(() => MyPet, (pet) => pet.user, { cascade: true })
+    pet: MyPet;
 
     constructor(partial: Partial<User>) {
         Object.assign(this, partial);

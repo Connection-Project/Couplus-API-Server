@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Patch, Post, Req, UseGuards } from '@nes
 import { Request } from 'express';
 import { UserService } from './user.service';
 import { RegistUserReqDto } from './dto/req/create.dto';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiCookieAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ResultSuccessDto } from '../common/dto/res/result.res.dto';
 import { EmailSignInFailDto, ExistUserDto } from './dto/res/create.res.dto';
 import { getInfoFailDto, getInfoSuccessDto } from './dto/res/getInfo.res.dto';
@@ -27,6 +27,7 @@ export class UserController {
 
     @UseGuards(AccessTokenGuard)
     @Get('info')
+    @ApiCookieAuth()
     @ApiOperation({ summary: '유저 정보' })
     @ApiResponse({ status: 200, type: getInfoSuccessDto, description: '유저 정보 호출 성공' })
     @ApiResponse({ status: 401, type: getInfoFailDto, description: '유저 정보 호출 실패' })
@@ -36,6 +37,7 @@ export class UserController {
 
     @UseGuards(AccessTokenGuard)
     @Patch('update')
+    @ApiCookieAuth()
     @ApiOperation({ summary: '유저 정보 수정' })
     @ApiResponse({ status: 200, type: ResultSuccessDto, description: '유저 정보 수정 성공' })
     @ApiResponse({ status: 401, type: UpdateUserFailDto, description: '유저 정보 수정 실패' })
@@ -45,6 +47,7 @@ export class UserController {
 
     @UseGuards(AccessTokenGuard)
     @Delete('delete')
+    @ApiCookieAuth()
     @ApiOperation({ summary: '회원 탈퇴' })
     @ApiResponse({ status: 200, type: ResultSuccessDto, description: '회원 탈퇴 성공' })
     @ApiResponse({ status: 401, type: WithdrawUserFailDto, description: '회원 탈퇴 실패' })

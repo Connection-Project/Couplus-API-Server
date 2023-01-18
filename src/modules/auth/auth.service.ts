@@ -24,8 +24,6 @@ export class AuthService {
             if (user) {
                 // * 비밀번호 검증
                 if (GenDigestPwd(password) === user.password) {
-                    user.lastLoginAt = new Date();
-                    user.loginCount += 1;
                     await this.userRepository.save(user);
 
                     const { accessToken, refreshToken } = this.jwtServcie.getToken(user.id);

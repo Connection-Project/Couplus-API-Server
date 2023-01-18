@@ -8,8 +8,8 @@ export class UpdateUserReqDto {
     name: string;
 
     @ApiProperty()
-    phone: string;
+    nickName: string;
 
     @ApiProperty()
-    gender: string;
+    phone: string;
 }

@@ -2,8 +2,8 @@ export declare class getInfoObj {
     email: string;
     name: string;
     phone: string;
-    gender: string;
-    userCode: string;
+    nickName: string;
+    registType: string;
 }
 export declare class getInfoSuccessDto {
     resultCode: number;

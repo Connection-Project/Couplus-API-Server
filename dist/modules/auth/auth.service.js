@@ -30,8 +30,6 @@ let AuthService = class AuthService {
             let data = null;
             if (user) {
                 if ((0, crypto_1.GenDigestPwd)(password) === user.password) {
-                    user.lastLoginAt = new Date();
-                    user.loginCount += 1;
                     await this.userRepository.save(user);
                     const { accessToken, refreshToken } = this.jwtServcie.getToken(user.id);
                     data = {

@@ -9,10 +9,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.User = void 0;
+exports.MyPet = void 0;
 const typeorm_1 = require("typeorm");
-const MyPets_entity_1 = require("./MyPets.entity");
-let User = class User {
+const User_entity_1 = require("./User.entity");
+let MyPet = class MyPet {
     constructor(partial) {
         Object.assign(this, partial);
     }
@@ -20,50 +20,43 @@ let User = class User {
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
-], User.prototype, "id", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ unique: true }),
-    __metadata("design:type", String)
-], User.prototype, "email", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ nullable: true }),
-    __metadata("design:type", String)
-], User.prototype, "password", void 0);
+], MyPet.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], User.prototype, "name", void 0);
+], MyPet.prototype, "name", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], User.prototype, "nickName", void 0);
+], MyPet.prototype, "breed", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], User.prototype, "phone", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ nullable: true }),
-    __metadata("design:type", String)
-], User.prototype, "accountId", void 0);
+], MyPet.prototype, "gender", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], User.prototype, "registType", void 0);
+    __metadata("design:type", Date)
+], MyPet.prototype, "birthDay", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Date)
+], MyPet.prototype, "togetherDay", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)({ type: 'timestamp' }),
     __metadata("design:type", Date)
-], User.prototype, "createdAt", void 0);
+], MyPet.prototype, "createdAt", void 0);
 __decorate([
     (0, typeorm_1.UpdateDateColumn)({ type: 'timestamp' }),
     __metadata("design:type", Date)
-], User.prototype, "updatedAt", void 0);
+], MyPet.prototype, "updatedAt", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => MyPets_entity_1.MyPet, (pet) => pet.user, { cascade: true }),
-    __metadata("design:type", MyPets_entity_1.MyPet)
-], User.prototype, "pet", void 0);
-User = __decorate([
-    (0, typeorm_1.Entity)({ name: 'Users' }),
+    (0, typeorm_1.ManyToOne)(() => User_entity_1.User, (user) => user.pet, { onDelete: 'CASCADE', onUpdate: 'CASCADE' }),
+    (0, typeorm_1.JoinColumn)(),
+    __metadata("design:type", User_entity_1.User)
+], MyPet.prototype, "user", void 0);
+MyPet = __decorate([
+    (0, typeorm_1.Entity)({ name: 'MyPets' }),
     __metadata("design:paramtypes", [Object])
-], User);
-exports.User = User;
-//# sourceMappingURL=User.entity.js.map
+], MyPet);
+exports.MyPet = MyPet;
+//# sourceMappingURL=MyPets.entity.js.map

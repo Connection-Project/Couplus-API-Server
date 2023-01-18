@@ -21,7 +21,11 @@ export class UserService {
                 status = 201;
                 resultCode = 1001;
             } else {
-                const newUser: User = await this.userRepository.create(body);
+                const createBody = {
+                    registType: 'email',
+                    ...body,
+                };
+                const newUser: User = await this.userRepository.create(createBody);
                 await this.userRepository.save(newUser);
                 status = 200;
                 resultCode = 1;
@@ -39,9 +43,9 @@ export class UserService {
             const data: getInfoObj = {
                 email: user.email,
                 name: user.name,
+                nickName: user.nickName,
                 phone: user.phone,
-                gender: user.gender,
-                userCode: user.userCode,
+                registType: user.registType,
             };
             return { status: 200, data: { resultCode: 1, data: data } };
         } catch (err) {
@@ -52,15 +56,15 @@ export class UserService {
 
     async update(userId: number, body: UpdateUserReqDto): Promise<any> {
         try {
-            const { password, name, phone, gender } = body;
+            const { password, name, phone, nickName } = body;
             const user: User = await this.userRepository.findByKey('id', userId);
             if (password.replace(/ /g, '') !== '') {
                 user.password = GenDigestPwd(password);
             }
 
-            if(name.replace(/ /g, '') !== '') user.name = name
-            if(phone.replace(/ /g, '') !== '') user.phone = phone
-            if(gender.replace(/ /g, '') !== '') user.gender = gender
+            if (name.replace(/ /g, '') !== '') user.name = name;
+            if (nickName.replace(/ /g, '') !== '') user.nickName = nickName;
+            if (phone.replace(/ /g, '') !== '') user.phone = phone;
             await this.userRepository.save(user);
             return { status: 200, data: { resultCode: 1, data: null } };
         } catch (err) {

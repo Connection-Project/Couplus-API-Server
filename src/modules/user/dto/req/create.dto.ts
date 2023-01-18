@@ -1,18 +1,21 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class RegistUserReqDto {
-    @ApiProperty({ format: 'email' })
+    @ApiProperty()
     email: string;
 
     @ApiProperty()
-    password: string;
+    password?: string;
 
     @ApiProperty()
     name: string;
 
     @ApiProperty()
-    gender: string;
+    nickName: string;
 
     @ApiProperty()
     phone: string;
+
+    @ApiProperty()
+    accountId?: string;
 }

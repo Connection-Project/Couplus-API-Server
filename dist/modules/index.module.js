@@ -10,8 +10,6 @@ exports.IndexModule = void 0;
 const common_1 = require("@nestjs/common");
 const auth_module_1 = require("./auth/auth.module");
 const user_module_1 = require("./user/user.module");
-const product_module_1 = require("./product/product.module");
-const cart_module_1 = require("./cart/cart.module");
 let IndexModule = class IndexModule {
 };
 IndexModule = __decorate([
@@ -19,9 +17,7 @@ IndexModule = __decorate([
         imports: [
             user_module_1.UserModule,
             auth_module_1.AuthModule,
-            product_module_1.ProductModule,
-            cart_module_1.CartModule
-        ]
+        ],
     })
 ], IndexModule);
 exports.IndexModule = IndexModule;

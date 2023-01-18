@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/models/User.entity';
 import { RegistUserReqDto } from 'src/modules/user/dto/req/create.dto';
+import { CreateTypesDto } from 'src/modules/user/dto/types/create.types';
 import { GenDigestPwd } from 'src/utils/crypto';
 import { generateRandomString } from 'src/utils/generateRandom';
 import { Repository } from 'typeorm';
@@ -13,14 +14,15 @@ export class UserRepository {
         private userRepository: Repository<User>,
     ) {}
 
-    create(body: RegistUserReqDto): User {
+    create(body: CreateTypesDto): User {
         const user: User = this.userRepository.create();
         user.email = body.email;
-        user.password = GenDigestPwd(body.password);
+        if (body.password) user.password = GenDigestPwd(body.password);
         user.name = body.name;
+        user.nickName = body.nickName;
         user.phone = body.phone;
-        user.gender = body.gender;
-        user.userCode = generateRandomString();
+        user.registType = body.registType;
+        if (body.accountId) user.accountId = body.accountId;
         return user;
     }
 

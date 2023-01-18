@@ -24,10 +24,10 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], UpdateUserReqDto.prototype, "phone", void 0);
+], UpdateUserReqDto.prototype, "nickName", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], UpdateUserReqDto.prototype, "gender", void 0);
+], UpdateUserReqDto.prototype, "phone", void 0);
 exports.UpdateUserReqDto = UpdateUserReqDto;
 //# sourceMappingURL=update.dto.js.map

@@ -17,7 +17,6 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const User_entity_1 = require("../models/User.entity");
 const crypto_1 = require("../utils/crypto");
-const generateRandom_1 = require("../utils/generateRandom");
 const typeorm_2 = require("typeorm");
 let UserRepository = class UserRepository {
     constructor(userRepository) {
@@ -26,11 +25,14 @@ let UserRepository = class UserRepository {
     create(body) {
         const user = this.userRepository.create();
         user.email = body.email;
-        user.password = (0, crypto_1.GenDigestPwd)(body.password);
+        if (body.password)
+            user.password = (0, crypto_1.GenDigestPwd)(body.password);
         user.name = body.name;
+        user.nickName = body.nickName;
         user.phone = body.phone;
-        user.gender = body.gender;
-        user.userCode = (0, generateRandom_1.generateRandomString)();
+        user.registType = body.registType;
+        if (body.accountId)
+            user.accountId = body.accountId;
         return user;
     }
     async findByKey(key, value) {

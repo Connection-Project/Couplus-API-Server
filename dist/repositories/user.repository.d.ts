@@ -1,10 +1,10 @@
 import { User } from 'src/models/User.entity';
-import { RegistUserReqDto } from 'src/modules/user/dto/req/create.dto';
+import { CreateTypesDto } from 'src/modules/user/dto/types/create.types';
 import { Repository } from 'typeorm';
 export declare class UserRepository {
     private userRepository;
     constructor(userRepository: Repository<User>);
-    create(body: RegistUserReqDto): User;
+    create(body: CreateTypesDto): User;
     findByKey(key: string, value: string | number): Promise<User>;
     delete(userId: number): Promise<void>;
     save(user: User): Promise<void>;

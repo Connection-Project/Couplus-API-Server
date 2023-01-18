@@ -28,7 +28,8 @@ let UserService = class UserService {
                 resultCode = 1001;
             }
             else {
-                const newUser = await this.userRepository.create(body);
+                const createBody = Object.assign({ registType: 'email' }, body);
+                const newUser = await this.userRepository.create(createBody);
                 await this.userRepository.save(newUser);
                 status = 200;
                 resultCode = 1;
@@ -46,9 +47,9 @@ let UserService = class UserService {
             const data = {
                 email: user.email,
                 name: user.name,
+                nickName: user.nickName,
                 phone: user.phone,
-                gender: user.gender,
-                userCode: user.userCode,
+                registType: user.registType,
             };
             return { status: 200, data: { resultCode: 1, data: data } };
         }
@@ -59,17 +60,17 @@ let UserService = class UserService {
     }
     async update(userId, body) {
         try {
-            const { password, name, phone, gender } = body;
+            const { password, name, phone, nickName } = body;
             const user = await this.userRepository.findByKey('id', userId);
             if (password.replace(/ /g, '') !== '') {
                 user.password = (0, crypto_1.GenDigestPwd)(password);
             }
             if (name.replace(/ /g, '') !== '')
                 user.name = name;
+            if (nickName.replace(/ /g, '') !== '')
+                user.nickName = nickName;
             if (phone.replace(/ /g, '') !== '')
                 user.phone = phone;
-            if (gender.replace(/ /g, '') !== '')
-                user.gender = gender;
             await this.userRepository.save(user);
             return { status: 200, data: { resultCode: 1, data: null } };
         }

@@ -11,10 +11,10 @@ export class getInfoObj {
     phone: string;
 
     @ApiProperty()
-    gender: string;
+    nickName: string;
 
     @ApiProperty()
-    userCode: string;
+    registType: string;
 }
 
 export class getInfoSuccessDto {

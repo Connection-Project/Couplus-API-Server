@@ -28,11 +28,11 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], getInfoObj.prototype, "gender", void 0);
+], getInfoObj.prototype, "nickName", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], getInfoObj.prototype, "userCode", void 0);
+], getInfoObj.prototype, "registType", void 0);
 exports.getInfoObj = getInfoObj;
 class getInfoSuccessDto {
 }

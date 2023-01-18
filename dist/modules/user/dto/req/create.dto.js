@@ -14,7 +14,7 @@ const swagger_1 = require("@nestjs/swagger");
 class RegistUserReqDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ format: 'email' }),
+    (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
 ], RegistUserReqDto.prototype, "email", void 0);
 __decorate([
@@ -28,10 +28,14 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], RegistUserReqDto.prototype, "gender", void 0);
+], RegistUserReqDto.prototype, "nickName", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
 ], RegistUserReqDto.prototype, "phone", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], RegistUserReqDto.prototype, "accountId", void 0);
 exports.RegistUserReqDto = RegistUserReqDto;
 //# sourceMappingURL=create.dto.js.map
