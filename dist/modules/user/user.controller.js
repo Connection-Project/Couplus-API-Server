@@ -31,6 +31,9 @@ let UserController = class UserController {
     async emailSignUp(body) {
         return this.userService.emailSignUp(body);
     }
+    async socialSignUp(body) {
+        return this.userService.socialSignUp(body);
+    }
     async getInfo(req) {
         return this.userService.getInfo(req.user['userId']);
     }
@@ -52,6 +55,17 @@ __decorate([
     __metadata("design:paramtypes", [create_dto_1.EmailRegistUserReqDto]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "emailSignUp", null);
+__decorate([
+    (0, common_1.Post)('signUp/social'),
+    (0, swagger_1.ApiOperation)({ summary: '소셜 회원가입' }),
+    (0, swagger_1.ApiResponse)({ status: 200, type: result_res_dto_1.ResultSuccessDto, description: '소셜 회원가입 성공' }),
+    (0, swagger_1.ApiResponse)({ status: 201, type: create_res_dto_1.ExistUserDto, description: '이미 존재 하는 계정(이메일 회원 존재)' }),
+    (0, swagger_1.ApiResponse)({ status: 401, type: create_res_dto_1.SocialSignInFailDto, description: '소셜 회원가입 실패' }),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [create_dto_1.SocialRegistUserReqDto]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "socialSignUp", null);
 __decorate([
     (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
     (0, common_1.Get)('info'),

@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EmailSignInFailDto = exports.ExistUserDto = void 0;
+exports.SocialSignInFailDto = exports.EmailSignInFailDto = exports.ExistUserDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
 class ExistUserDto {
 }
@@ -33,4 +33,15 @@ __decorate([
     __metadata("design:type", Object)
 ], EmailSignInFailDto.prototype, "data", void 0);
 exports.EmailSignInFailDto = EmailSignInFailDto;
+class SocialSignInFailDto {
+}
+__decorate([
+    (0, swagger_1.ApiProperty)({ default: 1003 }),
+    __metadata("design:type", Number)
+], SocialSignInFailDto.prototype, "resultCode", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ default: null }),
+    __metadata("design:type", Object)
+], SocialSignInFailDto.prototype, "data", void 0);
+exports.SocialSignInFailDto = SocialSignInFailDto;
 //# sourceMappingURL=create.res.dto.js.map

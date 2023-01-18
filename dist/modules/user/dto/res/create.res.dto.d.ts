@@ -6,3 +6,7 @@ export declare class EmailSignInFailDto {
     resultCode: number;
     data: any;
 }
+export declare class SocialSignInFailDto {
+    resultCode: number;
+    data: any;
+}

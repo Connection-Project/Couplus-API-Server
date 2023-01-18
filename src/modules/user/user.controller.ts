@@ -1,10 +1,10 @@
 import { Body, Controller, Delete, Get, Patch, Post, Req, UseGuards } from '@nestjs/common';
 import { Request } from 'express';
 import { UserService } from './user.service';
-import { EmailRegistUserReqDto } from './dto/req/create.dto';
+import { EmailRegistUserReqDto, SocialRegistUserReqDto } from './dto/req/create.dto';
 import { ApiCookieAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ResultSuccessDto } from '../common/dto/res/result.res.dto';
-import { EmailSignInFailDto, ExistUserDto } from './dto/res/create.res.dto';
+import { EmailSignInFailDto, ExistUserDto, SocialSignInFailDto } from './dto/res/create.res.dto';
 import { getInfoFailDto, getInfoSuccessDto } from './dto/res/getInfo.res.dto';
 import { UpdateUserFailDto } from './dto/res/update.res.dto';
 import { UpdateUserReqDto } from './dto/req/update.dto';
@@ -23,6 +23,15 @@ export class UserController {
     @ApiResponse({ status: 401, type: EmailSignInFailDto, description: '이메일 회원가입 실패' })
     async emailSignUp(@Body() body: EmailRegistUserReqDto) {
         return this.userService.emailSignUp(body);
+    }
+
+    @Post('signUp/social')
+    @ApiOperation({ summary: '소셜 회원가입' })
+    @ApiResponse({ status: 200, type: ResultSuccessDto, description: '소셜 회원가입 성공' })
+    @ApiResponse({ status: 201, type: ExistUserDto, description: '이미 존재 하는 계정(이메일 회원 존재)' })
+    @ApiResponse({ status: 401, type: SocialSignInFailDto, description: '소셜 회원가입 실패' })
+    async socialSignUp(@Body() body: SocialRegistUserReqDto) {
+        return this.userService.socialSignUp(body);
     }
 
     @UseGuards(AccessTokenGuard)

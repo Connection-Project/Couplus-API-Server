@@ -15,3 +15,11 @@ export class EmailSignInFailDto {
     @ApiProperty({ default: null })
     data: any;
 }
+
+export class SocialSignInFailDto {
+    @ApiProperty({ default: 1003 })
+    resultCode: number;
+
+    @ApiProperty({ default: null })
+    data: any;
+}

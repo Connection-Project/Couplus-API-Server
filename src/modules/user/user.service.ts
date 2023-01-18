@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { User } from 'src/models/User.entity';
 import { UserRepository } from 'src/repositories/user.repository';
 import { GenDigestPwd } from 'src/utils/crypto';
-import { EmailRegistUserReqDto } from './dto/req/create.dto';
+import { EmailRegistUserReqDto, SocialRegistUserReqDto } from './dto/req/create.dto';
 import { UpdateUserReqDto } from './dto/req/update.dto';
 import { getInfoObj } from './dto/res/getInfo.res.dto';
 
@@ -34,6 +34,33 @@ export class UserService {
         } catch (err) {
             console.log(err);
             return { status: 401, data: { resultCode: 1002, data: null } };
+        }
+    }
+
+    async socialSignUp(body: SocialRegistUserReqDto): Promise<any> {
+        try {
+            const { email } = body;
+            const existUser: User = await this.userRepository.findByKey('email', email);
+            let status = 0;
+            let resultCode = 0;
+            if (existUser) {
+                // * 이미 존재 하는 계정
+                status = 201;
+                resultCode = 1001;
+            } else {
+                const createBody = {
+                    registType: 'kakao',
+                    ...body,
+                };
+                const newUser: User = this.userRepository.create(createBody);
+                await this.userRepository.save(newUser);
+                status = 200;
+                resultCode = 1;
+            }
+            return { status: status, data: { resultCode: resultCode, data: null } };
+        } catch (err) {
+            console.log(err);
+            return { status: 401, data: { resultCode: 1003, data: null } };
         }
     }
 

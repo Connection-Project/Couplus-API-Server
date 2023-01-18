@@ -41,6 +41,30 @@ let UserService = class UserService {
             return { status: 401, data: { resultCode: 1002, data: null } };
         }
     }
+    async socialSignUp(body) {
+        try {
+            const { email } = body;
+            const existUser = await this.userRepository.findByKey('email', email);
+            let status = 0;
+            let resultCode = 0;
+            if (existUser) {
+                status = 201;
+                resultCode = 1001;
+            }
+            else {
+                const createBody = Object.assign({ registType: 'kakao' }, body);
+                const newUser = this.userRepository.create(createBody);
+                await this.userRepository.save(newUser);
+                status = 200;
+                resultCode = 1;
+            }
+            return { status: status, data: { resultCode: resultCode, data: null } };
+        }
+        catch (err) {
+            console.log(err);
+            return { status: 401, data: { resultCode: 1003, data: null } };
+        }
+    }
     async getInfo(userId) {
         try {
             const user = await this.userRepository.findByKey('id', userId);

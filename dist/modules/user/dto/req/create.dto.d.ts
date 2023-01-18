@@ -5,3 +5,10 @@ export declare class EmailRegistUserReqDto {
     nickName: string;
     phone: string;
 }
+export declare class SocialRegistUserReqDto {
+    email: string;
+    name: string;
+    nickName: string;
+    phone: string;
+    accountId: string;
+}

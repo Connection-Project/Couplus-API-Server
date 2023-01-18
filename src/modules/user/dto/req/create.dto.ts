@@ -16,3 +16,20 @@ export class EmailRegistUserReqDto {
     @ApiProperty()
     phone: string;
 }
+
+export class SocialRegistUserReqDto {
+    @ApiProperty()
+    email: string;
+
+    @ApiProperty()
+    name: string;
+
+    @ApiProperty()
+    nickName: string;
+
+    @ApiProperty()
+    phone: string;
+
+    @ApiProperty()
+    accountId: string;
+}
