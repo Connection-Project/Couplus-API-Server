@@ -25,11 +25,17 @@ let AuthController = class AuthController {
     async signInByEmail(body) {
         return await this.authService.signIn(body);
     }
+    kakao(res) {
+        res.redirect(`https://kauth.kakao.com/oauth/authorize?client_id=${process.env.KAKAO_OAUTH_API_KEY}&redirect_uri=${process.env.KAKAO_OAUTH_REDIRECT_URL}&response_type=code`);
+    }
+    kakaoCallBack(code) {
+        return this.authService.kakaoCallBack(code);
+    }
 };
 __decorate([
     (0, common_1.Post)('email/signIn'),
     (0, swagger_1.ApiOperation)({ summary: '로그인' }),
-    (0, swagger_1.ApiResponse)({ status: 200, type: signIn_res_dto_1.EmailSignInSuccessDto, description: '로그인 성공' }),
+    (0, swagger_1.ApiResponse)({ status: 200, type: signIn_res_dto_1.SignInSuccessDto, description: '로그인 성공' }),
     (0, swagger_1.ApiResponse)({ status: 201, type: signIn_res_dto_1.NotFoundUserDto, description: '계정 없음' }),
     (0, swagger_1.ApiResponse)({ status: 202, type: signIn_res_dto_1.InvalidPasswordDto, description: '비밀번호 틀림' }),
     (0, swagger_1.ApiResponse)({ status: 401, type: signIn_res_dto_1.EmailSignInFailDto, description: '로그인 실패' }),
@@ -38,6 +44,28 @@ __decorate([
     __metadata("design:paramtypes", [auth_dto_1.EmailLoginReqDto]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "signInByEmail", null);
+__decorate([
+    (0, common_1.Get)('kakao'),
+    __param(0, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "kakao", null);
+__decorate([
+    (0, common_1.Get)('kakao/oauth'),
+    (0, swagger_1.ApiOperation)({ summary: '카카오 로그인' }),
+    (0, swagger_1.ApiResponse)({ status: 200, type: signIn_res_dto_1.SignInSuccessDto, description: '소셜 로그인 성공' }),
+    (0, swagger_1.ApiResponse)({
+        status: 201,
+        type: signIn_res_dto_1.NotFoundSocialUserDto,
+        description: '소셜 계정 없음(추가 정보 입력 가입 필요)',
+    }),
+    (0, swagger_1.ApiResponse)({ status: 401, type: signIn_res_dto_1.SocialSignInFailDto, description: '소셜 로그인 실패' }),
+    __param(0, (0, common_1.Query)('code')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "kakaoCallBack", null);
 AuthController = __decorate([
     (0, swagger_1.ApiTags)('유저 인증'),
     (0, common_1.Controller)('auth'),

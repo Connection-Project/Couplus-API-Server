@@ -8,7 +8,18 @@ export class SignInSuccessObj {
     refreshToken: string;
 }
 
-export class EmailSignInSuccessDto {
+export class NotFoundSocialUserObj {
+    @ApiProperty()
+    accountId: string;
+
+    @ApiProperty()
+    nickName: string;
+
+    @ApiProperty()
+    email: string;
+}
+
+export class SignInSuccessDto {
     @ApiProperty({ default: 1 })
     resultCode: number;
 
@@ -34,6 +45,22 @@ export class InvalidPasswordDto {
 
 export class EmailSignInFailDto {
     @ApiProperty({ default: 1101 })
+    resultCode: number;
+
+    @ApiProperty({ default: null })
+    data: any;
+}
+
+export class NotFoundSocialUserDto {
+    @ApiProperty({ default: 1112 })
+    resultCode: number;
+
+    @ApiProperty({ type: NotFoundSocialUserObj })
+    data: NotFoundSocialUserObj;
+}
+
+export class SocialSignInFailDto {
+    @ApiProperty({ default: 1111 })
     resultCode: number;
 
     @ApiProperty({ default: null })

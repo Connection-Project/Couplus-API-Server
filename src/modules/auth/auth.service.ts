@@ -5,6 +5,7 @@ import { JwtService } from 'src/lib/jwt/jwt.service';
 import { EmailLoginReqDto } from './dto/req/auth.dto';
 import { User } from 'src/models/User.entity';
 import { GenDigestPwd } from 'src/utils/crypto';
+import axios from 'axios';
 
 @Injectable()
 export class AuthService {
@@ -51,6 +52,51 @@ export class AuthService {
         } catch (err) {
             console.log(err);
             return { status: 401, data: { resultCode: 1101, data: null } };
+        }
+    }
+
+    async kakaoCallBack(code: string): Promise<any> {
+        try {
+            let status = 0;
+            let resultCode = 0;
+            const response = await axios.post(
+                `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${process.env.KAKAO_OAUTH_API_KEY}&redirect_url=${process.env.KAKAO_OAUTH_REDIRECT_URL}&code=${code}`,
+            );
+            const { access_token } = response.data;
+            const userInfo = await axios.get('https://kapi.kakao.com/v2/user/me', {
+                headers: {
+                    Authorization: `Bearer ${access_token}`,
+                },
+            });
+            const { id, kakao_account } = userInfo.data;
+            let data = null;
+
+            const user: User = await this.userRepository.findByKey('accountId', id);
+            if (user) {
+                const { accessToken, refreshToken } = this.jwtServcie.getToken(user.id);
+
+                data = {
+                    accessToken: accessToken,
+                    refreshToken: refreshToken,
+                };
+
+                await this.redisCacheService.set(refreshToken, user.id, 604800);
+
+                status = 200;
+                resultCode = 1;
+            } else {
+                data = {
+                    accountId: id,
+                    nickName: kakao_account.profile.nickname,
+                    email: kakao_account.email,
+                };
+                status = 201;
+                resultCode = 1112;
+            }
+            return { status: status, data: { resultCode: resultCode, data: data } };
+        } catch (err) {
+            console.log(err);
+            return { status: 401, data: { resultCode: 1111, data: null } };
         }
     }
 }

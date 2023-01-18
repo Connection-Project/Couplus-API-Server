@@ -32,25 +32,9 @@ async function bootstrap() {
 
     //Server Root URL
     app.setGlobalPrefix('v1/api');
-    app.useGlobalPipes(new ValidationPipe());
 
     //Global Logging Interceptor
     app.useGlobalInterceptors(new LoggingInterceptor());
-
-    //Global ValidationPipe
-    app.useGlobalPipes(
-        new ValidationPipe({
-            exceptionFactory: (err: ValidationError[]) => {
-                new BadRequestException({
-                    status: 400,
-                    data: {
-                        resultCode: -1,
-                        data: err[0].constraints,
-                    },
-                });
-            },
-        }),
-    );
 
     //Server Listen
     const port: number = Number(process.env.SERVER_PORT);

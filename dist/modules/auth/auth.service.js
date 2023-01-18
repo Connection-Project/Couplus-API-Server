@@ -8,6 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
 const redisCache_service_1 = require("./../../cache/redisCache.service");
@@ -15,6 +18,7 @@ const user_repository_1 = require("../../repositories/user.repository");
 const common_1 = require("@nestjs/common");
 const jwt_service_1 = require("../../lib/jwt/jwt.service");
 const crypto_1 = require("../../utils/crypto");
+const axios_1 = __importDefault(require("axios"));
 let AuthService = class AuthService {
     constructor(userRepository, jwtServcie, redisCacheService) {
         this.userRepository = userRepository;
@@ -54,6 +58,46 @@ let AuthService = class AuthService {
         catch (err) {
             console.log(err);
             return { status: 401, data: { resultCode: 1101, data: null } };
+        }
+    }
+    async kakaoCallBack(code) {
+        try {
+            let status = 0;
+            let resultCode = 0;
+            const response = await axios_1.default.post(`https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${process.env.KAKAO_OAUTH_API_KEY}&redirect_url=${process.env.KAKAO_OAUTH_REDIRECT_URL}&code=${code}`);
+            const { access_token } = response.data;
+            const userInfo = await axios_1.default.get('https://kapi.kakao.com/v2/user/me', {
+                headers: {
+                    Authorization: `Bearer ${access_token}`,
+                },
+            });
+            const { id, kakao_account } = userInfo.data;
+            let data = null;
+            const user = await this.userRepository.findByKey('accountId', id);
+            if (user) {
+                const { accessToken, refreshToken } = this.jwtServcie.getToken(user.id);
+                data = {
+                    accessToken: accessToken,
+                    refreshToken: refreshToken,
+                };
+                await this.redisCacheService.set(refreshToken, user.id, 604800);
+                status = 200;
+                resultCode = 1;
+            }
+            else {
+                data = {
+                    accountId: id,
+                    nickName: kakao_account.profile.nickname,
+                    email: kakao_account.email,
+                };
+                status = 201;
+                resultCode = 1112;
+            }
+            return { status: status, data: { resultCode: resultCode, data: data } };
+        }
+        catch (err) {
+            console.log(err);
+            return { status: 401, data: { resultCode: 1111, data: null } };
         }
     }
 };

@@ -28,19 +28,7 @@ async function bootstrap() {
     });
     swagger_1.SwaggerModule.setup('/swagger', app, document);
     app.setGlobalPrefix('v1/api');
-    app.useGlobalPipes(new common_1.ValidationPipe());
     app.useGlobalInterceptors(new logging_interceptor_1.LoggingInterceptor());
-    app.useGlobalPipes(new common_1.ValidationPipe({
-        exceptionFactory: (err) => {
-            new common_1.BadRequestException({
-                status: 400,
-                data: {
-                    resultCode: -1,
-                    data: err[0].constraints,
-                },
-            });
-        },
-    }));
     const port = Number(process.env.SERVER_PORT);
     await app.listen(port, () => {
         common_1.Logger.log(`SERVER - ${port}PORT CONNECTED`);

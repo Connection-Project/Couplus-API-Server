@@ -8,4 +8,5 @@ export declare class AuthService {
     private readonly redisCacheService;
     constructor(userRepository: UserRepository, jwtServcie: JwtService, redisCacheService: RedisCacheService);
     signIn(body: EmailLoginReqDto): Promise<any>;
+    kakaoCallBack(code: string): Promise<any>;
 }
