@@ -29,6 +29,12 @@ export class MyPet {
     @Column()
     togetherDay: Date;
 
+    @Column({ nullable: true })
+    imageKey: string;
+
+    @Column({ nullable: true })
+    imagePath: string;
+
     @CreateDateColumn({ type: 'timestamp' })
     createdAt: Date;
 

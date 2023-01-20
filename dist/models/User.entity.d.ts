@@ -10,6 +10,6 @@ export declare class User {
     registType: string;
     createdAt: Date;
     updatedAt: Date;
-    pet: MyPet;
+    pet: MyPet[];
     constructor(partial: Partial<User>);
 }

@@ -59,7 +59,7 @@ __decorate([
 ], User.prototype, "updatedAt", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => MyPets_entity_1.MyPet, (pet) => pet.user, { cascade: true }),
-    __metadata("design:type", MyPets_entity_1.MyPet)
+    __metadata("design:type", Array)
 ], User.prototype, "pet", void 0);
 User = __decorate([
     (0, typeorm_1.Entity)({ name: 'Users' }),

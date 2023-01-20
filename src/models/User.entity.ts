@@ -41,7 +41,7 @@ export class User {
     updatedAt: Date;
 
     @OneToMany(() => MyPet, (pet) => pet.user, { cascade: true })
-    pet: MyPet;
+    pet: MyPet[];
 
     constructor(partial: Partial<User>) {
         Object.assign(this, partial);
