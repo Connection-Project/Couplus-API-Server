@@ -1,0 +1,1 @@
+{"version":3,"file":"cloudFront.utils.js","sourceRoot":"","sources":["../../src/utils/cloudFront.utils.ts"],"names":[],"mappings":";;;AAAO,MAAM,cAAc,GAAG,CAAC,GAAW,EAAE,EAAE;IAC1C,MAAM,IAAI,GAAG,OAAO,CAAC,GAAG,CAAC,wBAAwB,GAAG,GAAG,CAAC;IACxD,OAAO,IAAI,CAAC;AAChB,CAAC,CAAC;AAHW,QAAA,cAAc,kBAGzB"}

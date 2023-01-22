@@ -27,6 +27,36 @@ let MyPetRepository = class MyPetRepository {
         myPet.name = body.name;
         myPet.breed = body.breed;
         myPet.gender = body.gender;
+        myPet.birthDay = new Date(body.birthDay);
+        myPet.togetherDay = new Date(body.togetherDay);
+        myPet.imageKey = body.imageKey;
+        myPet.imagePath = body.imagePath;
+        return myPet;
+    }
+    async findAll(userId) {
+        return await this.myPetRepository
+            .createQueryBuilder('mp')
+            .innerJoinAndSelect('mp.user', 'u')
+            .where('u.id = :userId', { userId: userId })
+            .getMany();
+    }
+    async findOneById(myPetId) {
+        return await this.myPetRepository
+            .createQueryBuilder('mp')
+            .where('id = :myPetId', { myPetId: myPetId })
+            .getOne();
+    }
+    async delete(myPetId, userId) {
+        await this.myPetRepository
+            .createQueryBuilder('mp')
+            .innerJoinAndSelect('mp.user', 'u')
+            .delete()
+            .where('mp.id = :myPetId', { myPetId: myPetId })
+            .andWhere('u.id = :userId', { userId: userId })
+            .execute();
+    }
+    async save(myPet) {
+        await this.myPetRepository.save(myPet);
     }
 };
 MyPetRepository = __decorate([

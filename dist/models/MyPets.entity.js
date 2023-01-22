@@ -42,6 +42,14 @@ __decorate([
     __metadata("design:type", Date)
 ], MyPet.prototype, "togetherDay", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", String)
+], MyPet.prototype, "imageKey", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", String)
+], MyPet.prototype, "imagePath", void 0);
+__decorate([
     (0, typeorm_1.CreateDateColumn)({ type: 'timestamp' }),
     __metadata("design:type", Date)
 ], MyPet.prototype, "createdAt", void 0);

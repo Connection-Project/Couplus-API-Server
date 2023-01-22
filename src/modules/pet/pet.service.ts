@@ -3,8 +3,10 @@ import { MyPet } from 'src/models/MyPets.entity';
 import { User } from 'src/models/User.entity';
 import { MyPetRepository } from 'src/repositories/myPet.repository';
 import { UserRepository } from 'src/repositories/user.repository';
+import { cloudfrontPath } from 'src/utils/cloudFront.utils';
 import { getDateDiff, getYearDiff } from 'src/utils/date';
 import { CreateMyPetReqDto } from './dto/req/create.req.dto';
+import { UpdateMyPetReqDto } from './dto/req/update.req.dto';
 
 @Injectable()
 export class PetService {
@@ -13,12 +15,18 @@ export class PetService {
         private readonly userRepository: UserRepository,
     ) {}
 
-    async create(userId: number, body: CreateMyPetReqDto): Promise<any> {
+    async create(userId: number, file: File[], body: CreateMyPetReqDto): Promise<any> {
         try {
             const user: User = await this.userRepository.findByKey('id', userId);
             let imageKey = null;
             let imagePath = null;
+
             // TODO : 이미지 처리 예외처리를 넣어야함
+            if (file['profile']) {
+                imageKey = file['profile'].key;
+                imagePath = cloudfrontPath(file['profile'].key);
+            }
+
             const createBody = {
                 user: user,
                 imageKey: imageKey,
@@ -56,7 +64,7 @@ export class PetService {
         }
     }
 
-    async update(myPetId: number): Promise<any> {
+    async update(myPetId: number, file: File[], body: UpdateMyPetReqDto): Promise<any> {
         try {
             // TODO : 이미지 업로드 로직 필요
         } catch (err) {

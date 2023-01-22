@@ -10,10 +10,8 @@ const aws_config_1 = require("../config/aws.config");
 const client_s3_1 = require("@aws-sdk/client-s3");
 exports.fileUpload = {
     storage: (0, multer_s3_1.default)({
-        s3: new client_s3_1.S3({
-            credentials: aws_config_1.awsConfig
-        }),
-        bucket: '',
+        s3: new client_s3_1.S3(aws_config_1.awsConfig),
+        bucket: 'pet-img',
         contentType: (_, file, cb) => {
             let contentType = 'image/png';
             cb(null, contentType);
@@ -26,11 +24,11 @@ exports.fileUpload = {
             let filename = (0, s3FileName_1.s3FileName)(file);
             let location = '';
             cb(null, location);
-        }
+        },
     }),
     limits: {
         fieldSize: 2 * 1024 * 1024 * 1024,
-        fileSize: 2 * 1024 * 1024 * 1024
-    }
+        fileSize: 2 * 1024 * 1024 * 1024,
+    },
 };
 //# sourceMappingURL=file-upload.interceptor.js.map

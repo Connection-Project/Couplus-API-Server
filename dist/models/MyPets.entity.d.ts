@@ -6,6 +6,8 @@ export declare class MyPet {
     gender: string;
     birthDay: Date;
     togetherDay: Date;
+    imageKey: string;
+    imagePath: string;
     createdAt: Date;
     updatedAt: Date;
     user: User;

@@ -6,4 +6,6 @@ export declare class CreateMyPetTypesDto {
     birthDay: Date;
     togetherDay: Date;
     user: User;
+    imageKey: string;
+    imagePath: string;
 }
