@@ -37,6 +37,7 @@ export class PetService {
             await this.myPetRepository.save(myPet);
             return { status: 200, data: { resultCode: 1, data: null } };
         } catch (err) {
+            // TODO : 서버 에러시 이미지 파일 삭제
             console.log(err);
             return { status: 401, data: { resultCode: 1301, data: null } };
         }
@@ -66,8 +67,32 @@ export class PetService {
 
     async update(myPetId: number, file: File[], body: UpdateMyPetReqDto): Promise<any> {
         try {
-            // TODO : 이미지 업로드 로직 필요
+            const { name, breed, gender, birthDay, togetherDay } = body;
+            let status = 0;
+            let resultCode = 0;
+            const myPet: MyPet = await this.myPetRepository.findOneById(myPetId);
+            if (myPet) {
+                if (name) myPet.name = name;
+                if (breed) myPet.breed = breed;
+                if (gender) myPet.gender = gender;
+                if (birthDay) myPet.birthDay = birthDay;
+                if (togetherDay) myPet.togetherDay = togetherDay;
+                // ! 파일이 존재할 시 프로필 이미지 수정
+                if (file['profile']) {
+                    // TODO : 기존 이미지 S3에서 삭제
+                    myPet.imageKey = file['profile'].key;
+                    myPet.imagePath = cloudfrontPath(file['profile'].key);
+                }
+                await this.myPetRepository.save(myPet);
+                status = 200;
+                resultCode = 1;
+            } else {
+                status = 201;
+                resultCode = 1322;
+            }
+            return { status: status, data: { reusltCode: resultCode, data: null } };
         } catch (err) {
+            // TODO : 서버 에러시 이미지 파일 삭제
             console.log(err);
             return { status: 401, data: { resultCode: 1321, data: null } };
         }

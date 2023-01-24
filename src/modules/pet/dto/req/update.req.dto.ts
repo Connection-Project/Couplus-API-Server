@@ -2,17 +2,17 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class UpdateMyPetReqDto {
     @ApiProperty()
-    name: string;
+    name?: string;
 
     @ApiProperty()
-    breed: string;
+    breed?: string;
 
     @ApiProperty()
-    gender: string;
+    gender?: string;
 
     @ApiProperty()
-    birthDay: Date;
+    birthDay?: Date;
 
     @ApiProperty()
-    togetherDay: Date;
+    togetherDay?: Date;
 }

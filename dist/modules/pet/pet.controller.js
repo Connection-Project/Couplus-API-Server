@@ -17,8 +17,13 @@ const common_1 = require("@nestjs/common");
 const platform_express_1 = require("@nestjs/platform-express");
 const swagger_1 = require("@nestjs/swagger");
 const file_upload_interceptor_1 = require("../../interceptors/file-upload.interceptor");
+const result_res_dto_1 = require("../common/dto/res/result.res.dto");
 const create_req_dto_1 = require("./dto/req/create.req.dto");
 const update_req_dto_1 = require("./dto/req/update.req.dto");
+const create_res_dto_1 = require("./dto/res/create.res.dto");
+const delete_res_dto_1 = require("./dto/res/delete.res.dto");
+const getAll_res_dto_1 = require("./dto/res/getAll.res.dto");
+const update_res_dto_1 = require("./dto/res/update.res.dto");
 const pet_service_1 = require("./pet.service");
 let PetController = class PetController {
     constructor(petService) {
@@ -27,14 +32,23 @@ let PetController = class PetController {
     async create(req, files, body) {
         return this.petService.create(req.user['userId'], files, body);
     }
+    async getMyPets(req) {
+        return this.petService.getMyPets(req.user['userId']);
+    }
     async update(myPetId, files, body) {
         return this.petService.update(myPetId, files, body);
+    }
+    async delete(req, myPetId) {
+        return this.petService.delete(req.user['userId'], myPetId);
     }
 };
 __decorate([
     (0, common_1.Post)(),
     (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('profile', file_upload_interceptor_1.fileUpload)),
     (0, swagger_1.ApiConsumes)('multipart/form-data'),
+    (0, swagger_1.ApiOperation)({ summary: '나의 펫 등록' }),
+    (0, swagger_1.ApiResponse)({ status: 200, type: result_res_dto_1.ResultSuccessDto, description: '펫 등록 성공' }),
+    (0, swagger_1.ApiResponse)({ status: 401, type: create_res_dto_1.CreateMyPetFailDto, description: '펫 등록 실패' }),
     __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.UploadedFiles)()),
     __param(2, (0, common_1.Body)()),
@@ -43,9 +57,23 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], PetController.prototype, "create", null);
 __decorate([
+    (0, common_1.Get)(),
+    (0, swagger_1.ApiOperation)({ summary: '나의 펫 리스트' }),
+    (0, swagger_1.ApiResponse)({ status: 200, type: getAll_res_dto_1.GetMyPetsSuccessDto, description: '나의 펫 리스트 성공' }),
+    (0, swagger_1.ApiResponse)({ status: 401, type: getAll_res_dto_1.GetMyPetsFailDto, description: '나의 펫 리스트 실패' }),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], PetController.prototype, "getMyPets", null);
+__decorate([
     (0, common_1.Patch)(':myPetId'),
     (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('profile', file_upload_interceptor_1.fileUpload)),
     (0, swagger_1.ApiConsumes)('multipart/form-data'),
+    (0, swagger_1.ApiOperation)({ summary: '나의 펫 수정' }),
+    (0, swagger_1.ApiResponse)({ status: 200, type: result_res_dto_1.ResultSuccessDto, description: '펫 수정 성공' }),
+    (0, swagger_1.ApiResponse)({ status: 200, type: update_res_dto_1.NotFoundMypetDto, description: '존재하지 않는 펫' }),
+    (0, swagger_1.ApiResponse)({ status: 401, type: update_res_dto_1.UpdateMyPetFailDto, description: '펫 수정 실패' }),
     __param(0, (0, common_1.Param)('myPetId', common_1.ParseIntPipe)),
     __param(1, (0, common_1.UploadedFiles)()),
     __param(2, (0, common_1.Body)()),
@@ -53,6 +81,17 @@ __decorate([
     __metadata("design:paramtypes", [Number, Array, update_req_dto_1.UpdateMyPetReqDto]),
     __metadata("design:returntype", Promise)
 ], PetController.prototype, "update", null);
+__decorate([
+    (0, common_1.Delete)(':myPetId'),
+    (0, swagger_1.ApiOperation)({ summary: '나의 펫 삭제' }),
+    (0, swagger_1.ApiResponse)({ status: 200, type: result_res_dto_1.ResultSuccessDto, description: '펫 삭제 성공' }),
+    (0, swagger_1.ApiResponse)({ status: 401, type: delete_res_dto_1.DeleteMyPetFailDto, description: '펫 삭제 실패' }),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Param)('myPetId', common_1.ParseIntPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Number]),
+    __metadata("design:returntype", Promise)
+], PetController.prototype, "delete", null);
 PetController = __decorate([
     (0, swagger_1.ApiTags)('나의 펫'),
     (0, common_1.Controller)('pet'),

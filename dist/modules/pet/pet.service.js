@@ -63,6 +63,34 @@ let PetService = class PetService {
     }
     async update(myPetId, file, body) {
         try {
+            const { name, breed, gender, birthDay, togetherDay } = body;
+            let status = 0;
+            let resultCode = 0;
+            const myPet = await this.myPetRepository.findOneById(myPetId);
+            if (myPet) {
+                if (name)
+                    myPet.name = name;
+                if (breed)
+                    myPet.breed = breed;
+                if (gender)
+                    myPet.gender = gender;
+                if (birthDay)
+                    myPet.birthDay = birthDay;
+                if (togetherDay)
+                    myPet.togetherDay = togetherDay;
+                if (file['profile']) {
+                    myPet.imageKey = file['profile'].key;
+                    myPet.imagePath = (0, cloudFront_utils_1.cloudfrontPath)(file['profile'].key);
+                }
+                await this.myPetRepository.save(myPet);
+                status = 200;
+                resultCode = 1;
+            }
+            else {
+                status = 201;
+                resultCode = 1322;
+            }
+            return { status: status, data: { reusltCode: resultCode, data: null } };
         }
         catch (err) {
             console.log(err);

@@ -6,5 +6,7 @@ export declare class PetController {
     private readonly petService;
     constructor(petService: PetService);
     create(req: Request, files: File[], body: CreateMyPetReqDto): Promise<any>;
+    getMyPets(req: Request): Promise<any>;
     update(myPetId: number, files: File[], body: UpdateMyPetReqDto): Promise<any>;
+    delete(req: Request, myPetId: number): Promise<any>;
 }
