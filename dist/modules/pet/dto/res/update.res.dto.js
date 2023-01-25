@@ -19,7 +19,7 @@ __decorate([
 ], UpdateMyPetFailDto.prototype, "resultCode", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ default: null }),
-    __metadata("design:type", void 0)
+    __metadata("design:type", Object)
 ], UpdateMyPetFailDto.prototype, "data", void 0);
 exports.UpdateMyPetFailDto = UpdateMyPetFailDto;
 class NotFoundMypetDto {

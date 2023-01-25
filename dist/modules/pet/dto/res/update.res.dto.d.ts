@@ -1,6 +1,6 @@
 export declare class UpdateMyPetFailDto {
     resultCode: number;
-    data: null;
+    data: any;
 }
 export declare class NotFoundMypetDto {
     resultCode: number;

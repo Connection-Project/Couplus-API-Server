@@ -5,7 +5,7 @@ export class UpdateMyPetFailDto {
     resultCode: number;
 
     @ApiProperty({ default: null })
-    data: null;
+    data: any;
 }
 
 export class NotFoundMypetDto {
