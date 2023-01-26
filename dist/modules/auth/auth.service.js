@@ -40,7 +40,6 @@ let AuthService = class AuthService {
                         accessToken: accessToken,
                         refreshToken: refreshToken,
                     };
-                    await this.redisCacheService.set(refreshToken, user.id, 604800);
                     status = 200;
                     resultCode = 1;
                 }

@@ -34,7 +34,7 @@ export class AuthService {
                         refreshToken: refreshToken,
                     };
 
-                    await this.redisCacheService.set(refreshToken, user.id, 604800);
+                    // await this.redisCacheService.set(refreshToken, user.id, 604800);
 
                     status = 200;
                     resultCode = 1;
