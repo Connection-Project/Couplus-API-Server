@@ -9,12 +9,14 @@ import {
     Post,
     Req,
     UploadedFiles,
+    UseGuards,
     UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiConsumes, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
 import { fileUpload } from 'src/interceptors/file-upload.interceptor';
+import { AccessTokenGuard } from 'src/lib/jwt/guards/accessToken.guard';
 import { ResultSuccessDto } from '../common/dto/res/result.res.dto';
 import { CreateMyPetReqDto } from './dto/req/create.req.dto';
 import { UpdateMyPetReqDto } from './dto/req/update.req.dto';
@@ -29,6 +31,7 @@ import { PetService } from './pet.service';
 export class PetController {
     constructor(private readonly petService: PetService) {}
     @Post()
+    @UseGuards(AccessTokenGuard)
     @UseInterceptors(FileInterceptor('profile', fileUpload))
     @ApiConsumes('multipart/form-data')
     @ApiOperation({ summary: '나의 펫 등록' })
@@ -39,6 +42,7 @@ export class PetController {
     }
 
     @Get()
+    @UseGuards(AccessTokenGuard)
     @ApiOperation({ summary: '나의 펫 리스트' })
     @ApiResponse({ status: 200, type: GetMyPetsSuccessDto, description: '나의 펫 리스트 성공' })
     @ApiResponse({ status: 401, type: GetMyPetsFailDto, description: '나의 펫 리스트 실패' })
@@ -47,6 +51,7 @@ export class PetController {
     }
 
     @Patch(':myPetId')
+    @UseGuards(AccessTokenGuard)
     @UseInterceptors(FileInterceptor('profile', fileUpload))
     @ApiConsumes('multipart/form-data')
     @ApiOperation({ summary: '나의 펫 수정' })
@@ -62,6 +67,7 @@ export class PetController {
     }
 
     @Delete(':myPetId')
+    @UseGuards(AccessTokenGuard)
     @ApiOperation({ summary: '나의 펫 삭제' })
     @ApiResponse({ status: 200, type: ResultSuccessDto, description: '펫 삭제 성공' })
     @ApiResponse({ status: 401, type: DeleteMyPetFailDto, description: '펫 삭제 실패' })
