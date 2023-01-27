@@ -45,6 +45,7 @@ let PetController = class PetController {
 };
 __decorate([
     (0, common_1.Post)(),
+    (0, swagger_1.ApiCookieAuth)(),
     (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('profile')),
     (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
     (0, swagger_1.ApiConsumes)('multipart/form-data'),
@@ -60,6 +61,7 @@ __decorate([
 ], PetController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
+    (0, swagger_1.ApiCookieAuth)(),
     (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
     (0, swagger_1.ApiOperation)({ summary: '나의 펫 리스트' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: getAll_res_dto_1.GetMyPetsSuccessDto, description: '나의 펫 리스트 성공' }),
@@ -71,6 +73,7 @@ __decorate([
 ], PetController.prototype, "getMyPets", null);
 __decorate([
     (0, common_1.Patch)(':myPetId'),
+    (0, swagger_1.ApiCookieAuth)(),
     (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
     (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('profile', file_upload_interceptor_1.fileUpload)),
     (0, swagger_1.ApiConsumes)('multipart/form-data'),
@@ -87,6 +90,7 @@ __decorate([
 ], PetController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(':myPetId'),
+    (0, swagger_1.ApiCookieAuth)(),
     (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
     (0, swagger_1.ApiOperation)({ summary: '나의 펫 삭제' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: result_res_dto_1.ResultSuccessDto, description: '펫 삭제 성공' }),

@@ -6,16 +6,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.fileUpload = void 0;
 const multer_s3_1 = __importDefault(require("multer-s3"));
 const s3FileName_1 = require("../utils/s3FileName");
-const client_s3_1 = require("@aws-sdk/client-s3");
+const aws_sdk_1 = require("aws-sdk");
+const aws_config_1 = require("../config/aws.config");
 exports.fileUpload = {
     storage: (0, multer_s3_1.default)({
-        s3: new client_s3_1.S3Client({
-            region: process.env.AWS_REGION,
-            credentials: {
-                accessKeyId: process.env.AWS_ACCESS_KEY,
-                secretAccessKey: process.env.AWS_SECRET_KEY,
-            },
-        }),
+        s3: new aws_sdk_1.S3(aws_config_1.awsConfig),
         bucket: 'pet-img',
         acl: 'private',
         contentType: multer_s3_1.default.AUTO_CONTENT_TYPE,

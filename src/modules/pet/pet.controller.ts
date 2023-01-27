@@ -13,7 +13,7 @@ import {
     UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiConsumes, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiConsumes, ApiCookieAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
 import { fileUpload } from 'src/interceptors/file-upload.interceptor';
 import { AccessTokenGuard } from 'src/lib/jwt/guards/accessToken.guard';
@@ -32,6 +32,7 @@ export class PetController {
     constructor(private readonly petService: PetService) {}
 
     @Post()
+    @ApiCookieAuth()
     @UseInterceptors(FileInterceptor('profile'))
     @UseGuards(AccessTokenGuard)
     @ApiConsumes('multipart/form-data')
@@ -43,6 +44,7 @@ export class PetController {
     }
 
     @Get()
+    @ApiCookieAuth()
     @UseGuards(AccessTokenGuard)
     @ApiOperation({ summary: '나의 펫 리스트' })
     @ApiResponse({ status: 200, type: GetMyPetsSuccessDto, description: '나의 펫 리스트 성공' })
@@ -52,6 +54,7 @@ export class PetController {
     }
 
     @Patch(':myPetId')
+    @ApiCookieAuth()
     @UseGuards(AccessTokenGuard)
     @UseInterceptors(FileInterceptor('profile', fileUpload))
     @ApiConsumes('multipart/form-data')
@@ -68,6 +71,7 @@ export class PetController {
     }
 
     @Delete(':myPetId')
+    @ApiCookieAuth()
     @UseGuards(AccessTokenGuard)
     @ApiOperation({ summary: '나의 펫 삭제' })
     @ApiResponse({ status: 200, type: ResultSuccessDto, description: '펫 삭제 성공' })

@@ -11,14 +11,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PetService = void 0;
 const common_1 = require("@nestjs/common");
+const aws_service_1 = require("../../lib/aws/src/aws.service");
 const myPet_repository_1 = require("../../repositories/myPet.repository");
 const user_repository_1 = require("../../repositories/user.repository");
 const cloudFront_utils_1 = require("../../utils/cloudFront.utils");
 const date_1 = require("../../utils/date");
 let PetService = class PetService {
-    constructor(myPetRepository, userRepository) {
+    constructor(myPetRepository, userRepository, awsService) {
         this.myPetRepository = myPetRepository;
         this.userRepository = userRepository;
+        this.awsService = awsService;
     }
     async create(userId, file, body) {
         try {
@@ -26,8 +28,9 @@ let PetService = class PetService {
             let imageKey = null;
             let imagePath = null;
             if (file) {
-                imageKey = file['profile'].key;
-                imagePath = (0, cloudFront_utils_1.cloudfrontPath)(file['profile'].key);
+                const res = await this.awsService.uploadImage(file);
+                imageKey = res.Key;
+                imagePath = res.Location;
             }
             const createBody = Object.assign({ user: user, imageKey: imageKey, imagePath: imagePath }, body);
             const myPet = this.myPetRepository.create(createBody);
@@ -111,7 +114,8 @@ let PetService = class PetService {
 PetService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [myPet_repository_1.MyPetRepository,
-        user_repository_1.UserRepository])
+        user_repository_1.UserRepository,
+        aws_service_1.AwsService])
 ], PetService);
 exports.PetService = PetService;
 //# sourceMappingURL=pet.service.js.map

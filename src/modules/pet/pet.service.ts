@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { AwsService } from 'src/lib/aws/src/aws.service';
 import { MyPet } from 'src/models/MyPets.entity';
 import { User } from 'src/models/User.entity';
 import { MyPetRepository } from 'src/repositories/myPet.repository';
@@ -13,6 +14,7 @@ export class PetService {
     constructor(
         private readonly myPetRepository: MyPetRepository,
         private readonly userRepository: UserRepository,
+        private readonly awsService: AwsService,
     ) {}
 
     async create(userId: number, file: File, body: CreateMyPetReqDto): Promise<any> {
@@ -23,8 +25,9 @@ export class PetService {
 
             // TODO : 이미지 처리 예외처리를 넣어야함
             if (file) {
-                imageKey = file['profile'].key;
-                imagePath = cloudfrontPath(file['profile'].key);
+                const res = await this.awsService.uploadImage(file);
+                imageKey = res.Key;
+                imagePath = res.Location;
             }
 
             const createBody = {

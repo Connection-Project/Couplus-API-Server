@@ -1,16 +1,11 @@
 import multerS3 from 'multer-s3';
 import { s3FileName } from 'src/utils/s3FileName';
-import { S3Client } from '@aws-sdk/client-s3';
+import { S3 } from 'aws-sdk';
+import { awsConfig } from 'src/config/aws.config';
 
 export const fileUpload = {
     storage: multerS3({
-        s3: new S3Client({
-            region: process.env.AWS_REGION,
-            credentials: {
-                accessKeyId: process.env.AWS_ACCESS_KEY,
-                secretAccessKey: process.env.AWS_SECRET_KEY,
-            },
-        }),
+        s3: new S3(awsConfig),
         bucket: 'pet-img',
         acl: 'private',
         contentType: multerS3.AUTO_CONTENT_TYPE,
