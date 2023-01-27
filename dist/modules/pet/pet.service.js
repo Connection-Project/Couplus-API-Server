@@ -51,6 +51,7 @@ let PetService = class PetService {
                     myPetId: myPet[i].id,
                     name: myPet[i].name,
                     age: (0, date_1.getYearDiff)(new Date(myPet[i].birthDay), new Date()),
+                    breed: myPet[i].breed,
                     gender: myPet[i].gender,
                     birthDay: myPet[i].birthDay.toISOString().substring(0, 10),
                     togetherDay: (0, date_1.getDateDiff)(new Date(myPet[i].togetherDay), new Date()),

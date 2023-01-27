@@ -28,6 +28,10 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
+], GetMyPetsObj.prototype, "breed", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
 ], GetMyPetsObj.prototype, "gender", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),

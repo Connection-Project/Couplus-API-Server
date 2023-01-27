@@ -11,6 +11,9 @@ export class GetMyPetsObj {
     age: number;
 
     @ApiProperty()
+    breed: string;
+
+    @ApiProperty()
     gender: string;
 
     @ApiProperty()

@@ -55,6 +55,7 @@ export class PetService {
                     myPetId: myPet[i].id,
                     name: myPet[i].name,
                     age: getYearDiff(new Date(myPet[i].birthDay), new Date()),
+                    breed: myPet[i].breed,
                     gender: myPet[i].gender,
                     birthDay: myPet[i].birthDay.toISOString().substring(0, 10),
                     togetherDay: getDateDiff(new Date(myPet[i].togetherDay), new Date()),

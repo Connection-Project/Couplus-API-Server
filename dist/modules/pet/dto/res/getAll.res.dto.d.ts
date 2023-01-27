@@ -2,6 +2,7 @@ export declare class GetMyPetsObj {
     myPetId: number;
     name: string;
     age: number;
+    breed: string;
     gender: string;
     birthDay: string;
     togetherDay: number;
