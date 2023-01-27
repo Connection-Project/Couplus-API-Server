@@ -75,9 +75,9 @@ let PetService = class PetService {
                 if (gender)
                     myPet.gender = gender;
                 if (birthDay)
-                    myPet.birthDay = birthDay;
+                    myPet.birthDay = new Date(birthDay);
                 if (togetherDay)
-                    myPet.togetherDay = togetherDay;
+                    myPet.togetherDay = new Date(togetherDay);
                 if (file['profile']) {
                     myPet.imageKey = file['profile'].key;
                     myPet.imagePath = (0, cloudFront_utils_1.cloudfrontPath)(file['profile'].key);

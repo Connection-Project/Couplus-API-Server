@@ -10,8 +10,8 @@ export class CreateMyPetReqDto {
     gender: string;
 
     @ApiProperty()
-    birthDay: Date;
+    birthDay: string;
 
     @ApiProperty()
-    togetherDay: Date;
+    togetherDay: string;
 }

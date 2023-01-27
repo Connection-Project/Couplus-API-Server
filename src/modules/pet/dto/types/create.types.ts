@@ -7,9 +7,9 @@ export class CreateMyPetTypesDto {
 
     gender: string;
 
-    birthDay: Date;
+    birthDay: string;
 
-    togetherDay: Date;
+    togetherDay: string;
 
     user: User;
 

@@ -11,8 +11,8 @@ export class UpdateMyPetReqDto {
     gender?: string;
 
     @ApiProperty()
-    birthDay?: Date;
+    birthDay?: string;
 
     @ApiProperty()
-    togetherDay?: Date;
+    togetherDay?: string;
 }

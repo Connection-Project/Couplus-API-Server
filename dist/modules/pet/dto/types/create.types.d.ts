@@ -3,8 +3,8 @@ export declare class CreateMyPetTypesDto {
     name: string;
     breed: string;
     gender: string;
-    birthDay: Date;
-    togetherDay: Date;
+    birthDay: string;
+    togetherDay: string;
     user: User;
     imageKey: string;
     imagePath: string;

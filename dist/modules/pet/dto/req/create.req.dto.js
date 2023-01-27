@@ -27,11 +27,11 @@ __decorate([
 ], CreateMyPetReqDto.prototype, "gender", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", Date)
+    __metadata("design:type", String)
 ], CreateMyPetReqDto.prototype, "birthDay", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", Date)
+    __metadata("design:type", String)
 ], CreateMyPetReqDto.prototype, "togetherDay", void 0);
 exports.CreateMyPetReqDto = CreateMyPetReqDto;
 //# sourceMappingURL=create.req.dto.js.map
