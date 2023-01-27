@@ -21,6 +21,7 @@ let AccessTokenStrategy = class AccessTokenStrategy extends (0, passport_1.Passp
         });
     }
     validate(payload) {
+        console.log(payload);
         return payload;
     }
 };

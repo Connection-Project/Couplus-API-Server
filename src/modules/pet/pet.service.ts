@@ -15,17 +15,14 @@ export class PetService {
         private readonly userRepository: UserRepository,
     ) {}
 
-    async create(userId: number, file: File[], body: CreateMyPetReqDto): Promise<any> {
+    async create(userId: number, file: File, body: CreateMyPetReqDto): Promise<any> {
         try {
-            console.log('userId : ' + userId);
-            console.log(body);
-            console.log(file);
             const user: User = await this.userRepository.findByKey('id', userId);
             let imageKey = null;
             let imagePath = null;
 
             // TODO : 이미지 처리 예외처리를 넣어야함
-            if (file['profile']) {
+            if (file) {
                 imageKey = file['profile'].key;
                 imagePath = cloudfrontPath(file['profile'].key);
             }
@@ -68,7 +65,7 @@ export class PetService {
         }
     }
 
-    async update(myPetId: number, file: File[], body: UpdateMyPetReqDto): Promise<any> {
+    async update(myPetId: number, file: File, body: UpdateMyPetReqDto): Promise<any> {
         try {
             const { name, breed, gender, birthDay, togetherDay } = body;
             let status = 0;

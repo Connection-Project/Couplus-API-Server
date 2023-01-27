@@ -1,6 +1,5 @@
-/// <reference types="multer" />
 export declare const fileUpload: {
-    storage: import("multer").StorageEngine;
+    storage: any;
     limits: {
         fieldSize: number;
         fileSize: number;

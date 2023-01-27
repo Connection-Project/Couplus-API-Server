@@ -22,13 +22,10 @@ let PetService = class PetService {
     }
     async create(userId, file, body) {
         try {
-            console.log('userId : ' + userId);
-            console.log(body);
-            console.log(file);
             const user = await this.userRepository.findByKey('id', userId);
             let imageKey = null;
             let imagePath = null;
-            if (file['profile']) {
+            if (file) {
                 imageKey = file['profile'].key;
                 imagePath = (0, cloudFront_utils_1.cloudfrontPath)(file['profile'].key);
             }

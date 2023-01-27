@@ -8,7 +8,7 @@ import {
     Patch,
     Post,
     Req,
-    UploadedFiles,
+    UploadedFile,
     UseGuards,
     UseInterceptors,
 } from '@nestjs/common';
@@ -30,15 +30,16 @@ import { PetService } from './pet.service';
 @Controller('pet')
 export class PetController {
     constructor(private readonly petService: PetService) {}
+
     @Post()
+    @UseInterceptors(FileInterceptor('profile'))
     @UseGuards(AccessTokenGuard)
-    @UseInterceptors(FileInterceptor('profile', fileUpload))
     @ApiConsumes('multipart/form-data')
     @ApiOperation({ summary: '나의 펫 등록' })
     @ApiResponse({ status: 200, type: ResultSuccessDto, description: '펫 등록 성공' })
     @ApiResponse({ status: 401, type: CreateMyPetFailDto, description: '펫 등록 실패' })
-    async create(@Req() req: Request, @UploadedFiles() files: File[], @Body() body: CreateMyPetReqDto) {
-        return this.petService.create(req.user['userId'], files, body);
+    async create(@Req() req: Request, @UploadedFile() file, @Body() body: CreateMyPetReqDto) {
+        return this.petService.create(req.user['userId'], file, body);
     }
 
     @Get()
@@ -60,10 +61,10 @@ export class PetController {
     @ApiResponse({ status: 401, type: UpdateMyPetFailDto, description: '펫 수정 실패' })
     async update(
         @Param('myPetId', ParseIntPipe) myPetId: number,
-        @UploadedFiles() files: File[],
+        @UploadedFile() file,
         @Body() body: UpdateMyPetReqDto,
     ) {
-        return this.petService.update(myPetId, files, body);
+        return this.petService.update(myPetId, file, body);
     }
 
     @Delete(':myPetId')

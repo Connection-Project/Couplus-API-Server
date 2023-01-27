@@ -5,8 +5,8 @@ import { PetService } from './pet.service';
 export declare class PetController {
     private readonly petService;
     constructor(petService: PetService);
-    create(req: Request, files: File[], body: CreateMyPetReqDto): Promise<any>;
+    create(req: Request, file: any, body: CreateMyPetReqDto): Promise<any>;
     getMyPets(req: Request): Promise<any>;
-    update(myPetId: number, files: File[], body: UpdateMyPetReqDto): Promise<any>;
+    update(myPetId: number, file: any, body: UpdateMyPetReqDto): Promise<any>;
     delete(req: Request, myPetId: number): Promise<any>;
 }

@@ -6,8 +6,8 @@ export declare class PetService {
     private readonly myPetRepository;
     private readonly userRepository;
     constructor(myPetRepository: MyPetRepository, userRepository: UserRepository);
-    create(userId: number, file: File[], body: CreateMyPetReqDto): Promise<any>;
+    create(userId: number, file: File, body: CreateMyPetReqDto): Promise<any>;
     getMyPets(userId: number): Promise<any>;
-    update(myPetId: number, file: File[], body: UpdateMyPetReqDto): Promise<any>;
+    update(myPetId: number, file: File, body: UpdateMyPetReqDto): Promise<any>;
     delete(userId: number, myPetId: number): Promise<any>;
 }
