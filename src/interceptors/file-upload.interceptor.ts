@@ -18,7 +18,9 @@ export const fileUpload = {
         key: (_, file, cb) => {
             let filename = s3FileName(file);
             let location = '';
-            // * s3 파일 public / private 예외처리
+            if (file.fieldname === 'profile') {
+                location = `pet/profile/${filename}`;
+            }
             cb(null, location);
         },
     }),

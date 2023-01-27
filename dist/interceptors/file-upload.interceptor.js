@@ -23,6 +23,9 @@ exports.fileUpload = {
         key: (_, file, cb) => {
             let filename = (0, s3FileName_1.s3FileName)(file);
             let location = '';
+            if (file.fieldname === 'profile') {
+                location = `pet/profile/${filename}`;
+            }
             cb(null, location);
         },
     }),
