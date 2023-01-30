@@ -18,6 +18,7 @@ export class PetService {
 
     async create(userId: number, file: File, body: CreateMyPetReqDto): Promise<any> {
         try {
+            console.log(body);
             const user: User = await this.userRepository.findByKey('id', userId);
             let imageKey = null;
             let imagePath = null;

@@ -17,8 +17,8 @@ export class MyPetRepository {
         myPet.name = body.name;
         myPet.breed = body.breed;
         myPet.gender = body.gender;
-        myPet.birthDay = new Date(body.birthDay);
-        myPet.togetherDay = new Date(body.togetherDay);
+        myPet.birthDay = body.birthDay !== '' ? new Date(body.birthDay) : new Date();
+        myPet.togetherDay = body.togetherDay !== '' ? new Date(body.togetherDay) : new Date();
         myPet.imageKey = body.imageKey;
         myPet.imagePath = body.imagePath;
         return myPet;

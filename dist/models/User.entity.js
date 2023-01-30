@@ -10,8 +10,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
+const BoardComment_entity_1 = require("./BoardComment.entity");
 const typeorm_1 = require("typeorm");
+const Board_entity_1 = require("./Board.entity");
 const MyPets_entity_1 = require("./MyPets.entity");
+const BoardCommentReply_entity_1 = require("./BoardCommentReply.entity");
 let User = class User {
     constructor(partial) {
         Object.assign(this, partial);
@@ -61,6 +64,18 @@ __decorate([
     (0, typeorm_1.OneToMany)(() => MyPets_entity_1.MyPet, (pet) => pet.user, { cascade: true }),
     __metadata("design:type", Array)
 ], User.prototype, "pet", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => Board_entity_1.Board, (board) => board.user),
+    __metadata("design:type", Array)
+], User.prototype, "board", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => BoardComment_entity_1.BoardComment, (comment) => comment.user),
+    __metadata("design:type", Array)
+], User.prototype, "comment", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => BoardCommentReply_entity_1.BoardCommentReply, (reply) => reply.user),
+    __metadata("design:type", Array)
+], User.prototype, "reply", void 0);
 User = __decorate([
     (0, typeorm_1.Entity)({ name: 'Users' }),
     __metadata("design:paramtypes", [Object])
