@@ -4,7 +4,6 @@ import { MyPet } from 'src/models/MyPets.entity';
 import { User } from 'src/models/User.entity';
 import { MyPetRepository } from 'src/repositories/myPet.repository';
 import { UserRepository } from 'src/repositories/user.repository';
-import { cloudfrontPath } from 'src/utils/cloudFront.utils';
 import { getDateDiff, getYearDiff } from 'src/utils/date';
 import { CreateMyPetReqDto } from './dto/req/create.req.dto';
 import { UpdateMyPetReqDto } from './dto/req/update.req.dto';
