@@ -14,7 +14,6 @@ const common_1 = require("@nestjs/common");
 const aws_service_1 = require("../../lib/aws/src/aws.service");
 const myPet_repository_1 = require("../../repositories/myPet.repository");
 const user_repository_1 = require("../../repositories/user.repository");
-const cloudFront_utils_1 = require("../../utils/cloudFront.utils");
 const date_1 = require("../../utils/date");
 let PetService = class PetService {
     constructor(myPetRepository, userRepository, awsService) {
@@ -82,9 +81,10 @@ let PetService = class PetService {
                     myPet.birthDay = new Date(birthDay);
                 if (togetherDay)
                     myPet.togetherDay = new Date(togetherDay);
-                if (file['profile']) {
-                    myPet.imageKey = file['profile'].key;
-                    myPet.imagePath = (0, cloudFront_utils_1.cloudfrontPath)(file['profile'].key);
+                if (file) {
+                    const res = await this.awsService.uploadImage(file);
+                    myPet.imageKey = res.Key;
+                    myPet.imagePath = res.Location;
                 }
                 await this.myPetRepository.save(myPet);
                 status = 200;

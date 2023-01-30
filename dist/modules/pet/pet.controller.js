@@ -16,7 +16,6 @@ exports.PetController = void 0;
 const common_1 = require("@nestjs/common");
 const platform_express_1 = require("@nestjs/platform-express");
 const swagger_1 = require("@nestjs/swagger");
-const file_upload_interceptor_1 = require("../../interceptors/file-upload.interceptor");
 const accessToken_guard_1 = require("../../lib/jwt/guards/accessToken.guard");
 const result_res_dto_1 = require("../common/dto/res/result.res.dto");
 const create_req_dto_1 = require("./dto/req/create.req.dto");
@@ -75,7 +74,7 @@ __decorate([
     (0, common_1.Patch)(':myPetId'),
     (0, swagger_1.ApiCookieAuth)(),
     (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
-    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('profile', file_upload_interceptor_1.fileUpload)),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('profile')),
     (0, swagger_1.ApiConsumes)('multipart/form-data'),
     (0, swagger_1.ApiOperation)({ summary: '나의 펫 수정' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: result_res_dto_1.ResultSuccessDto, description: '펫 수정 성공' }),

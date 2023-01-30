@@ -82,10 +82,11 @@ export class PetService {
                 if (birthDay) myPet.birthDay = new Date(birthDay);
                 if (togetherDay) myPet.togetherDay = new Date(togetherDay);
                 // ! 파일이 존재할 시 프로필 이미지 수정
-                if (file['profile']) {
+                if (file) {
                     // TODO : 기존 이미지 S3에서 삭제
-                    myPet.imageKey = file['profile'].key;
-                    myPet.imagePath = cloudfrontPath(file['profile'].key);
+                    const res = await this.awsService.uploadImage(file);
+                    myPet.imageKey = res.Key;
+                    myPet.imagePath = res.Location;
                 }
                 await this.myPetRepository.save(myPet);
                 status = 200;

@@ -15,7 +15,6 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiConsumes, ApiCookieAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
-import { fileUpload } from 'src/interceptors/file-upload.interceptor';
 import { AccessTokenGuard } from 'src/lib/jwt/guards/accessToken.guard';
 import { ResultSuccessDto } from '../common/dto/res/result.res.dto';
 import { CreateMyPetReqDto } from './dto/req/create.req.dto';
@@ -56,7 +55,7 @@ export class PetController {
     @Patch(':myPetId')
     @ApiCookieAuth()
     @UseGuards(AccessTokenGuard)
-    @UseInterceptors(FileInterceptor('profile', fileUpload))
+    @UseInterceptors(FileInterceptor('profile'))
     @ApiConsumes('multipart/form-data')
     @ApiOperation({ summary: '나의 펫 수정' })
     @ApiResponse({ status: 200, type: ResultSuccessDto, description: '펫 수정 성공' })
