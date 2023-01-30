@@ -83,8 +83,17 @@ let PetService = class PetService {
                     myPet.togetherDay = new Date(togetherDay);
                 if (file) {
                     const res = await this.awsService.uploadImage(file);
-                    myPet.imageKey = res.Key;
-                    myPet.imagePath = res.Location;
+                    if (res) {
+                        this.awsService.s3Delete({
+                            Bucket: 'pet-img',
+                            Key: myPet.imageKey,
+                        });
+                        myPet.imageKey = res.Key;
+                        myPet.imagePath = res.Location;
+                    }
+                    else {
+                        common_1.Logger.log('ERROR - S3 Upload Failed');
+                    }
                 }
                 await this.myPetRepository.save(myPet);
                 status = 200;

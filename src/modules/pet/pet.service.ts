@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { AwsService } from 'src/lib/aws/src/aws.service';
 import { MyPet } from 'src/models/MyPets.entity';
 import { User } from 'src/models/User.entity';
@@ -83,10 +83,18 @@ export class PetService {
                 if (togetherDay) myPet.togetherDay = new Date(togetherDay);
                 // ! 파일이 존재할 시 프로필 이미지 수정
                 if (file) {
-                    // TODO : 기존 이미지 S3에서 삭제
                     const res = await this.awsService.uploadImage(file);
-                    myPet.imageKey = res.Key;
-                    myPet.imagePath = res.Location;
+                    if (res) {
+                        // ! 기존 파일 삭제
+                        this.awsService.s3Delete({
+                            Bucket: 'pet-img',
+                            Key: myPet.imageKey,
+                        });
+                        myPet.imageKey = res.Key;
+                        myPet.imagePath = res.Location;
+                    } else {
+                        Logger.log('ERROR - S3 Upload Failed');
+                    }
                 }
                 await this.myPetRepository.save(myPet);
                 status = 200;

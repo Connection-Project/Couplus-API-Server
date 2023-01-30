@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import AWS from 'aws-sdk';
 import { s3FileName } from 'src/utils/s3FileName';
+import { S3DeleteParam } from './dto/delete.type';
 
 @Injectable()
 export class AwsService {
@@ -32,5 +33,12 @@ export class AwsService {
         };
         const result = await this.s3.upload(params).promise();
         return result;
+    }
+
+    s3Delete(param: S3DeleteParam) {
+        this.s3.deleteObject(param, (err, data) => {
+            if (err) console.log('S3 - Delete Fail' + err);
+            else console.log('S3 - Delete Success');
+        });
     }
 }
