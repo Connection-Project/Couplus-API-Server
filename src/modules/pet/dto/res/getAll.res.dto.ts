@@ -35,8 +35,8 @@ export class GetMyPetsSuccessDto {
     @ApiProperty({ default: 1 })
     resultCode: number;
 
-    @ApiProperty({ type: GetMyPetsObj })
-    data: GetMyPetsObj;
+    @ApiProperty({ type: GetMyPetItems })
+    data: GetMyPetItems;
 }
 
 export class GetMyPetsFailDto {

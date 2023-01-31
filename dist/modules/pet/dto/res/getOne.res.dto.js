@@ -64,6 +64,10 @@ __decorate([
     (0, swagger_1.ApiProperty)({ default: 1 }),
     __metadata("design:type", Number)
 ], GetOneMyPetSuccessDto.prototype, "resultCode", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: GetOneMyPetObj }),
+    __metadata("design:type", GetOneMyPetObj)
+], GetOneMyPetSuccessDto.prototype, "data", void 0);
 exports.GetOneMyPetSuccessDto = GetOneMyPetSuccessDto;
 class GetOneMyPetFailDto {
 }

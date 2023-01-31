@@ -39,6 +39,7 @@ export class GetOneMyPetSuccessDto {
     @ApiProperty({ default: 1 })
     resultCode: number;
 
+    @ApiProperty({ type: GetOneMyPetObj })
     data: GetOneMyPetObj;
 }
 

@@ -13,7 +13,7 @@ export declare class GetMyPetItems {
 }
 export declare class GetMyPetsSuccessDto {
     resultCode: number;
-    data: GetMyPetsObj;
+    data: GetMyPetItems;
 }
 export declare class GetMyPetsFailDto {
     resultCode: number;
