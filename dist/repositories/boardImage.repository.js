@@ -12,27 +12,27 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BoardRepository = void 0;
+exports.BoardImageRepository = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
-const Board_entity_1 = require("../models/Board.entity");
+const BoardImage_entity_1 = require("../models/BoardImage.entity");
 const typeorm_2 = require("typeorm");
-let BoardRepository = class BoardRepository {
-    constructor(boardRepository) {
-        this.boardRepository = boardRepository;
+let BoardImageRepository = class BoardImageRepository {
+    constructor(boardImageRepository) {
+        this.boardImageRepository = boardImageRepository;
     }
     create() {
-        const board = this.boardRepository.create();
-        return board;
+        const boardImage = this.boardImageRepository.create();
+        return boardImage;
     }
-    async save(board) {
-        await this.boardRepository.save(board);
+    async save(boardImage) {
+        await this.boardImageRepository.save(boardImage);
     }
 };
-BoardRepository = __decorate([
+BoardImageRepository = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, typeorm_1.InjectRepository)(Board_entity_1.Board)),
+    __param(0, (0, typeorm_1.InjectRepository)(BoardImage_entity_1.BoardImage)),
     __metadata("design:paramtypes", [typeorm_2.Repository])
-], BoardRepository);
-exports.BoardRepository = BoardRepository;
-//# sourceMappingURL=board.repository.js.map
+], BoardImageRepository);
+exports.BoardImageRepository = BoardImageRepository;
+//# sourceMappingURL=boardImage.repository.js.map

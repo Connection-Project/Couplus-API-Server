@@ -1,4 +1,5 @@
 import { BoardComment } from './BoardComment.entity';
+import { BoardImage } from './BoardImage.entity';
 import { User } from './User.entity';
 export declare class Board {
     id: number;
@@ -9,5 +10,6 @@ export declare class Board {
     createdAt: Date;
     updatedAt: Date;
     comment: BoardComment[];
+    image: BoardImage[];
     constructor(partial: Partial<Board>);
 }

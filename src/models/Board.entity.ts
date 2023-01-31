@@ -9,6 +9,7 @@ import {
     UpdateDateColumn,
 } from 'typeorm';
 import { BoardComment } from './BoardComment.entity';
+import { BoardImage } from './BoardImage.entity';
 import { User } from './User.entity';
 
 @Entity({ name: 'Boards' })
@@ -37,6 +38,9 @@ export class Board {
 
     @OneToMany(() => BoardComment, (comment) => comment.board, { cascade: true })
     comment: BoardComment[];
+
+    @OneToMany(() => BoardImage, (image) => image.board, { cascade: true })
+    image: BoardImage[];
 
     constructor(partial: Partial<Board>) {
         Object.assign(this, partial);

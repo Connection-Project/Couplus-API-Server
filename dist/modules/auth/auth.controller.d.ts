@@ -6,5 +6,5 @@ export declare class AuthController {
     constructor(authService: AuthService);
     signInByEmail(body: EmailLoginReqDto): Promise<any>;
     kakao(res: Response): void;
-    kakaoCallBack(code: string): Promise<any>;
+    kakaoCallBack(code: string, res: Response): Promise<any>;
 }

@@ -9,12 +9,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Board = void 0;
+exports.BoardImage = void 0;
 const typeorm_1 = require("typeorm");
-const BoardComment_entity_1 = require("./BoardComment.entity");
-const BoardImage_entity_1 = require("./BoardImage.entity");
-const User_entity_1 = require("./User.entity");
-let Board = class Board {
+const Board_entity_1 = require("./Board.entity");
+let BoardImage = class BoardImage {
     constructor(partial) {
         Object.assign(this, partial);
     }
@@ -22,43 +20,31 @@ let Board = class Board {
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
-], Board.prototype, "id", void 0);
+], BoardImage.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: false }),
+    (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Board.prototype, "title", void 0);
+], BoardImage.prototype, "originalName", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: true, length: 2000 }),
+    (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Board.prototype, "content", void 0);
+], BoardImage.prototype, "path", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: false }),
-    __metadata("design:type", String)
-], Board.prototype, "type", void 0);
-__decorate([
-    (0, typeorm_1.ManyToOne)(() => User_entity_1.User, (user) => user.board, { onDelete: 'CASCADE', onUpdate: 'CASCADE' }),
+    (0, typeorm_1.ManyToOne)(() => Board_entity_1.Board, (board) => board.image, { onDelete: 'CASCADE', onUpdate: 'CASCADE' }),
     (0, typeorm_1.JoinColumn)(),
-    __metadata("design:type", User_entity_1.User)
-], Board.prototype, "user", void 0);
+    __metadata("design:type", Board_entity_1.Board)
+], BoardImage.prototype, "board", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)({ type: 'timestamp' }),
     __metadata("design:type", Date)
-], Board.prototype, "createdAt", void 0);
+], BoardImage.prototype, "createdAt", void 0);
 __decorate([
     (0, typeorm_1.UpdateDateColumn)({ type: 'timestamp' }),
     __metadata("design:type", Date)
-], Board.prototype, "updatedAt", void 0);
-__decorate([
-    (0, typeorm_1.OneToMany)(() => BoardComment_entity_1.BoardComment, (comment) => comment.board, { cascade: true }),
-    __metadata("design:type", Array)
-], Board.prototype, "comment", void 0);
-__decorate([
-    (0, typeorm_1.OneToMany)(() => BoardImage_entity_1.BoardImage, (image) => image.board, { cascade: true }),
-    __metadata("design:type", Array)
-], Board.prototype, "image", void 0);
-Board = __decorate([
-    (0, typeorm_1.Entity)({ name: 'Boards' }),
+], BoardImage.prototype, "updatedAt", void 0);
+BoardImage = __decorate([
+    (0, typeorm_1.Entity)({ name: 'BoardImages' }),
     __metadata("design:paramtypes", [Object])
-], Board);
-exports.Board = Board;
-//# sourceMappingURL=Board.entity.js.map
+], BoardImage);
+exports.BoardImage = BoardImage;
+//# sourceMappingURL=BoardImage.entity.js.map

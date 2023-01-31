@@ -43,7 +43,14 @@ export class AuthController {
         description: '소셜 계정 없음(추가 정보 입력 가입 필요)',
     })
     @ApiResponse({ status: 401, type: SocialSignInFailDto, description: '소셜 로그인 실패' })
-    kakaoCallBack(@Query('code') code: string) {
-        return this.authService.kakaoCallBack(code);
+    async kakaoCallBack(@Query('code') code: string, @Res() res: Response) {
+        const result = await this.authService.kakaoCallBack(code);
+        if (result.data.resultCode === 1112) {
+            res.redirect(
+                `${process.env.REDIRECT_URL}?accountId=${result.data.data.accountId}&nickName=${result.data.data.nickName}&email=${result.data.data.email}`,
+            );
+        } else {
+            return result;
+        }
     }
 }

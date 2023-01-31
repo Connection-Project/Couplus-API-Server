@@ -28,8 +28,14 @@ let AuthController = class AuthController {
     kakao(res) {
         res.redirect(`https://kauth.kakao.com/oauth/authorize?client_id=${process.env.KAKAO_OAUTH_API_KEY}&redirect_uri=${process.env.KAKAO_OAUTH_REDIRECT_URL}&response_type=code`);
     }
-    kakaoCallBack(code) {
-        return this.authService.kakaoCallBack(code);
+    async kakaoCallBack(code, res) {
+        const result = await this.authService.kakaoCallBack(code);
+        if (result.data.resultCode === 1112) {
+            res.redirect(`${process.env.REDIRECT_URL}?accountId=${result.data.data.accountId}&nickName=${result.data.data.nickName}&email=${result.data.data.email}`);
+        }
+        else {
+            return result;
+        }
     }
 };
 __decorate([
@@ -62,9 +68,10 @@ __decorate([
     }),
     (0, swagger_1.ApiResponse)({ status: 401, type: signIn_res_dto_1.SocialSignInFailDto, description: '소셜 로그인 실패' }),
     __param(0, (0, common_1.Query)('code')),
+    __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
 ], AuthController.prototype, "kakaoCallBack", null);
 AuthController = __decorate([
     (0, swagger_1.ApiTags)('유저 인증'),
