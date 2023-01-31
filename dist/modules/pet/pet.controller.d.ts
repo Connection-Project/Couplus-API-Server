@@ -7,6 +7,7 @@ export declare class PetController {
     constructor(petService: PetService);
     create(req: Request, file: any, body: CreateMyPetReqDto): Promise<any>;
     getMyPets(req: Request): Promise<any>;
-    update(myPetId: number, file: any, body: UpdateMyPetReqDto): Promise<any>;
+    getMyPet(req: Request, myPetId: number): Promise<any>;
+    update(req: Request, myPetId: number, file: any, body: UpdateMyPetReqDto): Promise<any>;
     delete(req: Request, myPetId: number): Promise<any>;
 }

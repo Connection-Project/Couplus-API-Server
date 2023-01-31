@@ -9,7 +9,8 @@ export declare class PetService {
     private readonly awsService;
     constructor(myPetRepository: MyPetRepository, userRepository: UserRepository, awsService: AwsService);
     create(userId: number, file: File, body: CreateMyPetReqDto): Promise<any>;
+    getMyPet(userId: number, myPetId: number): Promise<any>;
     getMyPets(userId: number): Promise<any>;
-    update(myPetId: number, file: File, body: UpdateMyPetReqDto): Promise<any>;
+    update(userId: number, myPetId: number, file: File, body: UpdateMyPetReqDto): Promise<any>;
     delete(userId: number, myPetId: number): Promise<any>;
 }

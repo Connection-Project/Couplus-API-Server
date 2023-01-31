@@ -41,6 +41,32 @@ let PetService = class PetService {
             return { status: 401, data: { resultCode: 1301, data: null } };
         }
     }
+    async getMyPet(userId, myPetId) {
+        try {
+            const myPet = await this.myPetRepository.findOneById(userId, myPetId);
+            let data = null;
+            const birthDay = myPet.birthDay.toISOString().substring(0, 10).split('-');
+            const togetherDay = myPet.togetherDay.toISOString().substring(0, 10).split('-');
+            data = {
+                myPetId: myPet.id,
+                name: myPet.name,
+                breed: myPet.breed,
+                gender: myPet.gender,
+                imagePath: myPet.imagePath,
+                birthYear: birthDay[0],
+                birthMonth: birthDay[1],
+                birthDate: birthDay[2],
+                togetherYear: togetherDay[0],
+                togetherMonth: togetherDay[1],
+                togetherDate: togetherDay[2],
+            };
+            return { status: 200, data: { resultCode: 1, data: data } };
+        }
+        catch (err) {
+            console.log(err);
+            return { status: 401, data: { resultCode: 1341, data: null } };
+        }
+    }
     async getMyPets(userId) {
         try {
             const myPet = await this.myPetRepository.findAll(userId);
@@ -64,12 +90,12 @@ let PetService = class PetService {
             return { status: 401, data: { resultCode: 1311, data: null } };
         }
     }
-    async update(myPetId, file, body) {
+    async update(userId, myPetId, file, body) {
         try {
             const { name, breed, gender, birthDay, togetherDay } = body;
             let status = 0;
             let resultCode = 0;
-            const myPet = await this.myPetRepository.findOneById(myPetId);
+            const myPet = await this.myPetRepository.findOneById(userId, myPetId);
             if (myPet) {
                 if (name)
                     myPet.name = name;

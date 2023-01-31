@@ -22,6 +22,7 @@ import { UpdateMyPetReqDto } from './dto/req/update.req.dto';
 import { CreateMyPetFailDto } from './dto/res/create.res.dto';
 import { DeleteMyPetFailDto } from './dto/res/delete.res.dto';
 import { GetMyPetsFailDto, GetMyPetsSuccessDto } from './dto/res/getAll.res.dto';
+import { GetOneMyPetFailDto, GetOneMyPetSuccessDto } from './dto/res/getOne.res.dto';
 import { NotFoundMypetDto, UpdateMyPetFailDto } from './dto/res/update.res.dto';
 import { PetService } from './pet.service';
 
@@ -52,6 +53,15 @@ export class PetController {
         return this.petService.getMyPets(req.user['userId']);
     }
 
+    @Get(':myPetId')
+    @ApiCookieAuth()
+    @UseGuards(AccessTokenGuard)
+    @ApiResponse({ status: 200, type: GetOneMyPetSuccessDto, description: '나의 펫 성공' })
+    @ApiResponse({ status: 401, type: GetOneMyPetFailDto, description: '나의 펫 실패' })
+    async getMyPet(@Req() req: Request, @Param('myPetId', ParseIntPipe) myPetId: number) {
+        return this.petService.getMyPet(req.user['userId'], myPetId);
+    }
+
     @Patch(':myPetId')
     @ApiCookieAuth()
     @UseGuards(AccessTokenGuard)
@@ -62,11 +72,12 @@ export class PetController {
     @ApiResponse({ status: 200, type: NotFoundMypetDto, description: '존재하지 않는 펫' })
     @ApiResponse({ status: 401, type: UpdateMyPetFailDto, description: '펫 수정 실패' })
     async update(
+        @Req() req: Request,
         @Param('myPetId', ParseIntPipe) myPetId: number,
         @UploadedFile() file,
         @Body() body: UpdateMyPetReqDto,
     ) {
-        return this.petService.update(myPetId, file, body);
+        return this.petService.update(req.user['userId'], myPetId, file, body);
     }
 
     @Delete(':myPetId')

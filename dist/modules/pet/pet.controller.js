@@ -23,6 +23,7 @@ const update_req_dto_1 = require("./dto/req/update.req.dto");
 const create_res_dto_1 = require("./dto/res/create.res.dto");
 const delete_res_dto_1 = require("./dto/res/delete.res.dto");
 const getAll_res_dto_1 = require("./dto/res/getAll.res.dto");
+const getOne_res_dto_1 = require("./dto/res/getOne.res.dto");
 const update_res_dto_1 = require("./dto/res/update.res.dto");
 const pet_service_1 = require("./pet.service");
 let PetController = class PetController {
@@ -35,8 +36,11 @@ let PetController = class PetController {
     async getMyPets(req) {
         return this.petService.getMyPets(req.user['userId']);
     }
-    async update(myPetId, file, body) {
-        return this.petService.update(myPetId, file, body);
+    async getMyPet(req, myPetId) {
+        return this.petService.getMyPet(req.user['userId'], myPetId);
+    }
+    async update(req, myPetId, file, body) {
+        return this.petService.update(req.user['userId'], myPetId, file, body);
     }
     async delete(req, myPetId) {
         return this.petService.delete(req.user['userId'], myPetId);
@@ -71,6 +75,18 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], PetController.prototype, "getMyPets", null);
 __decorate([
+    (0, common_1.Get)(':myPetId'),
+    (0, swagger_1.ApiCookieAuth)(),
+    (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
+    (0, swagger_1.ApiResponse)({ status: 200, type: getOne_res_dto_1.GetOneMyPetSuccessDto, description: '나의 펫 성공' }),
+    (0, swagger_1.ApiResponse)({ status: 401, type: getOne_res_dto_1.GetOneMyPetFailDto, description: '나의 펫 실패' }),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Param)('myPetId', common_1.ParseIntPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Number]),
+    __metadata("design:returntype", Promise)
+], PetController.prototype, "getMyPet", null);
+__decorate([
     (0, common_1.Patch)(':myPetId'),
     (0, swagger_1.ApiCookieAuth)(),
     (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
@@ -80,11 +96,12 @@ __decorate([
     (0, swagger_1.ApiResponse)({ status: 200, type: result_res_dto_1.ResultSuccessDto, description: '펫 수정 성공' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: update_res_dto_1.NotFoundMypetDto, description: '존재하지 않는 펫' }),
     (0, swagger_1.ApiResponse)({ status: 401, type: update_res_dto_1.UpdateMyPetFailDto, description: '펫 수정 실패' }),
-    __param(0, (0, common_1.Param)('myPetId', common_1.ParseIntPipe)),
-    __param(1, (0, common_1.UploadedFile)()),
-    __param(2, (0, common_1.Body)()),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Param)('myPetId', common_1.ParseIntPipe)),
+    __param(2, (0, common_1.UploadedFile)()),
+    __param(3, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, Object, update_req_dto_1.UpdateMyPetReqDto]),
+    __metadata("design:paramtypes", [Object, Number, Object, update_req_dto_1.UpdateMyPetReqDto]),
     __metadata("design:returntype", Promise)
 ], PetController.prototype, "update", null);
 __decorate([

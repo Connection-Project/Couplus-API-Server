@@ -32,10 +32,12 @@ export class MyPetRepository {
             .getMany();
     }
 
-    async findOneById(myPetId: number): Promise<MyPet> {
+    async findOneById(userId: number, myPetId: number): Promise<MyPet> {
         return await this.myPetRepository
             .createQueryBuilder('mp')
-            .where('id = :myPetId', { myPetId: myPetId })
+            .innerJoinAndSelect('mp.user', 'u')
+            .where('mp.id = :myPetId', { myPetId: myPetId })
+            .andWhere('mp.userId = :userId', { userId: userId })
             .getOne();
     }
 

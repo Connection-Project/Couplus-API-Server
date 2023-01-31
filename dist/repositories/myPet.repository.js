@@ -40,10 +40,12 @@ let MyPetRepository = class MyPetRepository {
             .where('u.id = :userId', { userId: userId })
             .getMany();
     }
-    async findOneById(myPetId) {
+    async findOneById(userId, myPetId) {
         return await this.myPetRepository
             .createQueryBuilder('mp')
-            .where('id = :myPetId', { myPetId: myPetId })
+            .innerJoinAndSelect('mp.user', 'u')
+            .where('mp.id = :myPetId', { myPetId: myPetId })
+            .andWhere('mp.userId = :userId', { userId: userId })
             .getOne();
     }
     async delete(myPetId, userId) {
