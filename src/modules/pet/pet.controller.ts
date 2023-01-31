@@ -56,8 +56,9 @@ export class PetController {
     @Get(':myPetId')
     @ApiCookieAuth()
     @UseGuards(AccessTokenGuard)
-    @ApiResponse({ status: 200, type: GetOneMyPetSuccessDto, description: '나의 펫 성공' })
-    @ApiResponse({ status: 401, type: GetOneMyPetFailDto, description: '나의 펫 실패' })
+    @ApiOperation({ summary: '나의 펫 상세정보' })
+    @ApiResponse({ status: 200, type: GetOneMyPetSuccessDto, description: '나의 펫 상세정보 성공' })
+    @ApiResponse({ status: 401, type: GetOneMyPetFailDto, description: '나의 펫 상세정보 실패' })
     async getMyPet(@Req() req: Request, @Param('myPetId', ParseIntPipe) myPetId: number) {
         return this.petService.getMyPet(req.user['userId'], myPetId);
     }
