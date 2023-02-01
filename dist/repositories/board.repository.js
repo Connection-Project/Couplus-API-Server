@@ -28,6 +28,37 @@ let BoardRepository = class BoardRepository {
     async save(board) {
         await this.boardRepository.save(board);
     }
+    getQuery() {
+        return this.boardRepository
+            .createQueryBuilder('b')
+            .innerJoinAndSelect('b.user', 'u')
+            .leftJoinAndSelect('b.image', 'bi')
+            .leftJoinAndSelect('b.comment', 'bc')
+            .leftJoinAndSelect('bc.reply', 'bcr');
+    }
+    async findMany(query, addWhere, limit) {
+        for (let i = 0; i < addWhere.length; i++) {
+            query.andWhere(addWhere[i].key, addWhere[i].value);
+        }
+        query.skip(0);
+        query.take(limit);
+        return query.getManyAndCount();
+    }
+    async findOne(query, addWhere) {
+        for (let i = 0; i < addWhere.length; i++) {
+            query.andWhere(addWhere[i].key, addWhere[i].value);
+        }
+        return query.getOne();
+    }
+    async delete(boardId, userId) {
+        await this.boardRepository
+            .createQueryBuilder('b')
+            .innerJoinAndSelect('b.user', 'u')
+            .delete()
+            .where('b.id = :boardId', { boardId: boardId })
+            .andWhere('u.id = :userId', { userId: userId })
+            .execute();
+    }
 };
 BoardRepository = __decorate([
     (0, common_1.Injectable)(),

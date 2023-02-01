@@ -36,7 +36,7 @@ let UserRepository = class UserRepository {
         return user;
     }
     async findByKey(key, value) {
-        return await this.userRepository.createQueryBuilder('u').where(`u.${key} = '${value}'`).getOne();
+        return await this.userRepository.createQueryBuilder('u').where(`${key} = '${value}'`).getOne();
     }
     async delete(userId) {
         await this.userRepository

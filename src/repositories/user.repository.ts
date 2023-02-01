@@ -25,7 +25,7 @@ export class UserRepository {
     }
 
     async findByKey(key: string, value: string | number): Promise<User> {
-        return await this.userRepository.createQueryBuilder('u').where(`u.${key} = '${value}'`).getOne();
+        return await this.userRepository.createQueryBuilder('u').where(`${key} = '${value}'`).getOne();
     }
 
     async delete(userId: number): Promise<void> {

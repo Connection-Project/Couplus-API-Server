@@ -16,12 +16,14 @@ const BoardImage_entity_1 = require("../../models/BoardImage.entity");
 const board_repository_1 = require("../../repositories/board.repository");
 const boardImage_repository_1 = require("../../repositories/boardImage.repository");
 const aws_service_1 = require("../../lib/aws/src/aws.service");
+const user_repository_1 = require("../../repositories/user.repository");
+const User_entity_1 = require("../../models/User.entity");
 let BoardModule = class BoardModule {
 };
 BoardModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([Board_entity_1.Board, BoardImage_entity_1.BoardImage])],
-        providers: [board_service_1.BoardService, board_repository_1.BoardRepository, boardImage_repository_1.BoardImageRepository, aws_service_1.AwsService],
+        imports: [typeorm_1.TypeOrmModule.forFeature([Board_entity_1.Board, BoardImage_entity_1.BoardImage, User_entity_1.User])],
+        providers: [board_service_1.BoardService, board_repository_1.BoardRepository, boardImage_repository_1.BoardImageRepository, aws_service_1.AwsService, user_repository_1.UserRepository],
         controllers: [board_controller_1.BoardController],
     })
 ], BoardModule);

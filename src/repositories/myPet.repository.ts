@@ -44,10 +44,10 @@ export class MyPetRepository {
     async delete(myPetId: number, userId: number): Promise<void> {
         await this.myPetRepository
             .createQueryBuilder('mp')
-            .innerJoinAndSelect('mp.user', 'u')
+            // .innerJoinAndSelect('mp.user', 'u')
             .delete()
-            .where('mp.id = :myPetId', { myPetId: myPetId })
-            .andWhere('u.id = :userId', { userId: userId })
+            .where('id = :myPetId', { myPetId: myPetId })
+            .andWhere('userId = :userId', { userId: userId })
             .execute();
     }
 

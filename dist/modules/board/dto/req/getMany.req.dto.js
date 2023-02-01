@@ -9,21 +9,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateBoardReqDto = void 0;
+exports.GetManyBoardReqDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
-class CreateBoardReqDto {
+class GetManyBoardReqDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ description: '게시글 타입 영어 or 한글로 통일되게 보내주면됨' }),
-    __metadata("design:type", String)
-], CreateBoardReqDto.prototype, "type", void 0);
-__decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], CreateBoardReqDto.prototype, "title", void 0);
+], GetManyBoardReqDto.prototype, "type", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", String)
-], CreateBoardReqDto.prototype, "content", void 0);
-exports.CreateBoardReqDto = CreateBoardReqDto;
-//# sourceMappingURL=create.req.dto.js.map
+    __metadata("design:type", Number)
+], GetManyBoardReqDto.prototype, "limit", void 0);
+exports.GetManyBoardReqDto = GetManyBoardReqDto;
+//# sourceMappingURL=getMany.req.dto.js.map
