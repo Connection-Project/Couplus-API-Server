@@ -45,7 +45,7 @@ export class BoardController {
     @ApiOperation({ summary: '게시글 리스트' })
     @ApiResponse({ status: 200, type: GetManyBoardSuccessDto, description: '게시글 리스트 성공' })
     @ApiResponse({ status: 401, type: GetManyBoardFailDto, description: '게시글 리스트 실패' })
-    async getBoards(@Req() req: Request, body: GetManyBoardReqDto) {
+    async getBoards(@Req() req: Request, @Body() body: GetManyBoardReqDto) {
         return this.boardService.getBoards(req.user['userId'], body);
     }
 

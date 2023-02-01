@@ -62,6 +62,7 @@ __decorate([
     (0, swagger_1.ApiResponse)({ status: 200, type: getMany_res_dto_1.GetManyBoardSuccessDto, description: '게시글 리스트 성공' }),
     (0, swagger_1.ApiResponse)({ status: 401, type: getMany_res_dto_1.GetManyBoardFailDto, description: '게시글 리스트 실패' }),
     __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, getMany_req_dto_1.GetManyBoardReqDto]),
     __metadata("design:returntype", Promise)
