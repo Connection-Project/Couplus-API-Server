@@ -9,4 +9,7 @@ export class CreateBoardReqDto {
 
     @ApiProperty()
     content: string;
+
+    @ApiProperty()
+    board?: File[];
 }

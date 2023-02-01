@@ -25,5 +25,9 @@ __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
 ], CreateBoardReqDto.prototype, "content", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", Array)
+], CreateBoardReqDto.prototype, "board", void 0);
 exports.CreateBoardReqDto = CreateBoardReqDto;
 //# sourceMappingURL=create.req.dto.js.map

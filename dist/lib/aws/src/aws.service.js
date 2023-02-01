@@ -33,6 +33,9 @@ let AwsService = class AwsService {
         if (file.fieldname === 'profile') {
             location = `pet/profile/${filename}`;
         }
+        else if (file.fieldname === 'board') {
+            location = `board/${filename}`;
+        }
         const params = {
             Bucket: 'pet-img',
             ACL: 'private',
