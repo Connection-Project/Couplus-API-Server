@@ -29,7 +29,7 @@ export class MyPetRepository {
             .createQueryBuilder('mp')
             .innerJoinAndSelect('mp.user', 'u')
             .where('u.id = :userId', { userId: userId })
-            .orderBy('id', 'DESC')
+            .orderBy('mp.id', 'DESC')
             .getMany();
     }
 
