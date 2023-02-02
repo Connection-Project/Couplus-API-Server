@@ -97,15 +97,15 @@ let PetService = class PetService {
             let resultCode = 0;
             const myPet = await this.myPetRepository.findOneById(userId, myPetId);
             if (myPet) {
-                if (name)
+                if (name !== '')
                     myPet.name = name;
-                if (breed)
+                if (breed !== '')
                     myPet.breed = breed;
-                if (gender)
+                if (gender !== '')
                     myPet.gender = gender;
-                if (birthDay)
+                if (birthDay !== '')
                     myPet.birthDay = new Date(birthDay);
-                if (togetherDay)
+                if (togetherDay !== '')
                     myPet.togetherDay = new Date(togetherDay);
                 if (file) {
                     const res = await this.awsService.uploadImage(file);

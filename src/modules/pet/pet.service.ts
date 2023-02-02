@@ -102,11 +102,11 @@ export class PetService {
             let resultCode = 0;
             const myPet: MyPet = await this.myPetRepository.findOneById(userId, myPetId);
             if (myPet) {
-                if (name) myPet.name = name;
-                if (breed) myPet.breed = breed;
-                if (gender) myPet.gender = gender;
-                if (birthDay) myPet.birthDay = new Date(birthDay);
-                if (togetherDay) myPet.togetherDay = new Date(togetherDay);
+                if (name !== '') myPet.name = name;
+                if (breed !== '') myPet.breed = breed;
+                if (gender !== '') myPet.gender = gender;
+                if (birthDay !== '') myPet.birthDay = new Date(birthDay);
+                if (togetherDay !== '') myPet.togetherDay = new Date(togetherDay);
                 // ! 파일이 존재할 시 프로필 이미지 수정
                 if (file) {
                     const res = await this.awsService.uploadImage(file);
