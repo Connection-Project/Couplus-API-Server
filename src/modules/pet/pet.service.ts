@@ -131,7 +131,7 @@ export class PetService {
                 status = 201;
                 resultCode = 1322;
             }
-            return { status: status, data: { reusltCode: resultCode, data: null } };
+            return { status: status, data: { resultCode: resultCode, data: null } };
         } catch (err) {
             // TODO : 서버 에러시 이미지 파일 삭제
             console.log(err);

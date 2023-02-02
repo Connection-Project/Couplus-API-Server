@@ -131,7 +131,7 @@ let PetService = class PetService {
                 status = 201;
                 resultCode = 1322;
             }
-            return { status: status, data: { reusltCode: resultCode, data: null } };
+            return { status: status, data: { resultCode: resultCode, data: null } };
         }
         catch (err) {
             console.log(err);
