@@ -142,6 +142,12 @@ export class PetService {
 
     async delete(userId: number, myPetId: number): Promise<any> {
         try {
+            const myPet: MyPet = await this.myPetRepository.findOneById(userId, myPetId);
+            // ! 기존 파일 삭제
+            await this.awsService.s3Delete({
+                Bucket: 'pet-img',
+                Key: myPet.imageKey,
+            });
             await this.myPetRepository.delete(myPetId, userId);
             return { status: 200, data: { resultCode: 1, data: null } };
         } catch (err) {

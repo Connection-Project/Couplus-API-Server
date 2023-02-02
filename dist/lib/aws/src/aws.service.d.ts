@@ -4,5 +4,5 @@ export declare class AwsService {
     private readonly s3;
     constructor();
     uploadImage(file: any): Promise<AWS.S3.ManagedUpload.SendData>;
-    s3Delete(param: S3DeleteParam): void;
+    s3Delete(param: S3DeleteParam): Promise<void>;
 }

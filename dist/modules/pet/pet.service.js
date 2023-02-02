@@ -141,6 +141,11 @@ let PetService = class PetService {
     }
     async delete(userId, myPetId) {
         try {
+            const myPet = await this.myPetRepository.findOneById(userId, myPetId);
+            await this.awsService.s3Delete({
+                Bucket: 'pet-img',
+                Key: myPet.imageKey,
+            });
             await this.myPetRepository.delete(myPetId, userId);
             return { status: 200, data: { resultCode: 1, data: null } };
         }

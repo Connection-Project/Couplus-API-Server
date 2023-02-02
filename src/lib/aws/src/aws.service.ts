@@ -37,10 +37,12 @@ export class AwsService {
         return result;
     }
 
-    s3Delete(param: S3DeleteParam) {
-        this.s3.deleteObject(param, (err, data) => {
-            if (err) console.log('S3 - Delete Fail' + err);
-            else console.log('S3 - Delete Success');
-        });
+    async s3Delete(param: S3DeleteParam) {
+        try {
+            const result = await this.s3.deleteObject(param).promise();
+            console.log('S3 - Delete Success');
+        } catch (err) {
+            console.log('S3 - Delete Fail' + err);
+        }
     }
 }
