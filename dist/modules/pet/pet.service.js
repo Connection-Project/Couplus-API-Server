@@ -94,8 +94,6 @@ let PetService = class PetService {
     async update(userId, myPetId, file, body) {
         try {
             const { name, breed, gender, birthDay, togetherDay } = body;
-            console.log(birthDay);
-            console.log(togetherDay);
             let status = 0;
             let resultCode = 0;
             const myPet = await this.myPetRepository.findOneById(userId, myPetId);
@@ -110,8 +108,11 @@ let PetService = class PetService {
                     myPet.birthDay = new Date(birthDay);
                 if (togetherDay !== '' && birthDay !== null)
                     myPet.togetherDay = new Date(togetherDay);
+                console.log(file);
                 if (file) {
+                    console.log('파일 존재');
                     const res = await this.awsService.uploadImage(file);
+                    console.log(res);
                     if (res) {
                         this.awsService.s3Delete({
                             Bucket: 'pet-img',
