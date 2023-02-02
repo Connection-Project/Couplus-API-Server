@@ -93,6 +93,8 @@ let PetService = class PetService {
     async update(userId, myPetId, file, body) {
         try {
             const { name, breed, gender, birthDay, togetherDay } = body;
+            console.log(birthDay);
+            console.log(togetherDay);
             let status = 0;
             let resultCode = 0;
             const myPet = await this.myPetRepository.findOneById(userId, myPetId);
@@ -103,9 +105,9 @@ let PetService = class PetService {
                     myPet.breed = breed;
                 if (gender !== '')
                     myPet.gender = gender;
-                if (birthDay !== '')
+                if (birthDay !== '' && birthDay !== null)
                     myPet.birthDay = new Date(birthDay);
-                if (togetherDay !== '')
+                if (togetherDay !== '' && birthDay !== null)
                     myPet.togetherDay = new Date(togetherDay);
                 if (file) {
                     const res = await this.awsService.uploadImage(file);
