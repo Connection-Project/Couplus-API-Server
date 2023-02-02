@@ -38,6 +38,7 @@ let MyPetRepository = class MyPetRepository {
             .createQueryBuilder('mp')
             .innerJoinAndSelect('mp.user', 'u')
             .where('u.id = :userId', { userId: userId })
+            .orderBy('id', 'DESC')
             .getMany();
     }
     async findOneById(userId, myPetId) {
