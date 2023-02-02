@@ -108,11 +108,8 @@ let PetService = class PetService {
                     myPet.birthDay = new Date(birthDay);
                 if (togetherDay !== '' && birthDay !== null)
                     myPet.togetherDay = new Date(togetherDay);
-                console.log(file);
                 if (file) {
-                    console.log('파일 존재');
                     const res = await this.awsService.uploadImage(file);
-                    console.log(res);
                     if (res) {
                         this.awsService.s3Delete({
                             Bucket: 'pet-img',

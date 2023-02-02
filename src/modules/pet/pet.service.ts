@@ -109,11 +109,8 @@ export class PetService {
                 if (birthDay !== '' && birthDay !== null) myPet.birthDay = new Date(birthDay);
                 if (togetherDay !== '' && birthDay !== null) myPet.togetherDay = new Date(togetherDay);
                 // ! 파일이 존재할 시 프로필 이미지 수정
-                console.log(file);
                 if (file) {
-                    console.log('파일 존재');
                     const res = await this.awsService.uploadImage(file);
-                    console.log(res);
                     if (res) {
                         // ! 기존 파일 삭제
                         this.awsService.s3Delete({
