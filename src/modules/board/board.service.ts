@@ -49,6 +49,7 @@ export class BoardService {
     async getBoards(userId: number, body: GetManyBoardReqDto): Promise<any> {
         try {
             const { type, limit } = body;
+            console.log(body);
             const query = this.boardRepository.getQuery();
             const boardWhere = [
                 {

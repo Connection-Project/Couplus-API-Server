@@ -38,6 +38,7 @@ export class BoardRepository {
         }
         query.skip(0);
         query.take(limit);
+        query.getQuery();
         return query.getManyAndCount();
     }
 

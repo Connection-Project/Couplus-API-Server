@@ -53,6 +53,7 @@ let BoardService = class BoardService {
     async getBoards(userId, body) {
         try {
             const { type, limit } = body;
+            console.log(body);
             const query = this.boardRepository.getQuery();
             const boardWhere = [
                 {
