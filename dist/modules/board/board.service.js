@@ -75,7 +75,7 @@ let BoardService = class BoardService {
                 items[i] = {
                     boardId: row[i].id,
                     writer: row[i].user.nickName,
-                    image: row[i].image[0].path,
+                    image: row[i].image.length > 0 ? row[i].image[0].path : null,
                     title: row[i].title,
                     content: row[i].content,
                     createdAt: (0, date_1.formatDateParam)(row[i].createdAt),
