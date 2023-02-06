@@ -214,7 +214,7 @@ export class BoardService {
 
                 liked = true;
             }
-            return { status: 200, data: { resultCode: 1, data: { liekd: liked } } };
+            return { status: 200, data: { resultCode: 1, data: { liked: liked } } };
         } catch (err) {
             console.log(err);
             return { status: 400, data: { resultCode: 1441, data: null } };

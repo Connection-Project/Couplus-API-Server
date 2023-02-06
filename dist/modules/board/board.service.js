@@ -212,7 +212,7 @@ let BoardService = class BoardService {
                 await this.boardLikedRepository.save(newLiked);
                 liked = true;
             }
-            return { status: 200, data: { resultCode: 1, data: { liekd: liked } } };
+            return { status: 200, data: { resultCode: 1, data: { liked: liked } } };
         }
         catch (err) {
             console.log(err);
