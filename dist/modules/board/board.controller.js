@@ -33,7 +33,6 @@ let BoardController = class BoardController {
         this.boardService = boardService;
     }
     async create(req, files, body) {
-        console.log(files);
         return await this.boardService.create(req.user['userId'], files, body);
     }
     async getBoards(req, body) {
@@ -62,7 +61,7 @@ __decorate([
     (0, swagger_1.ApiResponse)({ status: 200, type: result_res_dto_1.ResultSuccessDto, description: '게시글 등록 성공' }),
     (0, swagger_1.ApiResponse)({ status: 400, type: create_res_dto_1.CreateBoardFailDto, description: '게시글 등록 실패' }),
     __param(0, (0, common_1.Req)()),
-    __param(1, (0, common_1.UploadedFile)()),
+    __param(1, (0, common_1.UploadedFiles)()),
     __param(2, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Array, create_req_dto_1.CreateBoardReqDto]),
@@ -105,7 +104,7 @@ __decorate([
     (0, swagger_1.ApiResponse)({ status: 201, type: update_res_dto_1.UnauthorizedUpdateBoard, description: '수정 권한 없음' }),
     (0, swagger_1.ApiResponse)({ status: 400, type: update_res_dto_1.UpdateBoardFailDto, description: '게시글 수정하기 실패' }),
     __param(0, (0, common_1.Req)()),
-    __param(1, (0, common_1.UploadedFile)()),
+    __param(1, (0, common_1.UploadedFiles)()),
     __param(2, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Array, update_req_dto_1.UpdateBoardReqDto]),

@@ -9,10 +9,11 @@ import {
     Post,
     Req,
     UploadedFile,
+    UploadedFiles,
     UseGuards,
     UseInterceptors,
 } from '@nestjs/common';
-import { FilesInterceptor } from '@nestjs/platform-express';
+import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { ApiConsumes, ApiCookieAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
 import { AccessTokenGuard } from 'src/lib/jwt/guards/accessToken.guard';
@@ -41,8 +42,7 @@ export class BoardController {
     @ApiOperation({ summary: '게시글 등록' })
     @ApiResponse({ status: 200, type: ResultSuccessDto, description: '게시글 등록 성공' })
     @ApiResponse({ status: 400, type: CreateBoardFailDto, description: '게시글 등록 실패' })
-    async create(@Req() req: Request, @UploadedFile() files: File[], @Body() body: CreateBoardReqDto) {
-        console.log(files);
+    async create(@Req() req: Request, @UploadedFiles() files: File[], @Body() body: CreateBoardReqDto) {
         return await this.boardService.create(req.user['userId'], files, body);
     }
 
@@ -75,7 +75,7 @@ export class BoardController {
     @ApiResponse({ status: 200, type: ResultSuccessDto, description: '게시글 수정하기 성공' })
     @ApiResponse({ status: 201, type: UnauthorizedUpdateBoard, description: '수정 권한 없음' })
     @ApiResponse({ status: 400, type: UpdateBoardFailDto, description: '게시글 수정하기 실패' })
-    async update(@Req() req: Request, @UploadedFile() files: File[], @Body() body: UpdateBoardReqDto) {
+    async update(@Req() req: Request, @UploadedFiles() files: File[], @Body() body: UpdateBoardReqDto) {
         return await this.boardService.update(req.user['userId'], files, body);
     }
 
