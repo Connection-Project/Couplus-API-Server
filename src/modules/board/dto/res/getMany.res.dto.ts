@@ -23,6 +23,9 @@ export class GetManyBoardItemObj {
     likedCount: number;
 
     @ApiProperty()
+    commentCount: number;
+
+    @ApiProperty()
     createdAt: string;
 }
 

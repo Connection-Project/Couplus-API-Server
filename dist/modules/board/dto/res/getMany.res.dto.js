@@ -43,6 +43,10 @@ __decorate([
 ], GetManyBoardItemObj.prototype, "likedCount", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", Number)
+], GetManyBoardItemObj.prototype, "commentCount", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
 ], GetManyBoardItemObj.prototype, "createdAt", void 0);
 exports.GetManyBoardItemObj = GetManyBoardItemObj;

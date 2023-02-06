@@ -6,6 +6,7 @@ export declare class GetManyBoardItemObj {
     content: string;
     liked: boolean;
     likedCount: number;
+    commentCount: number;
     createdAt: string;
 }
 export declare class GetManyBoardObj {

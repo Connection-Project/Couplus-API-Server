@@ -87,6 +87,7 @@ export class BoardService {
                     content: row[i].content,
                     liked: liked,
                     likedCount: boardLikeds,
+                    commentCount: row[i].comment.length,
                     createdAt: formatDateParam(row[i].createdAt),
                 };
             }

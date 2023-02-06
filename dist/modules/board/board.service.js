@@ -87,6 +87,7 @@ let BoardService = class BoardService {
                     content: row[i].content,
                     liked: liked,
                     likedCount: boardLikeds,
+                    commentCount: row[i].comment.length,
                     createdAt: (0, date_1.formatDateParam)(row[i].createdAt),
                 };
             }
