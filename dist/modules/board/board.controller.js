@@ -33,6 +33,7 @@ let BoardController = class BoardController {
         this.boardService = boardService;
     }
     async create(req, files, body) {
+        console.log(files);
         return await this.boardService.create(req.user['userId'], files, body);
     }
     async getBoards(req, body) {
@@ -42,6 +43,7 @@ let BoardController = class BoardController {
         return await this.boardService.getOneBoard(req.user['userId'], boardId);
     }
     async update(req, files, body) {
+        console.log(files);
         return await this.boardService.update(req.user['userId'], files, body);
     }
     async delete(req, boardId) {
