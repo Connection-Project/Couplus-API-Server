@@ -52,10 +52,9 @@ export class BoardRepository {
     async delete(boardId: number, userId: number): Promise<void> {
         await this.boardRepository
             .createQueryBuilder('b')
-            .innerJoinAndSelect('b.user', 'u')
             .delete()
-            .where('b.id = :boardId', { boardId: boardId })
-            .andWhere('u.id = :userId', { userId: userId })
+            .where('id = :boardId', { boardId: boardId })
+            .andWhere('userId = :userId', { userId: userId })
             .execute();
     }
 

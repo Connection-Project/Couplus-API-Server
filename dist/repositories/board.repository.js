@@ -54,10 +54,9 @@ let BoardRepository = class BoardRepository {
     async delete(boardId, userId) {
         await this.boardRepository
             .createQueryBuilder('b')
-            .innerJoinAndSelect('b.user', 'u')
             .delete()
-            .where('b.id = :boardId', { boardId: boardId })
-            .andWhere('u.id = :userId', { userId: userId })
+            .where('id = :boardId', { boardId: boardId })
+            .andWhere('userId = :userId', { userId: userId })
             .execute();
     }
     async findOneByIdAndUserId(userId, boardId) {
