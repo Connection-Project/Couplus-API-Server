@@ -42,6 +42,7 @@ export class BoardController {
     @ApiResponse({ status: 200, type: ResultSuccessDto, description: '게시글 등록 성공' })
     @ApiResponse({ status: 400, type: CreateBoardFailDto, description: '게시글 등록 실패' })
     async create(@Req() req: Request, @UploadedFile() files: File[], @Body() body: CreateBoardReqDto) {
+        console.log(files);
         return await this.boardService.create(req.user['userId'], files, body);
     }
 

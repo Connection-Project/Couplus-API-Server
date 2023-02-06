@@ -33,6 +33,7 @@ let BoardController = class BoardController {
         this.boardService = boardService;
     }
     async create(req, files, body) {
+        console.log(files);
         return await this.boardService.create(req.user['userId'], files, body);
     }
     async getBoards(req, body) {
