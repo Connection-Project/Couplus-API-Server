@@ -125,7 +125,8 @@ let BoardService = class BoardService {
             const data = {
                 boardId: board.id,
                 writer: board.user.nickName,
-                title: board.id,
+                type: board.type,
+                title: board.title,
                 content: board.content,
                 images: images,
                 liked: boardLiked ? true : false,

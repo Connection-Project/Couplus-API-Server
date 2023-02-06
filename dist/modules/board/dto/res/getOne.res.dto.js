@@ -24,6 +24,10 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
+], GetOneBoardObj.prototype, "type", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
 ], GetOneBoardObj.prototype, "title", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),

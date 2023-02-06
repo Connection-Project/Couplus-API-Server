@@ -1,6 +1,7 @@
 export declare class GetOneBoardObj {
     boardId: number;
     writer: string;
+    type: string;
     title: string;
     content: string;
     images: string[];
