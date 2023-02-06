@@ -8,6 +8,9 @@ export class GetOneBoardObj {
     writer: string;
 
     @ApiProperty()
+    type: string;
+
+    @ApiProperty()
     title: string;
 
     @ApiProperty()
