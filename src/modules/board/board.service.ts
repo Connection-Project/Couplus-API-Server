@@ -88,7 +88,7 @@ export class BoardService {
                     liked: liked,
                     likedCount: boardLikeds,
                     commentCount: row[i].comment.length,
-                    createdAt: formatDateParam(row[i].createdAt),
+                    createdAt: row[i].createdAt.toISOString().substring(0, 10),
                 };
             }
             return { status: 200, data: { resultCode: 1, data: { items: items, count: cnt } } };
@@ -120,12 +120,17 @@ export class BoardService {
             board.image.forEach((o) => {
                 images.push(o.path);
             });
+            const boardLiked: BoardLiked = await this.boardLikedRepository.findOne(userId, board.id);
+            const boardLikeds = await this.boardLikedRepository.getCount(userId, board.id);
             const data = {
                 boardId: board.id,
                 writer: board.user.nickName,
                 title: board.id,
                 content: board.content,
                 images: images,
+                liked: boardLiked ? true : false,
+                likedCount: boardLikeds,
+                commentCount: board.comment.length,
                 createdAt: formatDateParam(board.createdAt),
             };
             return { status: 200, data: { resultCode: 1, data: data } };

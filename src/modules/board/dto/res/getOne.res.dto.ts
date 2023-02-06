@@ -17,6 +17,15 @@ export class GetOneBoardObj {
     images: string[];
 
     @ApiProperty()
+    liked: boolean;
+
+    @ApiProperty()
+    likedCount: number;
+
+    @ApiProperty()
+    commentCount: number;
+
+    @ApiProperty()
     createdAt: string;
 }
 

@@ -4,6 +4,9 @@ export declare class GetOneBoardObj {
     title: string;
     content: string;
     images: string[];
+    liked: boolean;
+    likedCount: number;
+    commentCount: number;
     createdAt: string;
 }
 export declare class GetOneBoardSuccessDto {
