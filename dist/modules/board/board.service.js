@@ -16,10 +16,12 @@ const aws_service_1 = require("../../lib/aws/src/aws.service");
 const board_repository_1 = require("../../repositories/board.repository");
 const boardImage_repository_1 = require("../../repositories/boardImage.repository");
 const date_1 = require("../../utils/date");
+const boardLiked_repository_1 = require("../../repositories/boardLiked.repository");
 let BoardService = class BoardService {
-    constructor(boardRepository, boardImageRepository, userRepository, awsService) {
+    constructor(boardRepository, boardImageRepository, boardLikedRepository, userRepository, awsService) {
         this.boardRepository = boardRepository;
         this.boardImageRepository = boardImageRepository;
+        this.boardLikedRepository = boardLikedRepository;
         this.userRepository = userRepository;
         this.awsService = awsService;
     }
@@ -41,6 +43,7 @@ let BoardService = class BoardService {
                     boardImage.originalName = Key;
                     boardImage.path = Location;
                     boardImage.board = board;
+                    await this.boardImageRepository.save(boardImage);
                 }
             }
             return { status: 200, data: { resultCode: 1, data: null } };
@@ -53,7 +56,6 @@ let BoardService = class BoardService {
     async getBoards(userId, body) {
         try {
             const { type, limit } = body;
-            console.log(body);
             const query = this.boardRepository.getQuery();
             const boardWhere = [
                 {
@@ -72,12 +74,19 @@ let BoardService = class BoardService {
             const [row, cnt] = await this.boardRepository.findMany(query, boardWhere, limit);
             const items = [];
             for (let i = 0; i < row.length; i++) {
+                let liked = false;
+                const boardLiked = await this.boardLikedRepository.findOne(userId, row[i].id);
+                const boardLikeds = await this.boardLikedRepository.getCount(userId, row[i].id);
+                if (boardLiked)
+                    liked = true;
                 items[i] = {
                     boardId: row[i].id,
                     writer: row[i].user.nickName,
                     image: row[i].image.length > 0 ? row[i].image[0].path : null,
                     title: row[i].title,
                     content: row[i].content,
+                    liked: liked,
+                    likedCount: boardLikeds,
                     createdAt: (0, date_1.formatDateParam)(row[i].createdAt),
                 };
             }
@@ -125,11 +134,89 @@ let BoardService = class BoardService {
             return { status: 400, data: { resultCode: 1411, data: null } };
         }
     }
+    async update(userId, files, body) {
+        try {
+            const { boardId, title, content, deleteImages } = body;
+            const board = await this.boardRepository.findOneByIdAndUserId(userId, boardId);
+            if (board) {
+                if (title !== '')
+                    board.title = title;
+                if (content !== '')
+                    board.content = content;
+                if (files) {
+                    for (let i = 0; i < files.length; i++) {
+                        const result = await this.awsService.uploadImage(files[i]);
+                        const { Key, Location } = result;
+                        const boardImage = this.boardImageRepository.create();
+                        boardImage.originalName = Key;
+                        boardImage.path = Location;
+                        boardImage.board = board;
+                        await this.boardImageRepository.save(boardImage);
+                    }
+                }
+                if (deleteImages.length > 0) {
+                    deleteImages.forEach(async (o) => {
+                        const boardImage = await this.boardImageRepository.getOneByPath(o);
+                        await this.awsService.s3Delete({
+                            Bucket: 'pet-img',
+                            Key: boardImage.originalName,
+                        });
+                    });
+                }
+                return { status: 200, data: { resultCode: 1, data: null } };
+            }
+            else {
+                return { status: 201, data: { resultCode: 1422, data: null } };
+            }
+        }
+        catch (err) {
+            console.log(err);
+            return { status: 400, data: { resultCode: 1421, data: null } };
+        }
+    }
+    async delete(userId, boardId) {
+        try {
+            const board = await this.boardRepository.findOneByIdAndUserId(userId, boardId);
+            if (board) {
+                await this.boardRepository.delete(boardId, userId);
+                return { status: 200, data: { resultCode: 1, data: null } };
+            }
+            else {
+                return { status: 201, data: { resultCode: 1432, data: null } };
+            }
+        }
+        catch (err) {
+            console.log(err);
+            return { status: 400, data: { resultCode: 1431, data: null } };
+        }
+    }
+    async createLiked(userId, boardId) {
+        try {
+            const boardLiked = await this.boardLikedRepository.findOne(userId, boardId);
+            let liked = false;
+            if (boardLiked) {
+                await this.boardLikedRepository.delete(userId, boardId);
+            }
+            else {
+                const newLiked = this.boardLikedRepository.create();
+                newLiked.userId = userId;
+                newLiked.boardId = boardId;
+                await this.boardLikedRepository.save(newLiked);
+                liked = true;
+            }
+            return { status: 200, data: { resultCode: 1, data: { liekd: liked } } };
+        }
+        catch (err) {
+            console.log(err);
+            return { status: 400, data: { resultCode: 1441, data: null } };
+        }
+    }
 };
 BoardService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [board_repository_1.BoardRepository,
         boardImage_repository_1.BoardImageRepository,
+        boardLiked_repository_1.BoardLikedRepository,
         user_repository_1.UserRepository,
         aws_service_1.AwsService])
 ], BoardService);

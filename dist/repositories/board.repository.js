@@ -60,6 +60,14 @@ let BoardRepository = class BoardRepository {
             .andWhere('u.id = :userId', { userId: userId })
             .execute();
     }
+    async findOneByIdAndUserId(userId, boardId) {
+        return await this.boardRepository
+            .createQueryBuilder('b')
+            .innerJoinAndSelect('b.user', 'u')
+            .where('b.id = :boardId', { boardId: boardId })
+            .andWhere('u.id = :userId', { userId: userId })
+            .getOne();
+    }
 };
 BoardRepository = __decorate([
     (0, common_1.Injectable)(),

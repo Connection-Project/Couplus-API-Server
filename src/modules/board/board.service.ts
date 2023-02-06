@@ -9,12 +9,16 @@ import { User } from 'src/models/User.entity';
 import { BoardImage } from 'src/models/BoardImage.entity';
 import { GetManyBoardReqDto } from './dto/req/getMany.req.dto';
 import { formatDateParam } from 'src/utils/date';
+import { UpdateBoardReqDto } from './dto/req/update.req.dto';
+import { BoardLiked } from 'src/models/BoardLiked.entity';
+import { BoardLikedRepository } from 'src/repositories/boardLiked.repository';
 
 @Injectable()
 export class BoardService {
     constructor(
         private readonly boardRepository: BoardRepository,
         private readonly boardImageRepository: BoardImageRepository,
+        private readonly boardLikedRepository: BoardLikedRepository,
         private readonly userRepository: UserRepository,
         private readonly awsService: AwsService,
     ) {}
@@ -37,6 +41,7 @@ export class BoardService {
                     boardImage.originalName = Key;
                     boardImage.path = Location;
                     boardImage.board = board;
+                    await this.boardImageRepository.save(boardImage);
                 }
             }
             return { status: 200, data: { resultCode: 1, data: null } };
@@ -49,7 +54,6 @@ export class BoardService {
     async getBoards(userId: number, body: GetManyBoardReqDto): Promise<any> {
         try {
             const { type, limit } = body;
-            console.log(body);
             const query = this.boardRepository.getQuery();
             const boardWhere = [
                 {
@@ -68,12 +72,21 @@ export class BoardService {
             const [row, cnt] = await this.boardRepository.findMany(query, boardWhere, limit);
             const items = [];
             for (let i = 0; i < row.length; i++) {
+                // ! 게시글의 좋아요를 판별(내 좋아요 유무)
+                let liked = false;
+                const boardLiked: BoardLiked = await this.boardLikedRepository.findOne(userId, row[i].id);
+                const boardLikeds = await this.boardLikedRepository.getCount(userId, row[i].id);
+
+                // ! 해당 게시글에 좋아요를 눌렀다면 true
+                if (boardLiked) liked = true;
                 items[i] = {
                     boardId: row[i].id,
                     writer: row[i].user.nickName,
                     image: row[i].image.length > 0 ? row[i].image[0].path : null,
                     title: row[i].title,
                     content: row[i].content,
+                    liked: liked,
+                    likedCount: boardLikeds,
                     createdAt: formatDateParam(row[i].createdAt),
                 };
             }
@@ -118,6 +131,85 @@ export class BoardService {
         } catch (err) {
             console.log(err);
             return { status: 400, data: { resultCode: 1411, data: null } };
+        }
+    }
+
+    async update(userId: number, files: File[], body: UpdateBoardReqDto): Promise<any> {
+        try {
+            const { boardId, title, content, deleteImages } = body;
+            const board: Board = await this.boardRepository.findOneByIdAndUserId(userId, boardId);
+            if (board) {
+                if (title !== '') board.title = title;
+                if (content !== '') board.content = content;
+
+                // ! 이미지 파일이 전송 될 경우 등록
+                if (files) {
+                    for (let i = 0; i < files.length; i++) {
+                        const result = await this.awsService.uploadImage(files[i]);
+                        const { Key, Location } = result;
+                        const boardImage: BoardImage = this.boardImageRepository.create();
+                        boardImage.originalName = Key;
+                        boardImage.path = Location;
+                        boardImage.board = board;
+                        await this.boardImageRepository.save(boardImage);
+                    }
+                }
+
+                // ! 삭제 할 이미지가 존재 할 경우
+                if (deleteImages.length > 0) {
+                    deleteImages.forEach(async (o) => {
+                        const boardImage: BoardImage = await this.boardImageRepository.getOneByPath(o);
+                        await this.awsService.s3Delete({
+                            Bucket: 'pet-img',
+                            Key: boardImage.originalName,
+                        });
+                    });
+                }
+
+                return { status: 200, data: { resultCode: 1, data: null } };
+            } else {
+                return { status: 201, data: { resultCode: 1422, data: null } };
+            }
+        } catch (err) {
+            console.log(err);
+            return { status: 400, data: { resultCode: 1421, data: null } };
+        }
+    }
+
+    async delete(userId: number, boardId: number): Promise<any> {
+        try {
+            const board: Board = await this.boardRepository.findOneByIdAndUserId(userId, boardId);
+            if (board) {
+                await this.boardRepository.delete(boardId, userId);
+                return { status: 200, data: { resultCode: 1, data: null } };
+            } else {
+                // ! 접근 권한 없음
+                return { status: 201, data: { resultCode: 1432, data: null } };
+            }
+        } catch (err) {
+            console.log(err);
+            return { status: 400, data: { resultCode: 1431, data: null } };
+        }
+    }
+
+    async createLiked(userId: number, boardId: number): Promise<any> {
+        try {
+            const boardLiked: BoardLiked = await this.boardLikedRepository.findOne(userId, boardId);
+            let liked = false;
+            if (boardLiked) {
+                await this.boardLikedRepository.delete(userId, boardId);
+            } else {
+                const newLiked: BoardLiked = this.boardLikedRepository.create();
+                newLiked.userId = userId;
+                newLiked.boardId = boardId;
+                await this.boardLikedRepository.save(newLiked);
+
+                liked = true;
+            }
+            return { status: 200, data: { resultCode: 1, data: { liekd: liked } } };
+        } catch (err) {
+            console.log(err);
+            return { status: 400, data: { resultCode: 1441, data: null } };
         }
     }
 }

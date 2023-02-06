@@ -58,4 +58,13 @@ export class BoardRepository {
             .andWhere('u.id = :userId', { userId: userId })
             .execute();
     }
+
+    async findOneByIdAndUserId(userId: number, boardId: number): Promise<Board> {
+        return await this.boardRepository
+            .createQueryBuilder('b')
+            .innerJoinAndSelect('b.user', 'u')
+            .where('b.id = :boardId', { boardId: boardId })
+            .andWhere('u.id = :userId', { userId: userId })
+            .getOne();
+    }
 }

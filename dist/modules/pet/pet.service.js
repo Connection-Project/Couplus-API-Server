@@ -23,7 +23,6 @@ let PetService = class PetService {
     }
     async create(userId, file, body) {
         try {
-            console.log(file);
             const user = await this.userRepository.findByKey('id', userId);
             let imageKey = null;
             let imagePath = null;

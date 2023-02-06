@@ -27,6 +27,13 @@ let BoardImageRepository = class BoardImageRepository {
     }
     async save(boardImage) {
         await this.boardImageRepository.save(boardImage);
+        return;
+    }
+    async getOneByPath(path) {
+        return await this.boardImageRepository
+            .createQueryBuilder('bi')
+            .where('path = :path', { path: path })
+            .getOne();
     }
 };
 BoardImageRepository = __decorate([

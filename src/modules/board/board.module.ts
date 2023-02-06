@@ -9,10 +9,19 @@ import { BoardImageRepository } from 'src/repositories/boardImage.repository';
 import { AwsService } from 'src/lib/aws/src/aws.service';
 import { UserRepository } from 'src/repositories/user.repository';
 import { User } from 'src/models/User.entity';
+import { BoardLiked } from 'src/models/BoardLiked.entity';
+import { BoardLikedRepository } from 'src/repositories/boardLiked.repository';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Board, BoardImage, User])],
-    providers: [BoardService, BoardRepository, BoardImageRepository, AwsService, UserRepository],
+    imports: [TypeOrmModule.forFeature([Board, BoardImage, BoardLiked, User])],
+    providers: [
+        BoardService,
+        BoardRepository,
+        BoardImageRepository,
+        BoardLikedRepository,
+        AwsService,
+        UserRepository,
+    ],
     controllers: [BoardController],
 })
 export class BoardModule {}

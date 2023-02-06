@@ -35,6 +35,14 @@ __decorate([
 ], GetManyBoardItemObj.prototype, "content", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", Boolean)
+], GetManyBoardItemObj.prototype, "liked", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", Number)
+], GetManyBoardItemObj.prototype, "likedCount", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
 ], GetManyBoardItemObj.prototype, "createdAt", void 0);
 exports.GetManyBoardItemObj = GetManyBoardItemObj;

@@ -17,6 +17,12 @@ export class GetManyBoardItemObj {
     content: string;
 
     @ApiProperty()
+    liked: boolean;
+
+    @ApiProperty()
+    likedCount: number;
+
+    @ApiProperty()
     createdAt: string;
 }
 

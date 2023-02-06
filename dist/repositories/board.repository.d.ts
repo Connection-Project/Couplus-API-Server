@@ -9,4 +9,5 @@ export declare class BoardRepository {
     findMany(query: SelectQueryBuilder<Board>, addWhere: any[], limit: number): Promise<[Board[], number]>;
     findOne(query: SelectQueryBuilder<Board>, addWhere: any[]): Promise<Board>;
     delete(boardId: number, userId: number): Promise<void>;
+    findOneByIdAndUserId(userId: number, boardId: number): Promise<Board>;
 }

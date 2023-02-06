@@ -17,5 +17,13 @@ export class BoardImageRepository {
 
     async save(boardImage: BoardImage): Promise<void> {
         await this.boardImageRepository.save(boardImage);
+        return;
+    }
+
+    async getOneByPath(path: string): Promise<BoardImage> {
+        return await this.boardImageRepository
+            .createQueryBuilder('bi')
+            .where('path = :path', { path: path })
+            .getOne();
     }
 }

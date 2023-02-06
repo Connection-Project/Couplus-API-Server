@@ -5,4 +5,5 @@ export declare class BoardImageRepository {
     constructor(boardImageRepository: Repository<BoardImage>);
     create(): BoardImage;
     save(boardImage: BoardImage): Promise<void>;
+    getOneByPath(path: string): Promise<BoardImage>;
 }
