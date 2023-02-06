@@ -5,7 +5,7 @@ export class GetManyBoardItemObj {
     boardId: number;
 
     @ApiProperty()
-    wirter: string;
+    writer: string;
 
     @ApiProperty()
     image: string;

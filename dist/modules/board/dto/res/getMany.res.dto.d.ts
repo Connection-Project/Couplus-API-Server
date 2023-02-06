@@ -1,6 +1,6 @@
 export declare class GetManyBoardItemObj {
     boardId: number;
-    wirter: string;
+    writer: string;
     image: string;
     title: string;
     content: string;

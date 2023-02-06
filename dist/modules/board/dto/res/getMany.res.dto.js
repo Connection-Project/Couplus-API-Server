@@ -20,7 +20,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], GetManyBoardItemObj.prototype, "wirter", void 0);
+], GetManyBoardItemObj.prototype, "writer", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
