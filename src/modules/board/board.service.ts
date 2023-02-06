@@ -75,7 +75,7 @@ export class BoardService {
                 // ! 게시글의 좋아요를 판별(내 좋아요 유무)
                 let liked = false;
                 const boardLiked: BoardLiked = await this.boardLikedRepository.findOne(userId, row[i].id);
-                const boardLikeds = await this.boardLikedRepository.getCount(userId, row[i].id);
+                const boardLikeds = await this.boardLikedRepository.getCount(row[i].id);
 
                 // ! 해당 게시글에 좋아요를 눌렀다면 true
                 if (boardLiked) liked = true;
@@ -121,7 +121,7 @@ export class BoardService {
                 images.push(o.path);
             });
             const boardLiked: BoardLiked = await this.boardLikedRepository.findOne(userId, board.id);
-            const boardLikeds = await this.boardLikedRepository.getCount(userId, board.id);
+            const boardLikeds = await this.boardLikedRepository.getCount(board.id);
             const data = {
                 boardId: board.id,
                 writer: board.user.nickName,
@@ -204,17 +204,19 @@ export class BoardService {
         try {
             const boardLiked: BoardLiked = await this.boardLikedRepository.findOne(userId, boardId);
             let liked = false;
+            let likedCount = 0;
             if (boardLiked) {
                 await this.boardLikedRepository.delete(userId, boardId);
+                likedCount = await this.boardLikedRepository.getCount(boardId);
             } else {
                 const newLiked: BoardLiked = this.boardLikedRepository.create();
                 newLiked.userId = userId;
                 newLiked.boardId = boardId;
                 await this.boardLikedRepository.save(newLiked);
-
+                likedCount = await this.boardLikedRepository.getCount(boardId);
                 liked = true;
             }
-            return { status: 200, data: { resultCode: 1, data: { liked: liked } } };
+            return { status: 200, data: { resultCode: 1, data: { liked: liked, likedCount: likedCount } } };
         } catch (err) {
             console.log(err);
             return { status: 400, data: { resultCode: 1441, data: null } };

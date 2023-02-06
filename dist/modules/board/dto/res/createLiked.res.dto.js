@@ -17,6 +17,10 @@ __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Boolean)
 ], CreateBoardLikedObj.prototype, "liked", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", Number)
+], CreateBoardLikedObj.prototype, "likedCount", void 0);
 exports.CreateBoardLikedObj = CreateBoardLikedObj;
 class CreateBoardLikedSuccessDto {
 }

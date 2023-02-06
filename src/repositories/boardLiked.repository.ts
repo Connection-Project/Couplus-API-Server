@@ -50,12 +50,10 @@ export class BoardLikedRepository {
         return;
     }
 
-    async getCount(userId: number, boardId: number): Promise<number> {
+    async getCount(boardId: number): Promise<number> {
         return await this.boardLikedRepository
             .createQueryBuilder('bl')
-            .innerJoinAndSelect('bl.user', 'u')
             .innerJoinAndSelect('bl.board', 'b')
-            .where('u.id = :userId', { userId: userId })
             .andWhere('b.id = :boardId', { boardId: boardId })
             .getCount();
     }

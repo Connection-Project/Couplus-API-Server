@@ -3,6 +3,9 @@ import { ApiProperty } from '@nestjs/swagger';
 export class CreateBoardLikedObj {
     @ApiProperty()
     liked: boolean;
+
+    @ApiProperty()
+    likedCount: number;
 }
 
 export class CreateBoardLikedSuccessDto {

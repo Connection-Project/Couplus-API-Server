@@ -1,5 +1,6 @@
 export declare class CreateBoardLikedObj {
     liked: boolean;
+    likedCount: number;
 }
 export declare class CreateBoardLikedSuccessDto {
     resultCode: number;

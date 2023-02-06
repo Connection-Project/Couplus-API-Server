@@ -8,5 +8,5 @@ export declare class BoardLikedRepository {
     findOne(userId: number, boardId: number): Promise<BoardLiked>;
     findMany(userId: number, boardId: number): Promise<BoardLiked[]>;
     delete(userId: number, boardId: number): Promise<void>;
-    getCount(userId: number, boardId: number): Promise<number>;
+    getCount(boardId: number): Promise<number>;
 }

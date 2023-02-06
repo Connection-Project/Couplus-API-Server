@@ -56,12 +56,10 @@ let BoardLikedRepository = class BoardLikedRepository {
             .execute();
         return;
     }
-    async getCount(userId, boardId) {
+    async getCount(boardId) {
         return await this.boardLikedRepository
             .createQueryBuilder('bl')
-            .innerJoinAndSelect('bl.user', 'u')
             .innerJoinAndSelect('bl.board', 'b')
-            .where('u.id = :userId', { userId: userId })
             .andWhere('b.id = :boardId', { boardId: boardId })
             .getCount();
     }

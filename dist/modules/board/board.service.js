@@ -76,7 +76,7 @@ let BoardService = class BoardService {
             for (let i = 0; i < row.length; i++) {
                 let liked = false;
                 const boardLiked = await this.boardLikedRepository.findOne(userId, row[i].id);
-                const boardLikeds = await this.boardLikedRepository.getCount(userId, row[i].id);
+                const boardLikeds = await this.boardLikedRepository.getCount(row[i].id);
                 if (boardLiked)
                     liked = true;
                 items[i] = {
@@ -121,7 +121,7 @@ let BoardService = class BoardService {
                 images.push(o.path);
             });
             const boardLiked = await this.boardLikedRepository.findOne(userId, board.id);
-            const boardLikeds = await this.boardLikedRepository.getCount(userId, board.id);
+            const boardLikeds = await this.boardLikedRepository.getCount(board.id);
             const data = {
                 boardId: board.id,
                 writer: board.user.nickName,
@@ -202,17 +202,20 @@ let BoardService = class BoardService {
         try {
             const boardLiked = await this.boardLikedRepository.findOne(userId, boardId);
             let liked = false;
+            let likedCount = 0;
             if (boardLiked) {
                 await this.boardLikedRepository.delete(userId, boardId);
+                likedCount = await this.boardLikedRepository.getCount(boardId);
             }
             else {
                 const newLiked = this.boardLikedRepository.create();
                 newLiked.userId = userId;
                 newLiked.boardId = boardId;
                 await this.boardLikedRepository.save(newLiked);
+                likedCount = await this.boardLikedRepository.getCount(boardId);
                 liked = true;
             }
-            return { status: 200, data: { resultCode: 1, data: { liked: liked } } };
+            return { status: 200, data: { resultCode: 1, data: { liked: liked, likedCount: likedCount } } };
         }
         catch (err) {
             console.log(err);
