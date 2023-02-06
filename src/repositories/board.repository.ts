@@ -38,7 +38,7 @@ export class BoardRepository {
         }
         query.skip(0);
         query.take(limit);
-        query.getQuery();
+        query.orderBy('b.createdAt', 'DESC');
         return query.getManyAndCount();
     }
 
