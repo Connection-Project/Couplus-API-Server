@@ -8,6 +8,7 @@ export declare class GetOneBoardObj {
     liked: boolean;
     likedCount: number;
     commentCount: number;
+    mine: boolean;
     createdAt: string;
 }
 export declare class GetOneBoardSuccessDto {

@@ -132,6 +132,7 @@ let BoardService = class BoardService {
                 liked: boardLiked ? true : false,
                 likedCount: boardLikeds,
                 commentCount: board.comment.length,
+                mine: board.user.id === userId ? true : false,
                 createdAt: (0, date_1.formatDateParam)(board.createdAt),
             };
             return { status: 200, data: { resultCode: 1, data: data } };

@@ -51,6 +51,10 @@ __decorate([
 ], GetOneBoardObj.prototype, "commentCount", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", Boolean)
+], GetOneBoardObj.prototype, "mine", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
 ], GetOneBoardObj.prototype, "createdAt", void 0);
 exports.GetOneBoardObj = GetOneBoardObj;

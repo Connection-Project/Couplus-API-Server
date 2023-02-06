@@ -29,6 +29,9 @@ export class GetOneBoardObj {
     commentCount: number;
 
     @ApiProperty()
+    mine: boolean;
+
+    @ApiProperty()
     createdAt: string;
 }
 
