@@ -145,6 +145,9 @@ let BoardService = class BoardService {
     async update(userId, files, boardId, body) {
         try {
             const { type, title, content, deleteImages } = body;
+            console.log(title);
+            console.log(content);
+            content.localeCompare(type);
             const board = await this.boardRepository.findOneByIdAndUserId(userId, boardId);
             if (board) {
                 if (title !== '' && title !== board.title)

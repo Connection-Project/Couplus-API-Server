@@ -80,6 +80,52 @@ let CommentService = class CommentService {
             return { status: 401, data: { resultCode: 1511, data: null } };
         }
     }
+    async update(userId, commentId, body) {
+        try {
+            let status = 0;
+            let resultCode = 0;
+            const { content } = body;
+            const boardComment = await this.boardCommentRepository.findOneByIdAndUserId(commentId, userId);
+            if (boardComment) {
+                if (content !== '' && content !== boardComment.content) {
+                    boardComment.content;
+                    await this.boardCommentRepository.save(boardComment);
+                }
+                status = 200;
+                resultCode = 1;
+            }
+            else {
+                status = 201;
+                resultCode = 1522;
+            }
+            return { status: status, data: { resultCode: resultCode, data: null } };
+        }
+        catch (err) {
+            console.log(err);
+            return { status: 401, data: { resultCode: 1521, data: null } };
+        }
+    }
+    async delete(userId, commentId) {
+        try {
+            let status = 0;
+            let resultCode = 0;
+            const boardComment = await this.boardCommentRepository.findOneByIdAndUserId(commentId, userId);
+            if (boardComment) {
+                await this.boardCommentRepository.delete(userId, commentId);
+                status = 200;
+                resultCode = 1;
+            }
+            else {
+                status = 201;
+                resultCode = 1532;
+            }
+            return { status: status, data: { resultCode: resultCode, data: null } };
+        }
+        catch (err) {
+            console.log(err);
+            return { status: 401, data: { resultCode: 1531, data: null } };
+        }
+    }
 };
 CommentService = __decorate([
     (0, common_1.Injectable)(),
