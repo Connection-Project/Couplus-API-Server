@@ -7,6 +7,7 @@ import { BoardCommentRepository } from 'src/repositories/boardComment.repository
 import { UserRepository } from 'src/repositories/user.repository';
 import { formatDateParam } from 'src/utils/date';
 import { CreateCommentReqDto } from './dto/req/create.req.dto';
+import { UpdateBoardCommentReqDto } from './dto/req/update.req.dto';
 
 @Injectable()
 export class CommentService {
@@ -76,5 +77,54 @@ export class CommentService {
         }
     }
 
-    // async update(userId:number, );
+    async update(userId: number, commentId: number, body: UpdateBoardCommentReqDto): Promise<any> {
+        try {
+            let status = 0;
+            let resultCode = 0;
+            const { content } = body;
+            const boardComment: BoardComment = await this.boardCommentRepository.findOneByIdAndUserId(
+                commentId,
+                userId,
+            );
+            if (boardComment) {
+                // ! 내용이 공백이 아니고 내용이 DB의 값과 똑같지 않으면 수정
+                if (content !== '' && content !== boardComment.content) {
+                    boardComment.content;
+                    await this.boardCommentRepository.save(boardComment);
+                }
+                status = 200;
+                resultCode = 1;
+            } else {
+                status = 201;
+                resultCode = 1522;
+            }
+            return { status: status, data: { resultCode: resultCode, data: null } };
+        } catch (err) {
+            console.log(err);
+            return { status: 401, data: { resultCode: 1521, data: null } };
+        }
+    }
+
+    async delete(userId: number, commentId: number): Promise<any> {
+        try {
+            let status = 0;
+            let resultCode = 0;
+            const boardComment: BoardComment = await this.boardCommentRepository.findOneByIdAndUserId(
+                commentId,
+                userId,
+            );
+            if (boardComment) {
+                await this.boardCommentRepository.delete(userId, commentId);
+                status = 200;
+                resultCode = 1;
+            } else {
+                status = 201;
+                resultCode = 1532;
+            }
+            return { status: status, data: { resultCode: resultCode, data: null } };
+        } catch (err) {
+            console.log(err);
+            return { status: 401, data: { resultCode: 1531, data: null } };
+        }
+    }
 }

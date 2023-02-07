@@ -145,6 +145,9 @@ export class BoardService {
     async update(userId: number, files: File[], boardId: number, body: UpdateBoardReqDto): Promise<any> {
         try {
             const { type, title, content, deleteImages } = body;
+            console.log(title);
+            console.log(content);
+            content.localeCompare(type);
             const board: Board = await this.boardRepository.findOneByIdAndUserId(userId, boardId);
             if (board) {
                 if (title !== '' && title !== board.title) board.title = title;
