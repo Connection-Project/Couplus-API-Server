@@ -145,7 +145,6 @@ export class BoardService {
     async update(userId: number, files: File[], boardId: number, body: UpdateBoardReqDto): Promise<any> {
         try {
             const { type, title, content, deleteImages } = body;
-            console.log(body);
             const board: Board = await this.boardRepository.findOneByIdAndUserId(userId, boardId);
             if (board) {
                 if (title !== '' && title !== board.title) board.title = title;
@@ -166,7 +165,7 @@ export class BoardService {
                 }
 
                 // ! 삭제 할 이미지가 존재 할 경우
-                if (deleteImages.length > 0) {
+                if (deleteImages) {
                     deleteImages.forEach(async (o) => {
                         const boardImage: BoardImage = await this.boardImageRepository.getOneByPath(o);
                         await this.awsService.s3Delete({

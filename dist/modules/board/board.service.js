@@ -145,7 +145,6 @@ let BoardService = class BoardService {
     async update(userId, files, boardId, body) {
         try {
             const { type, title, content, deleteImages } = body;
-            console.log(body);
             const board = await this.boardRepository.findOneByIdAndUserId(userId, boardId);
             if (board) {
                 if (title !== '' && title !== board.title)
@@ -165,7 +164,7 @@ let BoardService = class BoardService {
                         await this.boardImageRepository.save(boardImage);
                     }
                 }
-                if (deleteImages.length > 0) {
+                if (deleteImages) {
                     deleteImages.forEach(async (o) => {
                         const boardImage = await this.boardImageRepository.getOneByPath(o);
                         await this.awsService.s3Delete({
