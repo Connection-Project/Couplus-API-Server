@@ -5,7 +5,7 @@ export declare class BoardCommentRepository {
     constructor(boardCommentRepository: Repository<BoardComment>);
     create(): BoardComment;
     save(boardComment: BoardComment): Promise<void>;
-    findManyByBoardId(boardId: number, page: number, limit: number): Promise<[BoardComment[], number]>;
+    findManyByBoardId(boardId: number): Promise<BoardComment[]>;
     findOneByIdAndUserId(commentId: number, userId: number): Promise<BoardComment>;
     delete(userId: number, commentId: number): Promise<void>;
 }

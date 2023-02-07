@@ -28,16 +28,14 @@ let BoardCommentRepository = class BoardCommentRepository {
         await this.boardCommentRepository.save(boardComment);
         return;
     }
-    async findManyByBoardId(boardId, page, limit) {
+    async findManyByBoardId(boardId) {
         const query = this.boardCommentRepository
             .createQueryBuilder('bc')
             .innerJoinAndSelect('bc.board', 'b')
             .innerJoinAndSelect('bc.user', 'u')
             .where('b.id = :boardId', { boardId: boardId })
-            .skip(page * limit)
-            .take(limit)
             .orderBy('bc.createdAt', 'DESC');
-        return query.getManyAndCount();
+        return query.getMany();
     }
     async findOneByIdAndUserId(commentId, userId) {
         return await this.boardCommentRepository

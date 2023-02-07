@@ -12,6 +12,7 @@ const auth_module_1 = require("./auth/auth.module");
 const user_module_1 = require("./user/user.module");
 const pet_module_1 = require("./pet/pet.module");
 const board_module_1 = require("./board/board.module");
+const comment_module_1 = require("./comment/comment.module");
 let IndexModule = class IndexModule {
 };
 IndexModule = __decorate([
@@ -21,6 +22,7 @@ IndexModule = __decorate([
             auth_module_1.AuthModule,
             pet_module_1.PetModule,
             board_module_1.BoardModule,
+            comment_module_1.CommentModule,
         ],
     })
 ], IndexModule);

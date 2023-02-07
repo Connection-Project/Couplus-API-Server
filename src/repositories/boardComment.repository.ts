@@ -19,20 +19,14 @@ export class BoardCommentRepository {
         return;
     }
 
-    async findManyByBoardId(
-        boardId: number,
-        page: number,
-        limit: number,
-    ): Promise<[BoardComment[], number]> {
+    async findManyByBoardId(boardId: number): Promise<BoardComment[]> {
         const query = this.boardCommentRepository
             .createQueryBuilder('bc')
             .innerJoinAndSelect('bc.board', 'b')
             .innerJoinAndSelect('bc.user', 'u')
             .where('b.id = :boardId', { boardId: boardId })
-            .skip(page * limit)
-            .take(limit)
             .orderBy('bc.createdAt', 'DESC');
-        return query.getManyAndCount();
+        return query.getMany();
     }
 
     async findOneByIdAndUserId(commentId: number, userId: number): Promise<BoardComment> {

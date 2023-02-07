@@ -145,13 +145,14 @@ export class BoardService {
     async update(userId: number, files: File[], body: UpdateBoardReqDto): Promise<any> {
         try {
             const { boardId, title, content, deleteImages } = body;
+            console.log(body);
             const board: Board = await this.boardRepository.findOneByIdAndUserId(userId, boardId);
             if (board) {
                 if (title !== '') board.title = title;
                 if (content !== '') board.content = content;
 
                 // ! 이미지 파일이 전송 될 경우 등록
-                if (files) {
+                if (files.length > 0) {
                     for (let i = 0; i < files.length; i++) {
                         const result = await this.awsService.uploadImage(files[i]);
                         const { Key, Location } = result;

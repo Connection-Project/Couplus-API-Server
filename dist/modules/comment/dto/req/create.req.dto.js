@@ -9,33 +9,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateBoardReqDto = void 0;
+exports.CreateCommentReqDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
-class UpdateBoardReqDto {
+class CreateCommentReqDto {
 }
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Number)
-], UpdateBoardReqDto.prototype, "boardId", void 0);
+], CreateCommentReqDto.prototype, "boardId", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], UpdateBoardReqDto.prototype, "type", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", String)
-], UpdateBoardReqDto.prototype, "title", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", String)
-], UpdateBoardReqDto.prototype, "content", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)({ description: '삭제 할 이미지 주소를 배열로 담아서 보내주면 됨' }),
-    __metadata("design:type", Array)
-], UpdateBoardReqDto.prototype, "deleteImages", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)({ description: 'board라는 formdata key로 보내주면됨' }),
-    __metadata("design:type", Array)
-], UpdateBoardReqDto.prototype, "board", void 0);
-exports.UpdateBoardReqDto = UpdateBoardReqDto;
-//# sourceMappingURL=update.req.dto.js.map
+], CreateCommentReqDto.prototype, "content", void 0);
+exports.CreateCommentReqDto = CreateCommentReqDto;
+//# sourceMappingURL=create.req.dto.js.map

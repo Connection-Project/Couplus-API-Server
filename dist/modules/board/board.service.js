@@ -145,13 +145,14 @@ let BoardService = class BoardService {
     async update(userId, files, body) {
         try {
             const { boardId, title, content, deleteImages } = body;
+            console.log(body);
             const board = await this.boardRepository.findOneByIdAndUserId(userId, boardId);
             if (board) {
                 if (title !== '')
                     board.title = title;
                 if (content !== '')
                     board.content = content;
-                if (files) {
+                if (files.length > 0) {
                     for (let i = 0; i < files.length; i++) {
                         const result = await this.awsService.uploadImage(files[i]);
                         const { Key, Location } = result;

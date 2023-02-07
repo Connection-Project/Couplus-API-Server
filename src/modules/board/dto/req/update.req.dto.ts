@@ -5,6 +5,9 @@ export class UpdateBoardReqDto {
     boardId: number;
 
     @ApiProperty()
+    type: string;
+
+    @ApiProperty()
     title: string;
 
     @ApiProperty()

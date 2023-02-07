@@ -5,6 +5,7 @@ import { ProductModule } from './product/product.module';
 import { CartModule } from './cart/cart.module';
 import { PetModule } from './pet/pet.module';
 import { BoardModule } from './board/board.module';
+import { CommentModule } from './comment/comment.module';
 
 @Module({
     imports: [
@@ -12,6 +13,7 @@ import { BoardModule } from './board/board.module';
         AuthModule,
         PetModule,
         BoardModule,
+        CommentModule,
         // ProductModule,
         // CartModule
     ],
