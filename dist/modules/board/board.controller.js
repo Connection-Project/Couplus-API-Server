@@ -43,7 +43,6 @@ let BoardController = class BoardController {
         return await this.boardService.getOneBoard(req.user['userId'], boardId);
     }
     async update(req, files, body) {
-        console.log(files);
         return await this.boardService.update(req.user['userId'], files, body);
     }
     async delete(req, boardId) {

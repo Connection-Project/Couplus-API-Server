@@ -77,7 +77,6 @@ export class BoardController {
     @ApiResponse({ status: 201, type: UnauthorizedUpdateBoard, description: '수정 권한 없음' })
     @ApiResponse({ status: 400, type: UpdateBoardFailDto, description: '게시글 수정하기 실패' })
     async update(@Req() req: Request, @UploadedFiles() files: File[], @Body() body: UpdateBoardReqDto) {
-        console.log(files);
         return await this.boardService.update(req.user['userId'], files, body);
     }
 

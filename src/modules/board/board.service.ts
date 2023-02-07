@@ -144,12 +144,13 @@ export class BoardService {
 
     async update(userId: number, files: File[], body: UpdateBoardReqDto): Promise<any> {
         try {
-            const { boardId, title, content, deleteImages } = body;
+            const { boardId, type, title, content, deleteImages } = body;
             console.log(body);
             const board: Board = await this.boardRepository.findOneByIdAndUserId(userId, boardId);
             if (board) {
-                if (title !== '') board.title = title;
-                if (content !== '') board.content = content;
+                if (title !== '' && title !== board.title) board.title = title;
+                if (content !== '' && content !== board.content) board.content = content;
+                if (type !== '' && content !== board.type) board.type = type;
 
                 // ! 이미지 파일이 전송 될 경우 등록
                 if (files.length > 0) {

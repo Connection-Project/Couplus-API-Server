@@ -144,14 +144,16 @@ let BoardService = class BoardService {
     }
     async update(userId, files, body) {
         try {
-            const { boardId, title, content, deleteImages } = body;
+            const { boardId, type, title, content, deleteImages } = body;
             console.log(body);
             const board = await this.boardRepository.findOneByIdAndUserId(userId, boardId);
             if (board) {
-                if (title !== '')
+                if (title !== '' && title !== board.title)
                     board.title = title;
-                if (content !== '')
+                if (content !== '' && content !== board.content)
                     board.content = content;
+                if (type !== '' && content !== board.type)
+                    board.type = type;
                 if (files.length > 0) {
                     for (let i = 0; i < files.length; i++) {
                         const result = await this.awsService.uploadImage(files[i]);
