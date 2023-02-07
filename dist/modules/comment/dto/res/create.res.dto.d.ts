@@ -1,4 +1,4 @@
-export declare class NotFoundBoardDto {
+export declare class NotFoundBoardCreateDto {
     resultCode: number;
     data: any;
 }

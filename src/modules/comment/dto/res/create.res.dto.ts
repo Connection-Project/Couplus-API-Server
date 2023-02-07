@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class NotFoundBoardDto {
+export class NotFoundBoardCreateDto {
     @ApiProperty({ default: 1502 })
     resultCode: number;
 
