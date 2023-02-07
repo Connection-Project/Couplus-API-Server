@@ -9,8 +9,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateBoardCommentFailDto = void 0;
+exports.CreateBoardCommentFailDto = exports.NotFoundBoardDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
+class NotFoundBoardDto {
+}
+__decorate([
+    (0, swagger_1.ApiProperty)({ default: 1502 }),
+    __metadata("design:type", Number)
+], NotFoundBoardDto.prototype, "resultCode", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ default: null }),
+    __metadata("design:type", Object)
+], NotFoundBoardDto.prototype, "data", void 0);
+exports.NotFoundBoardDto = NotFoundBoardDto;
 class CreateBoardCommentFailDto {
 }
 __decorate([

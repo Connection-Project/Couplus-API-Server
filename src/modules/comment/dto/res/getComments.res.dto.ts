@@ -29,3 +29,11 @@ export class GetBoardCommentsSuccessDto {
     @ApiProperty({ type: GetBoardCommentsDataObj })
     data: GetBoardCommentsDataObj;
 }
+
+export class GetBoardCommentsFailDto {
+    @ApiProperty({ default: 1511 })
+    resultCode: number;
+
+    @ApiProperty({ default: null })
+    data: any;
+}

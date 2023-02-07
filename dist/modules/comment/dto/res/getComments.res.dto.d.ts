@@ -12,3 +12,7 @@ export declare class GetBoardCommentsSuccessDto {
     resultCode: number;
     data: GetBoardCommentsDataObj;
 }
+export declare class GetBoardCommentsFailDto {
+    resultCode: number;
+    data: any;
+}

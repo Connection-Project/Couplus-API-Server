@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GetBoardCommentsSuccessDto = exports.GetBoardCommentsDataObj = exports.GetBoardCommentsObj = void 0;
+exports.GetBoardCommentsFailDto = exports.GetBoardCommentsSuccessDto = exports.GetBoardCommentsDataObj = exports.GetBoardCommentsObj = void 0;
 const swagger_1 = require("@nestjs/swagger");
 class GetBoardCommentsObj {
 }
@@ -52,4 +52,15 @@ __decorate([
     __metadata("design:type", GetBoardCommentsDataObj)
 ], GetBoardCommentsSuccessDto.prototype, "data", void 0);
 exports.GetBoardCommentsSuccessDto = GetBoardCommentsSuccessDto;
+class GetBoardCommentsFailDto {
+}
+__decorate([
+    (0, swagger_1.ApiProperty)({ default: 1511 }),
+    __metadata("design:type", Number)
+], GetBoardCommentsFailDto.prototype, "resultCode", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ default: null }),
+    __metadata("design:type", Object)
+], GetBoardCommentsFailDto.prototype, "data", void 0);
+exports.GetBoardCommentsFailDto = GetBoardCommentsFailDto;
 //# sourceMappingURL=getComments.res.dto.js.map
