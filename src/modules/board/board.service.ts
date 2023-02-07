@@ -142,9 +142,9 @@ export class BoardService {
         }
     }
 
-    async update(userId: number, files: File[], body: UpdateBoardReqDto): Promise<any> {
+    async update(userId: number, files: File[], boardId: number, body: UpdateBoardReqDto): Promise<any> {
         try {
-            const { boardId, type, title, content, deleteImages } = body;
+            const { type, title, content, deleteImages } = body;
             console.log(body);
             const board: Board = await this.boardRepository.findOneByIdAndUserId(userId, boardId);
             if (board) {

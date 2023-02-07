@@ -2,9 +2,6 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class UpdateBoardReqDto {
     @ApiProperty()
-    boardId: number;
-
-    @ApiProperty()
     type: string;
 
     @ApiProperty()

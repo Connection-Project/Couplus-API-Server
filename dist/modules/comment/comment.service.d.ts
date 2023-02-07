@@ -8,5 +8,5 @@ export declare class CommentService {
     private readonly userRepository;
     constructor(boardCommentRepository: BoardCommentRepository, boardRepository: BoardRepository, userRepository: UserRepository);
     create(userId: number, body: CreateCommentReqDto): Promise<any>;
-    getBoardComments(boardId: number): Promise<any>;
+    getBoardComments(userId: number, boardId: number): Promise<any>;
 }

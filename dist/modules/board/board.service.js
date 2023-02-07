@@ -142,9 +142,9 @@ let BoardService = class BoardService {
             return { status: 400, data: { resultCode: 1411, data: null } };
         }
     }
-    async update(userId, files, body) {
+    async update(userId, files, boardId, body) {
         try {
-            const { boardId, type, title, content, deleteImages } = body;
+            const { type, title, content, deleteImages } = body;
             console.log(body);
             const board = await this.boardRepository.findOneByIdAndUserId(userId, boardId);
             if (board) {

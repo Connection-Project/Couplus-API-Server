@@ -15,10 +15,6 @@ class UpdateBoardReqDto {
 }
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", Number)
-], UpdateBoardReqDto.prototype, "boardId", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
 ], UpdateBoardReqDto.prototype, "type", void 0);
 __decorate([

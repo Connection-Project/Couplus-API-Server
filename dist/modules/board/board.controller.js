@@ -42,8 +42,8 @@ let BoardController = class BoardController {
     async getMyPet(req, boardId) {
         return await this.boardService.getOneBoard(req.user['userId'], boardId);
     }
-    async update(req, files, body) {
-        return await this.boardService.update(req.user['userId'], files, body);
+    async update(req, files, boardId, body) {
+        return await this.boardService.update(req.user['userId'], files, boardId, body);
     }
     async delete(req, boardId) {
         return await this.boardService.delete(req.user['userId'], boardId);
@@ -95,7 +95,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], BoardController.prototype, "getMyPet", null);
 __decorate([
-    (0, common_1.Patch)(),
+    (0, common_1.Patch)(':boardId'),
     (0, swagger_1.ApiCookieAuth)(),
     (0, common_1.UseInterceptors)((0, platform_express_1.FilesInterceptor)('board')),
     (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
@@ -106,9 +106,10 @@ __decorate([
     (0, swagger_1.ApiResponse)({ status: 400, type: update_res_dto_1.UpdateBoardFailDto, description: '게시글 수정하기 실패' }),
     __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.UploadedFiles)()),
-    __param(2, (0, common_1.Body)()),
+    __param(2, (0, common_1.Param)('boardId', common_1.ParseIntPipe)),
+    __param(3, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Array, update_req_dto_1.UpdateBoardReqDto]),
+    __metadata("design:paramtypes", [Object, Array, Number, update_req_dto_1.UpdateBoardReqDto]),
     __metadata("design:returntype", Promise)
 ], BoardController.prototype, "update", null);
 __decorate([

@@ -57,15 +57,19 @@ let CommentService = class CommentService {
             return { status: 401, data: { resultCode: 1501, data: null } };
         }
     }
-    async getBoardComments(boardId) {
+    async getBoardComments(userId, boardId) {
         try {
             const boardComment = await this.boardCommentRepository.findManyByBoardId(boardId);
             const items = [];
             for (let i = 0; i < boardComment.length; i++) {
+                let mine = false;
+                if (userId && userId === boardComment[i].user.id)
+                    mine = true;
                 items[i] = {
                     commentId: boardComment[i].id,
                     writer: boardComment[i].user.nickName,
                     content: boardComment[i].content,
+                    mine: mine,
                     createdAt: (0, date_1.formatDateParam)(boardComment[i].createdAt),
                 };
             }

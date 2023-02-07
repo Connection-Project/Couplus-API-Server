@@ -52,17 +52,20 @@ export class CommentService {
         }
     }
 
-    async getBoardComments(boardId: number): Promise<any> {
+    async getBoardComments(userId: number, boardId: number): Promise<any> {
         try {
             const boardComment: BoardComment[] = await this.boardCommentRepository.findManyByBoardId(
                 boardId,
             );
             const items = [];
             for (let i = 0; i < boardComment.length; i++) {
+                let mine = false;
+                if (userId && userId === boardComment[i].user.id) mine = true;
                 items[i] = {
                     commentId: boardComment[i].id,
                     writer: boardComment[i].user.nickName,
                     content: boardComment[i].content,
+                    mine: mine,
                     createdAt: formatDateParam(boardComment[i].createdAt),
                 };
             }
@@ -72,4 +75,6 @@ export class CommentService {
             return { status: 401, data: { resultCode: 1511, data: null } };
         }
     }
+
+    // async update(userId:number, );
 }
