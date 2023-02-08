@@ -3,4 +3,5 @@ export declare class UpdateUserReqDto {
     name: string;
     nickName: string;
     phone: string;
+    user: any;
 }

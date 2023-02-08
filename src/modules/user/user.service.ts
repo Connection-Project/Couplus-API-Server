@@ -1,4 +1,5 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
+import { AwsService } from 'src/lib/aws/src/aws.service';
 import { User } from 'src/models/User.entity';
 import { UserRepository } from 'src/repositories/user.repository';
 import { GenDigestPwd } from 'src/utils/crypto';
@@ -8,9 +9,9 @@ import { getInfoObj } from './dto/res/getInfo.res.dto';
 
 @Injectable()
 export class UserService {
-    constructor(private userRepository: UserRepository) {}
+    constructor(private readonly awsService: AwsService, private userRepository: UserRepository) {}
 
-    async emailSignUp(body: EmailRegistUserReqDto): Promise<any> {
+    async emailSignUp(file: File, body: EmailRegistUserReqDto): Promise<any> {
         try {
             const { email } = body;
             const existUser: User = await this.userRepository.findByKey('email', email);
@@ -21,8 +22,17 @@ export class UserService {
                 status = 201;
                 resultCode = 1001;
             } else {
+                let imageKey = null;
+                let imagePath = null;
+                if (file) {
+                    const res = await this.awsService.uploadImage(file);
+                    imageKey = res.Key;
+                    imagePath = res.Location;
+                }
                 const createBody = {
                     registType: 'email',
+                    imageKey,
+                    imagePath,
                     ...body,
                 };
                 const newUser: User = await this.userRepository.create(createBody);
@@ -37,7 +47,7 @@ export class UserService {
         }
     }
 
-    async socialSignUp(body: SocialRegistUserReqDto): Promise<any> {
+    async socialSignUp(file: File, body: SocialRegistUserReqDto): Promise<any> {
         try {
             const { email } = body;
             const existUser: User = await this.userRepository.findByKey('email', email);
@@ -48,8 +58,17 @@ export class UserService {
                 status = 201;
                 resultCode = 1001;
             } else {
+                let imageKey = null;
+                let imagePath = null;
+                if (file) {
+                    const res = await this.awsService.uploadImage(file);
+                    imageKey = res.Key;
+                    imagePath = res.Location;
+                }
                 const createBody = {
                     registType: 'kakao',
+                    imageKey,
+                    imagePath,
                     ...body,
                 };
                 const newUser: User = this.userRepository.create(createBody);
@@ -81,7 +100,7 @@ export class UserService {
         }
     }
 
-    async update(userId: number, body: UpdateUserReqDto): Promise<any> {
+    async update(userId: number, file: File, body: UpdateUserReqDto): Promise<any> {
         try {
             const { password, name, phone, nickName } = body;
             const user: User = await this.userRepository.findByKey('id', userId);
@@ -92,6 +111,21 @@ export class UserService {
             if (name.replace(/ /g, '') !== '') user.name = name;
             if (nickName.replace(/ /g, '') !== '') user.nickName = nickName;
             if (phone.replace(/ /g, '') !== '') user.phone = phone;
+            // ! 파일이 존재할 시 프로필 이미지 수정
+            if (file) {
+                const res = await this.awsService.uploadImage(file);
+                if (res) {
+                    // ! 기존 파일 삭제
+                    this.awsService.s3Delete({
+                        Bucket: 'pet-img',
+                        Key: user.imageKey,
+                    });
+                    user.imageKey = res.Key;
+                    user.imagePath = res.Location;
+                } else {
+                    Logger.log('ERROR - S3 Upload Failed');
+                }
+            }
             await this.userRepository.save(user);
             return { status: 200, data: { resultCode: 1, data: null } };
         } catch (err) {
@@ -102,6 +136,12 @@ export class UserService {
 
     async delete(userId: number): Promise<any> {
         try {
+            const user: User = await this.userRepository.findByKey('id', userId);
+            // ! 기존 파일 삭제
+            await this.awsService.s3Delete({
+                Bucket: 'pet-img',
+                Key: user.imageKey,
+            });
             await this.userRepository.delete(userId);
             return { status: 200, data: { resultCode: 1, data: null } };
         } catch (err) {

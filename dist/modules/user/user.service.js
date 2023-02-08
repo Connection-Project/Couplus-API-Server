@@ -11,13 +11,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
 const common_1 = require("@nestjs/common");
+const aws_service_1 = require("../../lib/aws/src/aws.service");
 const user_repository_1 = require("../../repositories/user.repository");
 const crypto_1 = require("../../utils/crypto");
 let UserService = class UserService {
-    constructor(userRepository) {
+    constructor(awsService, userRepository) {
+        this.awsService = awsService;
         this.userRepository = userRepository;
     }
-    async emailSignUp(body) {
+    async emailSignUp(file, body) {
         try {
             const { email } = body;
             const existUser = await this.userRepository.findByKey('email', email);
@@ -28,7 +30,15 @@ let UserService = class UserService {
                 resultCode = 1001;
             }
             else {
-                const createBody = Object.assign({ registType: 'email' }, body);
+                let imageKey = null;
+                let imagePath = null;
+                if (file) {
+                    const res = await this.awsService.uploadImage(file);
+                    imageKey = res.Key;
+                    imagePath = res.Location;
+                }
+                const createBody = Object.assign({ registType: 'email', imageKey,
+                    imagePath }, body);
                 const newUser = await this.userRepository.create(createBody);
                 await this.userRepository.save(newUser);
                 status = 200;
@@ -41,7 +51,7 @@ let UserService = class UserService {
             return { status: 401, data: { resultCode: 1002, data: null } };
         }
     }
-    async socialSignUp(body) {
+    async socialSignUp(file, body) {
         try {
             const { email } = body;
             const existUser = await this.userRepository.findByKey('email', email);
@@ -52,7 +62,15 @@ let UserService = class UserService {
                 resultCode = 1001;
             }
             else {
-                const createBody = Object.assign({ registType: 'kakao' }, body);
+                let imageKey = null;
+                let imagePath = null;
+                if (file) {
+                    const res = await this.awsService.uploadImage(file);
+                    imageKey = res.Key;
+                    imagePath = res.Location;
+                }
+                const createBody = Object.assign({ registType: 'kakao', imageKey,
+                    imagePath }, body);
                 const newUser = this.userRepository.create(createBody);
                 await this.userRepository.save(newUser);
                 status = 200;
@@ -82,7 +100,7 @@ let UserService = class UserService {
             return { status: 401, data: { resultCode: 1011, data: null } };
         }
     }
-    async update(userId, body) {
+    async update(userId, file, body) {
         try {
             const { password, name, phone, nickName } = body;
             const user = await this.userRepository.findByKey('id', userId);
@@ -95,6 +113,20 @@ let UserService = class UserService {
                 user.nickName = nickName;
             if (phone.replace(/ /g, '') !== '')
                 user.phone = phone;
+            if (file) {
+                const res = await this.awsService.uploadImage(file);
+                if (res) {
+                    this.awsService.s3Delete({
+                        Bucket: 'pet-img',
+                        Key: user.imageKey,
+                    });
+                    user.imageKey = res.Key;
+                    user.imagePath = res.Location;
+                }
+                else {
+                    common_1.Logger.log('ERROR - S3 Upload Failed');
+                }
+            }
             await this.userRepository.save(user);
             return { status: 200, data: { resultCode: 1, data: null } };
         }
@@ -105,6 +137,11 @@ let UserService = class UserService {
     }
     async delete(userId) {
         try {
+            const user = await this.userRepository.findByKey('id', userId);
+            await this.awsService.s3Delete({
+                Bucket: 'pet-img',
+                Key: user.imageKey,
+            });
             await this.userRepository.delete(userId);
             return { status: 200, data: { resultCode: 1, data: null } };
         }
@@ -116,7 +153,7 @@ let UserService = class UserService {
 };
 UserService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [user_repository_1.UserRepository])
+    __metadata("design:paramtypes", [aws_service_1.AwsService, user_repository_1.UserRepository])
 ], UserService);
 exports.UserService = UserService;
 //# sourceMappingURL=user.service.js.map

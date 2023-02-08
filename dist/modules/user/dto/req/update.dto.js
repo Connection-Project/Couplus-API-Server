@@ -29,5 +29,9 @@ __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
 ], UpdateUserReqDto.prototype, "phone", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: '이미지 이름명 : formdata에 key의 이름으로 넣으면 됨' }),
+    __metadata("design:type", Object)
+], UpdateUserReqDto.prototype, "user", void 0);
 exports.UpdateUserReqDto = UpdateUserReqDto;
 //# sourceMappingURL=update.dto.js.map

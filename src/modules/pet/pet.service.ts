@@ -33,9 +33,9 @@ export class PetService {
             if (myPets.length === 0) represent = true;
             const createBody = {
                 user: user,
-                imageKey: imageKey,
-                imagePath: imagePath,
-                represent: represent,
+                imageKey,
+                imagePath,
+                represent,
                 ...body,
             };
             const myPet: MyPet = this.myPetRepository.create(createBody);

@@ -4,6 +4,7 @@ export declare class EmailRegistUserReqDto {
     name: string;
     nickName: string;
     phone: string;
+    user: any;
 }
 export declare class SocialRegistUserReqDto {
     email: string;
@@ -11,4 +12,5 @@ export declare class SocialRegistUserReqDto {
     nickName: string;
     phone: string;
     accountId: string;
+    user: any;
 }

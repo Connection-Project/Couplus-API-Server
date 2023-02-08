@@ -38,6 +38,12 @@ export class User {
     @Column()
     registType: string;
 
+    @Column({ nullable: true })
+    imageKey: string;
+
+    @Column({ nullable: true })
+    imagePath: string;
+
     @CreateDateColumn({ type: 'timestamp' })
     createdAt: Date;
 

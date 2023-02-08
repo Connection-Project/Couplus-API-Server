@@ -13,13 +13,14 @@ const common_1 = require("@nestjs/common");
 const user_controller_1 = require("./user.controller");
 const user_service_1 = require("./user.service");
 const User_entity_1 = require("../../models/User.entity");
+const aws_service_1 = require("../../lib/aws/src/aws.service");
 let UserModule = class UserModule {
 };
 UserModule = __decorate([
     (0, common_1.Module)({
         imports: [typeorm_1.TypeOrmModule.forFeature([User_entity_1.User])],
         controllers: [user_controller_1.UserController],
-        providers: [user_service_1.UserService, user_repository_1.UserRepository]
+        providers: [user_service_1.UserService, aws_service_1.AwsService, user_repository_1.UserRepository],
     })
 ], UserModule);
 exports.UserModule = UserModule;

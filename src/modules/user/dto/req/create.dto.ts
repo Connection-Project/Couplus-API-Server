@@ -15,6 +15,9 @@ export class EmailRegistUserReqDto {
 
     @ApiProperty()
     phone: string;
+
+    @ApiProperty({ description: '이미지 이름명 : formdata에 key의 이름으로 넣으면 됨' })
+    user: any;
 }
 
 export class SocialRegistUserReqDto {
@@ -32,4 +35,7 @@ export class SocialRegistUserReqDto {
 
     @ApiProperty()
     accountId: string;
+
+    @ApiProperty({ description: '이미지 이름명 : formdata에 key의 이름으로 넣으면 됨' })
+    user: any;
 }

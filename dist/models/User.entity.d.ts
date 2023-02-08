@@ -11,6 +11,8 @@ export declare class User {
     phone: string;
     accountId: string;
     registType: string;
+    imageKey: string;
+    imagePath: string;
     createdAt: Date;
     updatedAt: Date;
     pet: MyPet[];

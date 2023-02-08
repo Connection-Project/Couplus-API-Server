@@ -24,21 +24,22 @@ const update_res_dto_1 = require("./dto/res/update.res.dto");
 const update_dto_1 = require("./dto/req/update.dto");
 const delete_res_dto_1 = require("./dto/res/delete.res.dto");
 const accessToken_guard_1 = require("../../lib/jwt/guards/accessToken.guard");
+const platform_express_1 = require("@nestjs/platform-express");
 let UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
     }
-    async emailSignUp(body) {
-        return this.userService.emailSignUp(body);
+    async emailSignUp(file, body) {
+        return this.userService.emailSignUp(file, body);
     }
-    async socialSignUp(body) {
-        return this.userService.socialSignUp(body);
+    async socialSignUp(file, body) {
+        return this.userService.socialSignUp(file, body);
     }
     async getInfo(req) {
         return this.userService.getInfo(req.user['userId']);
     }
-    async update(req, body) {
-        return this.userService.update(req.user['userId'], body);
+    async update(req, file, body) {
+        return this.userService.update(req.user['userId'], file, body);
     }
     async delete(req) {
         return this.userService.delete(req.user['userId']);
@@ -46,24 +47,30 @@ let UserController = class UserController {
 };
 __decorate([
     (0, common_1.Post)('signUp/email'),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('user')),
+    (0, swagger_1.ApiConsumes)('multipart/form-data'),
     (0, swagger_1.ApiOperation)({ summary: '이메일 회원가입' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: result_res_dto_1.ResultSuccessDto, description: '이메일 회원가입 성공' }),
     (0, swagger_1.ApiResponse)({ status: 201, type: create_res_dto_1.ExistUserDto, description: '이미 존재 하는 계정' }),
     (0, swagger_1.ApiResponse)({ status: 401, type: create_res_dto_1.EmailSignInFailDto, description: '이메일 회원가입 실패' }),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.UploadedFile)()),
+    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_dto_1.EmailRegistUserReqDto]),
+    __metadata("design:paramtypes", [Object, create_dto_1.EmailRegistUserReqDto]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "emailSignUp", null);
 __decorate([
     (0, common_1.Post)('signUp/social'),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('user')),
+    (0, swagger_1.ApiConsumes)('multipart/form-data'),
     (0, swagger_1.ApiOperation)({ summary: '소셜 회원가입' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: result_res_dto_1.ResultSuccessDto, description: '소셜 회원가입 성공' }),
     (0, swagger_1.ApiResponse)({ status: 201, type: create_res_dto_1.ExistUserDto, description: '이미 존재 하는 계정(이메일 회원 존재)' }),
     (0, swagger_1.ApiResponse)({ status: 401, type: create_res_dto_1.SocialSignInFailDto, description: '소셜 회원가입 실패' }),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.UploadedFile)()),
+    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_dto_1.SocialRegistUserReqDto]),
+    __metadata("design:paramtypes", [Object, create_dto_1.SocialRegistUserReqDto]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "socialSignUp", null);
 __decorate([
@@ -82,13 +89,16 @@ __decorate([
     (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
     (0, common_1.Patch)('update'),
     (0, swagger_1.ApiCookieAuth)(),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('user')),
+    (0, swagger_1.ApiConsumes)('multipart/form-data'),
     (0, swagger_1.ApiOperation)({ summary: '유저 정보 수정' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: result_res_dto_1.ResultSuccessDto, description: '유저 정보 수정 성공' }),
     (0, swagger_1.ApiResponse)({ status: 401, type: update_res_dto_1.UpdateUserFailDto, description: '유저 정보 수정 실패' }),
     __param(0, (0, common_1.Req)()),
-    __param(1, (0, common_1.Body)()),
+    __param(1, (0, common_1.UploadedFile)()),
+    __param(2, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, update_dto_1.UpdateUserReqDto]),
+    __metadata("design:paramtypes", [Object, Object, update_dto_1.UpdateUserReqDto]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "update", null);
 __decorate([

@@ -1,8 +1,19 @@
-import { Body, Controller, Delete, Get, Patch, Post, Req, UseGuards } from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Delete,
+    Get,
+    Patch,
+    Post,
+    Req,
+    UploadedFile,
+    UseGuards,
+    UseInterceptors,
+} from '@nestjs/common';
 import { Request } from 'express';
 import { UserService } from './user.service';
 import { EmailRegistUserReqDto, SocialRegistUserReqDto } from './dto/req/create.dto';
-import { ApiCookieAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiConsumes, ApiCookieAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ResultSuccessDto } from '../common/dto/res/result.res.dto';
 import { EmailSignInFailDto, ExistUserDto, SocialSignInFailDto } from './dto/res/create.res.dto';
 import { getInfoFailDto, getInfoSuccessDto } from './dto/res/getInfo.res.dto';
@@ -10,6 +21,7 @@ import { UpdateUserFailDto } from './dto/res/update.res.dto';
 import { UpdateUserReqDto } from './dto/req/update.dto';
 import { WithdrawUserFailDto } from './dto/res/delete.res.dto';
 import { AccessTokenGuard } from 'src/lib/jwt/guards/accessToken.guard';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @ApiTags('유저 정보')
 @Controller('user')
@@ -17,21 +29,25 @@ export class UserController {
     constructor(private readonly userService: UserService) {}
 
     @Post('signUp/email')
+    @UseInterceptors(FileInterceptor('user'))
+    @ApiConsumes('multipart/form-data')
     @ApiOperation({ summary: '이메일 회원가입' })
     @ApiResponse({ status: 200, type: ResultSuccessDto, description: '이메일 회원가입 성공' })
     @ApiResponse({ status: 201, type: ExistUserDto, description: '이미 존재 하는 계정' })
     @ApiResponse({ status: 401, type: EmailSignInFailDto, description: '이메일 회원가입 실패' })
-    async emailSignUp(@Body() body: EmailRegistUserReqDto) {
-        return this.userService.emailSignUp(body);
+    async emailSignUp(@UploadedFile() file, @Body() body: EmailRegistUserReqDto) {
+        return this.userService.emailSignUp(file, body);
     }
 
     @Post('signUp/social')
+    @UseInterceptors(FileInterceptor('user'))
+    @ApiConsumes('multipart/form-data')
     @ApiOperation({ summary: '소셜 회원가입' })
     @ApiResponse({ status: 200, type: ResultSuccessDto, description: '소셜 회원가입 성공' })
     @ApiResponse({ status: 201, type: ExistUserDto, description: '이미 존재 하는 계정(이메일 회원 존재)' })
     @ApiResponse({ status: 401, type: SocialSignInFailDto, description: '소셜 회원가입 실패' })
-    async socialSignUp(@Body() body: SocialRegistUserReqDto) {
-        return this.userService.socialSignUp(body);
+    async socialSignUp(@UploadedFile() file, @Body() body: SocialRegistUserReqDto) {
+        return this.userService.socialSignUp(file, body);
     }
 
     @UseGuards(AccessTokenGuard)
@@ -47,11 +63,13 @@ export class UserController {
     @UseGuards(AccessTokenGuard)
     @Patch('update')
     @ApiCookieAuth()
+    @UseInterceptors(FileInterceptor('user'))
+    @ApiConsumes('multipart/form-data')
     @ApiOperation({ summary: '유저 정보 수정' })
     @ApiResponse({ status: 200, type: ResultSuccessDto, description: '유저 정보 수정 성공' })
     @ApiResponse({ status: 401, type: UpdateUserFailDto, description: '유저 정보 수정 실패' })
-    async update(@Req() req: Request, @Body() body: UpdateUserReqDto) {
-        return this.userService.update(req.user['userId'], body);
+    async update(@Req() req: Request, @UploadedFile() file, @Body() body: UpdateUserReqDto) {
+        return this.userService.update(req.user['userId'], file, body);
     }
 
     @UseGuards(AccessTokenGuard)

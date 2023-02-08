@@ -31,6 +31,8 @@ let UserRepository = class UserRepository {
         user.nickName = body.nickName;
         user.phone = body.phone;
         user.registType = body.registType;
+        user.imageKey = body.imageKey;
+        user.imagePath = body.imagePath;
         if (body.accountId)
             user.accountId = body.accountId;
         return user;

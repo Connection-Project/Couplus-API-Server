@@ -12,4 +12,8 @@ export class CreateTypesDto {
     accountId?: string;
 
     registType: string;
+
+    imageKey: string;
+
+    imagePath: string;
 }

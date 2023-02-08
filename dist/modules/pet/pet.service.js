@@ -35,7 +35,9 @@ let PetService = class PetService {
             const myPets = await this.myPetRepository.findAll(userId);
             if (myPets.length === 0)
                 represent = true;
-            const createBody = Object.assign({ user: user, imageKey: imageKey, imagePath: imagePath, represent: represent }, body);
+            const createBody = Object.assign({ user: user, imageKey,
+                imagePath,
+                represent }, body);
             const myPet = this.myPetRepository.create(createBody);
             await this.myPetRepository.save(myPet);
             return { status: 200, data: { resultCode: 1, data: null } };

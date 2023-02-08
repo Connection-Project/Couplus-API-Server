@@ -6,4 +6,6 @@ export declare class CreateTypesDto {
     phone: string;
     accountId?: string;
     registType: string;
+    imageKey: string;
+    imagePath: string;
 }
