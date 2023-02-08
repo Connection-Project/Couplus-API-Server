@@ -2,10 +2,11 @@ import { RedisCacheService } from './../../cache/redisCache.service';
 import { UserRepository } from '../../repositories/user.repository';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from 'src/lib/jwt/jwt.service';
-import { EmailLoginReqDto } from './dto/req/auth.dto';
+import { EmailLoginReqDto } from './dto/req/auth.req.dto';
 import { User } from 'src/models/User.entity';
 import { GenDigestPwd } from 'src/utils/crypto';
 import axios from 'axios';
+import { RenewTokenReqDto } from './dto/req/renew.req.dto';
 
 @Injectable()
 export class AuthService {
@@ -51,7 +52,7 @@ export class AuthService {
             return { status: status, data: { resultCode: resultCode, data: data } };
         } catch (err) {
             console.log(err);
-            return { status: 401, data: { resultCode: 1101, data: null } };
+            return { status: 400, data: { resultCode: 1101, data: null } };
         }
     }
 
@@ -96,7 +97,34 @@ export class AuthService {
             return { status: status, data: { resultCode: resultCode, data: data } };
         } catch (err) {
             console.log(err);
-            return { status: 401, data: { resultCode: 1111, data: null } };
+            return { status: 400, data: { resultCode: 1111, data: null } };
+        }
+    }
+
+    async renewToken(body: RenewTokenReqDto): Promise<any> {
+        try {
+            let status = 0;
+            let resultCode = 0;
+            let data = null;
+            const { refreshToken } = body;
+            const { state, user } = this.jwtServcie.verifyToken(refreshToken);
+            if (state) {
+                const { accessToken, refreshToken } = this.jwtServcie.getToken(user.userId);
+                status = 200;
+                resultCode = 1;
+                data = {
+                    accessToken: accessToken,
+                    refreshToken: refreshToken,
+                };
+            } else {
+                // ! refreshToken 만료
+                status = 403;
+                resultCode = 9002;
+            }
+            return { status: status, data: { resultCode: resultCode, data: data } };
+        } catch (err) {
+            console.log(err);
+            return { status: 400, data: { resultCode: 9001, data: null } };
         }
     }
 }

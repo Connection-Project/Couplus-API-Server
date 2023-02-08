@@ -5,4 +5,5 @@ export declare class JwtService {
         accessToken: string;
         refreshToken: string;
     };
+    verifyToken(refreshToken: string): any;
 }

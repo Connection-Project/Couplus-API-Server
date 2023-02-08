@@ -22,4 +22,4 @@ __decorate([
     __metadata("design:type", String)
 ], EmailLoginReqDto.prototype, "password", void 0);
 exports.EmailLoginReqDto = EmailLoginReqDto;
-//# sourceMappingURL=auth.dto.js.map
+//# sourceMappingURL=auth.req.dto.js.map

@@ -56,7 +56,7 @@ let AuthService = class AuthService {
         }
         catch (err) {
             console.log(err);
-            return { status: 401, data: { resultCode: 1101, data: null } };
+            return { status: 400, data: { resultCode: 1101, data: null } };
         }
     }
     async kakaoCallBack(code) {
@@ -96,7 +96,34 @@ let AuthService = class AuthService {
         }
         catch (err) {
             console.log(err);
-            return { status: 401, data: { resultCode: 1111, data: null } };
+            return { status: 400, data: { resultCode: 1111, data: null } };
+        }
+    }
+    async renewToken(body) {
+        try {
+            let status = 0;
+            let resultCode = 0;
+            let data = null;
+            const { refreshToken } = body;
+            const { state, user } = this.jwtServcie.verifyToken(refreshToken);
+            if (state) {
+                const { accessToken, refreshToken } = this.jwtServcie.getToken(user.userId);
+                status = 200;
+                resultCode = 1;
+                data = {
+                    accessToken: accessToken,
+                    refreshToken: refreshToken,
+                };
+            }
+            else {
+                status = 403;
+                resultCode = 9002;
+            }
+            return { status: status, data: { resultCode: resultCode, data: data } };
+        }
+        catch (err) {
+            console.log(err);
+            return { status: 400, data: { resultCode: 9001, data: null } };
         }
     }
 };

@@ -8,24 +8,30 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.JwtService = void 0;
 const common_1 = require("@nestjs/common");
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const generateRandom_1 = require("../../utils/generateRandom");
+const jsonwebtoken_1 = require("jsonwebtoken");
 let JwtService = class JwtService {
     constructor() {
         this.jwtSecret = process.env.JWT_SECERET;
     }
     getToken(userId) {
-        const accessToken = jsonwebtoken_1.default.sign({ userId: userId }, this.jwtSecret, { expiresIn: '1d' });
-        const refreshToken = jsonwebtoken_1.default.sign({ code: (0, generateRandom_1.generateRandomString)() }, this.jwtSecret, {
+        const accessToken = (0, jsonwebtoken_1.sign)({ userId: userId }, this.jwtSecret, { expiresIn: '1d' });
+        const refreshToken = (0, jsonwebtoken_1.sign)({ userId: userId }, this.jwtSecret, {
             expiresIn: '7d',
         });
         return { accessToken, refreshToken };
+    }
+    verifyToken(refreshToken) {
+        let data = null;
+        (0, jsonwebtoken_1.verify)(refreshToken, this.jwtSecret, async (err, user) => {
+            if (err)
+                data = { state: false, user: null };
+            else
+                data = { state: true, user: user };
+        });
+        return data;
     }
 };
 JwtService = __decorate([
