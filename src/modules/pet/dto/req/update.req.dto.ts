@@ -5,6 +5,9 @@ export class UpdateMyPetReqDto {
     name?: string;
 
     @ApiProperty()
+    represent: string;
+
+    @ApiProperty()
     breed?: string;
 
     @ApiProperty()

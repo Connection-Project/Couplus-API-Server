@@ -22,6 +22,10 @@ __decorate([
     __metadata("design:type", Number)
 ], MyPet.prototype, "id", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ default: false }),
+    __metadata("design:type", Boolean)
+], MyPet.prototype, "represent", void 0);
+__decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], MyPet.prototype, "name", void 0);

@@ -20,6 +20,10 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
+], UpdateMyPetReqDto.prototype, "represent", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
 ], UpdateMyPetReqDto.prototype, "breed", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),

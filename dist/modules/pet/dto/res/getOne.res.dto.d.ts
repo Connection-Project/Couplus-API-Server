@@ -1,5 +1,6 @@
 export declare class GetOneMyPetObj {
     myPetId: number;
+    represent: boolean;
     name: string;
     breed: string;
     gender: string;

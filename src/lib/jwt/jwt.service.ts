@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { sign, verify } from 'jsonwebtoken';
-import { generateRandomString } from 'src/utils/generateRandom';
 
 @Injectable()
 export class JwtService {

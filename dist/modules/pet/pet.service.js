@@ -31,7 +31,11 @@ let PetService = class PetService {
                 imageKey = res.Key;
                 imagePath = res.Location;
             }
-            const createBody = Object.assign({ user: user, imageKey: imageKey, imagePath: imagePath }, body);
+            let represent = false;
+            const myPets = await this.myPetRepository.findAll(userId);
+            if (myPets.length === 0)
+                represent = true;
+            const createBody = Object.assign({ user: user, imageKey: imageKey, imagePath: imagePath, represent: represent }, body);
             const myPet = this.myPetRepository.create(createBody);
             await this.myPetRepository.save(myPet);
             return { status: 200, data: { resultCode: 1, data: null } };
@@ -49,6 +53,7 @@ let PetService = class PetService {
             const togetherDay = myPet.togetherDay.toISOString().substring(0, 10).split('-');
             data = {
                 myPetId: myPet.id,
+                represent: myPet.represent,
                 name: myPet.name,
                 breed: myPet.breed,
                 gender: myPet.gender,
@@ -74,6 +79,7 @@ let PetService = class PetService {
             for (let i = 0; i < myPet.length; i++) {
                 items[i] = {
                     myPetId: myPet[i].id,
+                    represent: myPet[i].represent,
                     name: myPet[i].name,
                     age: (0, date_1.getYearDiff)(new Date(myPet[i].birthDay), new Date()),
                     breed: myPet[i].breed,
@@ -92,7 +98,7 @@ let PetService = class PetService {
     }
     async update(userId, myPetId, file, body) {
         try {
-            const { name, breed, gender, birthDay, togetherDay } = body;
+            const { name, represent, breed, gender, birthDay, togetherDay } = body;
             let status = 0;
             let resultCode = 0;
             const myPet = await this.myPetRepository.findOneById(userId, myPetId);
@@ -107,6 +113,16 @@ let PetService = class PetService {
                     myPet.birthDay = new Date(birthDay);
                 if (togetherDay !== '' && birthDay !== null)
                     myPet.togetherDay = new Date(togetherDay);
+                if (JSON.parse(represent)) {
+                    const myPets = await this.myPetRepository.findAll(userId);
+                    for (let i = 0; i < myPets.length; i++) {
+                        if (myPets[i].represent) {
+                            myPets[i].represent = false;
+                            await this.myPetRepository.save(myPets[i]);
+                        }
+                    }
+                    myPet.represent = true;
+                }
                 if (file) {
                     const res = await this.awsService.uploadImage(file);
                     if (res) {

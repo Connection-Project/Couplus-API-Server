@@ -14,6 +14,9 @@ export class MyPet {
     @PrimaryGeneratedColumn()
     id: number;
 
+    @Column({ default: false })
+    represent: boolean;
+
     @Column()
     name: string;
 

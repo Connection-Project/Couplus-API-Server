@@ -1,6 +1,7 @@
 import { User } from './User.entity';
 export declare class MyPet {
     id: number;
+    represent: boolean;
     name: string;
     breed: string;
     gender: string;

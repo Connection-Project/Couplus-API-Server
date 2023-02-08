@@ -3,6 +3,8 @@ import { User } from 'src/models/User.entity';
 export class CreateMyPetTypesDto {
     name: string;
 
+    represent: boolean;
+
     breed: string;
 
     gender: string;

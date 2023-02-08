@@ -19,6 +19,10 @@ __decorate([
 ], GetOneMyPetObj.prototype, "myPetId", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", Boolean)
+], GetOneMyPetObj.prototype, "represent", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
 ], GetOneMyPetObj.prototype, "name", void 0);
 __decorate([

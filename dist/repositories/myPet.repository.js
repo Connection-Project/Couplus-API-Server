@@ -24,6 +24,7 @@ let MyPetRepository = class MyPetRepository {
     create(body) {
         const myPet = this.myPetRepository.create();
         myPet.user = body.user;
+        myPet.represent = body.represent;
         myPet.name = body.name;
         myPet.breed = body.breed;
         myPet.gender = body.gender;

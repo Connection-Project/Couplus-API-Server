@@ -14,6 +14,7 @@ export class MyPetRepository {
     create(body: CreateMyPetTypesDto): MyPet {
         const myPet: MyPet = this.myPetRepository.create();
         myPet.user = body.user;
+        myPet.represent = body.represent;
         myPet.name = body.name;
         myPet.breed = body.breed;
         myPet.gender = body.gender;

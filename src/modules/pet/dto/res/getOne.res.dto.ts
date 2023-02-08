@@ -5,6 +5,9 @@ export class GetOneMyPetObj {
     myPetId: number;
 
     @ApiProperty()
+    represent: boolean;
+
+    @ApiProperty()
     name: string;
 
     @ApiProperty()

@@ -28,11 +28,14 @@ export class PetService {
                 imageKey = res.Key;
                 imagePath = res.Location;
             }
-
+            let represent = false;
+            const myPets: MyPet[] = await this.myPetRepository.findAll(userId);
+            if (myPets.length === 0) represent = true;
             const createBody = {
                 user: user,
                 imageKey: imageKey,
                 imagePath: imagePath,
+                represent: represent,
                 ...body,
             };
             const myPet: MyPet = this.myPetRepository.create(createBody);
@@ -54,6 +57,7 @@ export class PetService {
 
             data = {
                 myPetId: myPet.id,
+                represent: myPet.represent,
                 name: myPet.name,
                 breed: myPet.breed,
                 gender: myPet.gender,
@@ -79,6 +83,7 @@ export class PetService {
             for (let i = 0; i < myPet.length; i++) {
                 items[i] = {
                     myPetId: myPet[i].id,
+                    represent: myPet[i].represent,
                     name: myPet[i].name,
                     age: getYearDiff(new Date(myPet[i].birthDay), new Date()),
                     breed: myPet[i].breed,
@@ -97,7 +102,7 @@ export class PetService {
 
     async update(userId: number, myPetId: number, file: File, body: UpdateMyPetReqDto): Promise<any> {
         try {
-            const { name, breed, gender, birthDay, togetherDay } = body;
+            const { name, represent, breed, gender, birthDay, togetherDay } = body;
             let status = 0;
             let resultCode = 0;
             const myPet: MyPet = await this.myPetRepository.findOneById(userId, myPetId);
@@ -107,6 +112,17 @@ export class PetService {
                 if (gender !== '') myPet.gender = gender;
                 if (birthDay !== '' && birthDay !== null) myPet.birthDay = new Date(birthDay);
                 if (togetherDay !== '' && birthDay !== null) myPet.togetherDay = new Date(togetherDay);
+                if (JSON.parse(represent)) {
+                    // ! 이미 대표 강아지로 설정된 강아지를 false 처리
+                    const myPets: MyPet[] = await this.myPetRepository.findAll(userId);
+                    for (let i = 0; i < myPets.length; i++) {
+                        if (myPets[i].represent) {
+                            myPets[i].represent = false;
+                            await this.myPetRepository.save(myPets[i]);
+                        }
+                    }
+                    myPet.represent = true;
+                }
                 // ! 파일이 존재할 시 프로필 이미지 수정
                 if (file) {
                     const res = await this.awsService.uploadImage(file);
