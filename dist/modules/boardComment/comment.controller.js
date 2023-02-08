@@ -16,10 +16,10 @@ exports.CommentController = void 0;
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
 const accessToken_guard_1 = require("../../lib/jwt/guards/accessToken.guard");
-const update_req_dto_1 = require("../board/dto/req/update.req.dto");
 const result_res_dto_1 = require("../common/dto/res/result.res.dto");
 const comment_service_1 = require("./comment.service");
 const create_req_dto_1 = require("./dto/req/create.req.dto");
+const update_req_dto_1 = require("./dto/req/update.req.dto");
 const create_res_dto_1 = require("./dto/res/create.res.dto");
 const delete_res_dto_1 = require("./dto/res/delete.res.dto");
 const getComments_res_dto_1 = require("./dto/res/getComments.res.dto");
@@ -80,7 +80,7 @@ __decorate([
     __param(1, (0, common_1.Param)('commentId', common_1.ParseIntPipe)),
     __param(2, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Number, update_req_dto_1.UpdateBoardReqDto]),
+    __metadata("design:paramtypes", [Object, Number, update_req_dto_1.UpdateBoardCommentReqDto]),
     __metadata("design:returntype", Promise)
 ], CommentController.prototype, "update", null);
 __decorate([

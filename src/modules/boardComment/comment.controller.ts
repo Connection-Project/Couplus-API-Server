@@ -13,10 +13,10 @@ import {
 import { ApiCookieAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
 import { AccessTokenGuard } from 'src/lib/jwt/guards/accessToken.guard';
-import { UpdateBoardReqDto } from '../board/dto/req/update.req.dto';
 import { ResultSuccessDto } from '../common/dto/res/result.res.dto';
 import { CommentService } from './comment.service';
 import { CreateCommentReqDto } from './dto/req/create.req.dto';
+import { UpdateBoardCommentReqDto } from './dto/req/update.req.dto';
 import { CreateBoardCommentFailDto, NotFoundBoardCreateDto } from './dto/res/create.res.dto';
 import { DeleteBoardCommentFailDto, NotFoundBoardDeleteDto } from './dto/res/delete.res.dto';
 import { GetBoardCommentsFailDto, GetBoardCommentsSuccessDto } from './dto/res/getComments.res.dto';
@@ -59,7 +59,7 @@ export class CommentController {
     async update(
         @Req() req: Request,
         @Param('commentId', ParseIntPipe) commentId: number,
-        @Body() body: UpdateBoardReqDto,
+        @Body() body: UpdateBoardCommentReqDto,
     ) {
         return await this.commentService.update(req.user['userId'], commentId, body);
     }
