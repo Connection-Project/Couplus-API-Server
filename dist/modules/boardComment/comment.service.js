@@ -43,7 +43,7 @@ let CommentService = class CommentService {
             else {
                 const user = await this.userRepository.findByKey('id', userId);
                 const boardComment = this.boardCommentRepository.create();
-                boardComment.board;
+                boardComment.board = board;
                 boardComment.user = user;
                 boardComment.content = content;
                 await this.boardCommentRepository.save(boardComment);

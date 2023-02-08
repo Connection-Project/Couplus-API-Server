@@ -99,7 +99,7 @@ __decorate([
 ], CommentController.prototype, "delete", null);
 CommentController = __decorate([
     (0, swagger_1.ApiTags)('게시글 댓글'),
-    (0, common_1.Controller)('comment'),
+    (0, common_1.Controller)('board/comment'),
     __metadata("design:paramtypes", [comment_service_1.CommentService])
 ], CommentController);
 exports.CommentController = CommentController;

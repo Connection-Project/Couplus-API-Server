@@ -23,7 +23,7 @@ import { GetBoardCommentsFailDto, GetBoardCommentsSuccessDto } from './dto/res/g
 import { NotFoundBoardUpdateDto, UpdateBoardCommentFailDto } from './dto/res/update.res.dto';
 
 @ApiTags('게시글 댓글')
-@Controller('comment')
+@Controller('board/comment')
 export class CommentController {
     constructor(private commentService: CommentService) {}
 
