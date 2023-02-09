@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { CommentService } from './comment.service';
-import { CommentController } from './comment.controller';
+import { CommentService } from './boardComment.service';
+import { CommentController } from './boardComment.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { BoardComment } from 'src/models/BoardComment.entity';
 import { Board } from 'src/models/Board.entity';

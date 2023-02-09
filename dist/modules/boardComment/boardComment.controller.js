@@ -17,7 +17,7 @@ const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
 const accessToken_guard_1 = require("../../lib/jwt/guards/accessToken.guard");
 const result_res_dto_1 = require("../common/dto/res/result.res.dto");
-const comment_service_1 = require("./comment.service");
+const boardComment_service_1 = require("./boardComment.service");
 const create_req_dto_1 = require("./dto/req/create.req.dto");
 const update_req_dto_1 = require("./dto/req/update.req.dto");
 const create_res_dto_1 = require("./dto/res/create.res.dto");
@@ -90,7 +90,7 @@ __decorate([
     (0, swagger_1.ApiOperation)({ summary: '댓글 삭제' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: result_res_dto_1.ResultSuccessDto, description: '게시글 댓글 삭제 성공' }),
     (0, swagger_1.ApiResponse)({ status: 201, type: delete_res_dto_1.NotFoundBoardDeleteDto, description: '존재하지 않는 게시글' }),
-    (0, swagger_1.ApiResponse)({ status: 401, type: delete_res_dto_1.DeleteBoardCommentFailDto, description: '게시글 댓글 수정 실패' }),
+    (0, swagger_1.ApiResponse)({ status: 401, type: delete_res_dto_1.DeleteBoardCommentFailDto, description: '게시글 댓글 삭제 실패' }),
     __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.Param)('commentId', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
@@ -100,7 +100,7 @@ __decorate([
 CommentController = __decorate([
     (0, swagger_1.ApiTags)('게시글 댓글'),
     (0, common_1.Controller)('board/comment'),
-    __metadata("design:paramtypes", [comment_service_1.CommentService])
+    __metadata("design:paramtypes", [boardComment_service_1.CommentService])
 ], CommentController);
 exports.CommentController = CommentController;
-//# sourceMappingURL=comment.controller.js.map
+//# sourceMappingURL=boardComment.controller.js.map

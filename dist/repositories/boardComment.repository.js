@@ -28,6 +28,12 @@ let BoardCommentRepository = class BoardCommentRepository {
         await this.boardCommentRepository.save(boardComment);
         return;
     }
+    async findOneById(commentId) {
+        return await this.boardCommentRepository
+            .createQueryBuilder('bc')
+            .where('id = :commentId', { commentId: commentId })
+            .getOne();
+    }
     async findManyByBoardId(boardId) {
         const query = this.boardCommentRepository
             .createQueryBuilder('bc')

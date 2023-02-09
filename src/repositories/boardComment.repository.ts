@@ -19,6 +19,13 @@ export class BoardCommentRepository {
         return;
     }
 
+    async findOneById(commentId): Promise<BoardComment> {
+        return await this.boardCommentRepository
+            .createQueryBuilder('bc')
+            .where('id = :commentId', { commentId: commentId })
+            .getOne();
+    }
+
     async findManyByBoardId(boardId: number): Promise<BoardComment[]> {
         const query = this.boardCommentRepository
             .createQueryBuilder('bc')

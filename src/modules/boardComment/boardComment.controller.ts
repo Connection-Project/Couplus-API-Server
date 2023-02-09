@@ -14,7 +14,7 @@ import { ApiCookieAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagg
 import { Request } from 'express';
 import { AccessTokenGuard } from 'src/lib/jwt/guards/accessToken.guard';
 import { ResultSuccessDto } from '../common/dto/res/result.res.dto';
-import { CommentService } from './comment.service';
+import { CommentService } from './boardComment.service';
 import { CreateCommentReqDto } from './dto/req/create.req.dto';
 import { UpdateBoardCommentReqDto } from './dto/req/update.req.dto';
 import { CreateBoardCommentFailDto, NotFoundBoardCreateDto } from './dto/res/create.res.dto';
@@ -70,7 +70,7 @@ export class CommentController {
     @ApiOperation({ summary: '댓글 삭제' })
     @ApiResponse({ status: 200, type: ResultSuccessDto, description: '게시글 댓글 삭제 성공' })
     @ApiResponse({ status: 201, type: NotFoundBoardDeleteDto, description: '존재하지 않는 게시글' })
-    @ApiResponse({ status: 401, type: DeleteBoardCommentFailDto, description: '게시글 댓글 수정 실패' })
+    @ApiResponse({ status: 401, type: DeleteBoardCommentFailDto, description: '게시글 댓글 삭제 실패' })
     async delete(@Req() req: Request, @Param('commentId', ParseIntPipe) commentId: number) {
         return await this.commentService.delete(req.user['userId'], commentId);
     }

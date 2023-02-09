@@ -19,12 +19,12 @@ export class BoardCommentReplyRepository {
         return;
     }
 
-    async findManyByBoardId(boardId: number): Promise<BoardCommentReply[]> {
+    async findManyByBoardId(commentId: number): Promise<BoardCommentReply[]> {
         const query = this.boardCommentReplyRepository
             .createQueryBuilder('bcr')
             .innerJoinAndSelect('bcr.comment', 'bc')
             .innerJoinAndSelect('bcr.user', 'u')
-            .where('b.id = :boardId', { boardId: boardId })
+            .where('b.id = :commentId', { commentId: commentId })
             .orderBy('bc.createdAt', 'DESC');
         return query.getMany();
     }

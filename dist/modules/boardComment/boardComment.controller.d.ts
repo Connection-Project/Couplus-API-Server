@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { CommentService } from './comment.service';
+import { CommentService } from './boardComment.service';
 import { CreateCommentReqDto } from './dto/req/create.req.dto';
 import { UpdateBoardCommentReqDto } from './dto/req/update.req.dto';
 export declare class CommentController {

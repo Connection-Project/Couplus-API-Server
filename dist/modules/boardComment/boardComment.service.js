@@ -134,4 +134,4 @@ CommentService = __decorate([
         user_repository_1.UserRepository])
 ], CommentService);
 exports.CommentService = CommentService;
-//# sourceMappingURL=comment.service.js.map
+//# sourceMappingURL=boardComment.service.js.map
