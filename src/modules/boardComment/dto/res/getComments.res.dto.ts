@@ -5,7 +5,7 @@ export class GetBoardCommentsObj {
     commentId: number;
 
     @ApiProperty()
-    wirter: string;
+    writer: string;
 
     @ApiProperty()
     content: string;

@@ -1,6 +1,6 @@
 export declare class GetBoardCommentReplyObj {
     replyId: number;
-    wirter: string;
+    writer: string;
     content: string;
     mine: boolean;
     createdAt: string;

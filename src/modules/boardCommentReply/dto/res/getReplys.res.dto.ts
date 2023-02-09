@@ -5,7 +5,7 @@ export class GetBoardCommentReplyObj {
     replyId: number;
 
     @ApiProperty()
-    wirter: string;
+    writer: string;
 
     @ApiProperty()
     content: string;
