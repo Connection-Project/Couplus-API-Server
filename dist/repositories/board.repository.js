@@ -27,6 +27,7 @@ let BoardRepository = class BoardRepository {
     }
     async save(board) {
         await this.boardRepository.save(board);
+        return;
     }
     getQuery() {
         return this.boardRepository
@@ -58,6 +59,7 @@ let BoardRepository = class BoardRepository {
             .where('id = :boardId', { boardId: boardId })
             .andWhere('userId = :userId', { userId: userId })
             .execute();
+        return;
     }
     async findOneByIdAndUserId(userId, boardId) {
         return await this.boardRepository

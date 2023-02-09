@@ -4,13 +4,14 @@ import {
     CreateDateColumn,
     Entity,
     OneToMany,
-    OneToOne,
     PrimaryGeneratedColumn,
     UpdateDateColumn,
 } from 'typeorm';
 import { Board } from './Board.entity';
 import { MyPet } from './MyPets.entity';
 import { BoardCommentReply } from './BoardCommentReply.entity';
+import { Feed } from './Feed.entity';
+import { FeedComment } from './FeedComment.entity';
 
 @Entity({ name: 'Users' })
 export class User {
@@ -61,6 +62,12 @@ export class User {
 
     @OneToMany(() => BoardCommentReply, (reply) => reply.user)
     reply: BoardCommentReply[];
+
+    @OneToMany(() => Feed, (feed) => feed.user, { cascade: true })
+    feed: Feed[];
+
+    @OneToMany(() => FeedComment, (comment) => comment.user)
+    feedComment: FeedComment[];
 
     constructor(partial: Partial<User>) {
         Object.assign(this, partial);

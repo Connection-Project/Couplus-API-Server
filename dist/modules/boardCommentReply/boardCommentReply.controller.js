@@ -103,6 +103,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], BoardcommentreplyController.prototype, "delete", null);
 BoardcommentreplyController = __decorate([
+    (0, swagger_1.ApiTags)('게시글 대댓글'),
     (0, common_1.Controller)('board/comment/reply'),
     __metadata("design:paramtypes", [boardCommentReply_service_1.BoardcommentreplyService])
 ], BoardcommentreplyController);

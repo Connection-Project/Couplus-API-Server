@@ -17,6 +17,7 @@ export class BoardRepository {
 
     async save(board: Board): Promise<void> {
         await this.boardRepository.save(board);
+        return;
     }
 
     getQuery(): SelectQueryBuilder<Board> {
@@ -56,6 +57,7 @@ export class BoardRepository {
             .where('id = :boardId', { boardId: boardId })
             .andWhere('userId = :userId', { userId: userId })
             .execute();
+        return;
     }
 
     async findOneByIdAndUserId(userId: number, boardId: number): Promise<Board> {

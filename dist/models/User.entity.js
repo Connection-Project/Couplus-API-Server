@@ -15,6 +15,8 @@ const typeorm_1 = require("typeorm");
 const Board_entity_1 = require("./Board.entity");
 const MyPets_entity_1 = require("./MyPets.entity");
 const BoardCommentReply_entity_1 = require("./BoardCommentReply.entity");
+const Feed_entity_1 = require("./Feed.entity");
+const FeedComment_entity_1 = require("./FeedComment.entity");
 let User = class User {
     constructor(partial) {
         Object.assign(this, partial);
@@ -84,6 +86,14 @@ __decorate([
     (0, typeorm_1.OneToMany)(() => BoardCommentReply_entity_1.BoardCommentReply, (reply) => reply.user),
     __metadata("design:type", Array)
 ], User.prototype, "reply", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => Feed_entity_1.Feed, (feed) => feed.user, { cascade: true }),
+    __metadata("design:type", Array)
+], User.prototype, "feed", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => FeedComment_entity_1.FeedComment, (comment) => comment.user),
+    __metadata("design:type", Array)
+], User.prototype, "feedComment", void 0);
 User = __decorate([
     (0, typeorm_1.Entity)({ name: 'Users' }),
     __metadata("design:paramtypes", [Object])

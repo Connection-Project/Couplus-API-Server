@@ -14,6 +14,7 @@ const pet_module_1 = require("./pet/pet.module");
 const board_module_1 = require("./board/board.module");
 const boardComment_module_1 = require("./boardComment/boardComment.module");
 const boardCommentReply_module_1 = require("./boardCommentReply/boardCommentReply.module");
+const feed_module_1 = require("./feed/feed.module");
 let IndexModule = class IndexModule {
 };
 IndexModule = __decorate([
@@ -25,6 +26,7 @@ IndexModule = __decorate([
             board_module_1.BoardModule,
             boardComment_module_1.CommentModule,
             boardCommentReply_module_1.BoardCommentReplyModule,
+            feed_module_1.FeedModule,
         ],
     })
 ], IndexModule);

@@ -10,7 +10,7 @@ import {
     Req,
     UseGuards,
 } from '@nestjs/common';
-import { ApiCookieAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiCookieAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
 import { AccessTokenGuard } from 'src/lib/jwt/guards/accessToken.guard';
 import { UpdateBoardCommentFailDto } from '../boardComment/dto/res/update.res.dto';
@@ -23,6 +23,7 @@ import { DeleteBoardCommentReplyFailDto, NotFoundReplyDeleteDto } from './dto/re
 import { GetBoardCommentReplysFailDto, GetBoardCommentsSuccessDto } from './dto/res/getReplys.res.dto';
 import { NotFoundReplyUpdateDto } from './dto/res/update.res.dto';
 
+@ApiTags('게시글 대댓글')
 @Controller('board/comment/reply')
 export class BoardcommentreplyController {
     constructor(private readonly boardCommentReplyService: BoardcommentreplyService) {}

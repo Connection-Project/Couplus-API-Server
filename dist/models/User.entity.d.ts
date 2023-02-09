@@ -2,6 +2,8 @@ import { BoardComment } from './BoardComment.entity';
 import { Board } from './Board.entity';
 import { MyPet } from './MyPets.entity';
 import { BoardCommentReply } from './BoardCommentReply.entity';
+import { Feed } from './Feed.entity';
+import { FeedComment } from './FeedComment.entity';
 export declare class User {
     id: number;
     email: string;
@@ -19,5 +21,7 @@ export declare class User {
     board: Board[];
     comment: BoardComment[];
     reply: BoardCommentReply[];
+    feed: Feed[];
+    feedComment: FeedComment[];
     constructor(partial: Partial<User>);
 }

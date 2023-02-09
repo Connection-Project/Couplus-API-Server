@@ -5,6 +5,7 @@ import { PetModule } from './pet/pet.module';
 import { BoardModule } from './board/board.module';
 import { CommentModule } from './boardComment/boardComment.module';
 import { BoardCommentReplyModule } from './boardCommentReply/boardCommentReply.module';
+import { FeedModule } from './feed/feed.module';
 
 @Module({
     imports: [
@@ -14,6 +15,7 @@ import { BoardCommentReplyModule } from './boardCommentReply/boardCommentReply.m
         BoardModule,
         CommentModule,
         BoardCommentReplyModule,
+        FeedModule,
         // ProductModule,
         // CartModule
     ],

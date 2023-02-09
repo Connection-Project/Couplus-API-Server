@@ -25,6 +25,8 @@ export class AwsService {
             location = `pet/profile/${filename}`;
         } else if (file.fieldname === 'board') {
             location = `board/${filename}`;
+        } else if (file.fieldname === 'user') {
+            location = `user/${filename}`;
         }
         const params = {
             Bucket: 'pet-img',
