@@ -17,6 +17,7 @@ const board_repository_1 = require("../../repositories/board.repository");
 const boardComment_repository_1 = require("../../repositories/boardComment.repository");
 const User_entity_1 = require("../../models/User.entity");
 const user_repository_1 = require("../../repositories/user.repository");
+const boardCommentReply_repository_1 = require("../../repositories/boardCommentReply.repository");
 let CommentModule = class CommentModule {
 };
 CommentModule = __decorate([
@@ -26,7 +27,7 @@ CommentModule = __decorate([
             boardComment_service_1.CommentService,
             board_repository_1.BoardRepository,
             boardComment_repository_1.BoardCommentRepository,
-            boardComment_repository_1.BoardCommentRepository,
+            boardCommentReply_repository_1.BoardCommentReplyRepository,
             user_repository_1.UserRepository,
         ],
         controllers: [boardComment_controller_1.CommentController],

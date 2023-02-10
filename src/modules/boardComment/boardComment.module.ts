@@ -8,6 +8,7 @@ import { BoardRepository } from 'src/repositories/board.repository';
 import { BoardCommentRepository } from 'src/repositories/boardComment.repository';
 import { User } from 'src/models/User.entity';
 import { UserRepository } from 'src/repositories/user.repository';
+import { BoardCommentReplyRepository } from 'src/repositories/boardCommentReply.repository';
 
 @Module({
     imports: [TypeOrmModule.forFeature([BoardComment, Board, User])],
@@ -15,7 +16,7 @@ import { UserRepository } from 'src/repositories/user.repository';
         CommentService,
         BoardRepository,
         BoardCommentRepository,
-        BoardCommentRepository,
+        BoardCommentReplyRepository,
         UserRepository,
     ],
     controllers: [CommentController],
