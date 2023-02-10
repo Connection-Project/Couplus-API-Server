@@ -90,10 +90,8 @@ export class CommentService {
                 console.log(body);
                 // ! 내용이 공백이 아니고 내용이 DB의 값과 똑같지 않으면 수정
                 if (content !== '' && content !== boardComment.content) {
-                    console.log('들어 오냐?');
-                    boardComment.content;
-                    const result = await this.boardCommentRepository.save(boardComment);
-                    console.log(result);
+                    boardComment.content = content;
+                    await this.boardCommentRepository.save(boardComment);
                 }
                 status = 200;
                 resultCode = 1;
