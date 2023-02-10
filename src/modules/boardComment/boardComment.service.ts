@@ -4,6 +4,7 @@ import { BoardComment } from 'src/models/BoardComment.entity';
 import { User } from 'src/models/User.entity';
 import { BoardRepository } from 'src/repositories/board.repository';
 import { BoardCommentRepository } from 'src/repositories/boardComment.repository';
+import { BoardCommentReplyRepository } from 'src/repositories/boardCommentReply.repository';
 import { UserRepository } from 'src/repositories/user.repository';
 import { formatDateParam } from 'src/utils/date';
 import { CreateCommentReqDto } from './dto/req/create.req.dto';
@@ -13,6 +14,7 @@ import { UpdateBoardCommentReqDto } from './dto/req/update.req.dto';
 export class CommentService {
     constructor(
         private readonly boardCommentRepository: BoardCommentRepository,
+        private readonly boardCommentReplyRepository: BoardCommentReplyRepository,
         private readonly boardRepository: BoardRepository,
         private readonly userRepository: UserRepository,
     ) {}
@@ -60,13 +62,29 @@ export class CommentService {
             );
             const items = [];
             for (let i = 0; i < boardComment.length; i++) {
-                let mine = false;
-                if (userId && userId === boardComment[i].user.id) mine = true;
+                let commentMine = false;
+                if (userId && userId === boardComment[i].user.id) commentMine = true;
+
+                const reply = [];
+                // ! 대댓글 리스트
+                for (let j = 0; j < boardComment[i].reply.length; j++) {
+                    let replyMine = false;
+                    if (userId && userId === boardComment[i].reply[j].user.id) commentMine = true;
+
+                    reply[j] = {
+                        replyId: boardComment[i].reply[j].id,
+                        writer: boardComment[i].reply[j].user.nickName,
+                        content: boardComment[i].reply[j].content,
+                        mine: replyMine,
+                        createdAt: formatDateParam(boardComment[i].reply[j].createdAt),
+                    };
+                }
                 items[i] = {
                     commentId: boardComment[i].id,
                     writer: boardComment[i].user.nickName,
                     content: boardComment[i].content,
-                    mine: mine,
+                    mine: commentMine,
+                    reply: reply,
                     createdAt: formatDateParam(boardComment[i].createdAt),
                 };
             }

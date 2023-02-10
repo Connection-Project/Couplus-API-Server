@@ -13,11 +13,13 @@ exports.CommentService = void 0;
 const common_1 = require("@nestjs/common");
 const board_repository_1 = require("../../repositories/board.repository");
 const boardComment_repository_1 = require("../../repositories/boardComment.repository");
+const boardCommentReply_repository_1 = require("../../repositories/boardCommentReply.repository");
 const user_repository_1 = require("../../repositories/user.repository");
 const date_1 = require("../../utils/date");
 let CommentService = class CommentService {
-    constructor(boardCommentRepository, boardRepository, userRepository) {
+    constructor(boardCommentRepository, boardCommentReplyRepository, boardRepository, userRepository) {
         this.boardCommentRepository = boardCommentRepository;
+        this.boardCommentReplyRepository = boardCommentReplyRepository;
         this.boardRepository = boardRepository;
         this.userRepository = userRepository;
     }
@@ -62,14 +64,28 @@ let CommentService = class CommentService {
             const boardComment = await this.boardCommentRepository.findManyByBoardId(boardId);
             const items = [];
             for (let i = 0; i < boardComment.length; i++) {
-                let mine = false;
+                let commentMine = false;
                 if (userId && userId === boardComment[i].user.id)
-                    mine = true;
+                    commentMine = true;
+                const reply = [];
+                for (let j = 0; j < boardComment[i].reply.length; j++) {
+                    let replyMine = false;
+                    if (userId && userId === boardComment[i].reply[j].user.id)
+                        commentMine = true;
+                    reply[j] = {
+                        replyId: boardComment[i].reply[j].id,
+                        writer: boardComment[i].reply[j].user.nickName,
+                        content: boardComment[i].reply[j].content,
+                        mine: replyMine,
+                        createdAt: (0, date_1.formatDateParam)(boardComment[i].reply[j].createdAt),
+                    };
+                }
                 items[i] = {
                     commentId: boardComment[i].id,
                     writer: boardComment[i].user.nickName,
                     content: boardComment[i].content,
-                    mine: mine,
+                    mine: commentMine,
+                    reply: reply,
                     createdAt: (0, date_1.formatDateParam)(boardComment[i].createdAt),
                 };
             }
@@ -131,6 +147,7 @@ let CommentService = class CommentService {
 CommentService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [boardComment_repository_1.BoardCommentRepository,
+        boardCommentReply_repository_1.BoardCommentReplyRepository,
         board_repository_1.BoardRepository,
         user_repository_1.UserRepository])
 ], CommentService);

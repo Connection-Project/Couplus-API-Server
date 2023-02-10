@@ -9,8 +9,31 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GetBoardCommentsFailDto = exports.GetBoardCommentsSuccessDto = exports.GetBoardCommentsDataObj = exports.GetBoardCommentsObj = void 0;
+exports.GetBoardCommentsFailDto = exports.GetBoardCommentsSuccessDto = exports.GetBoardCommentsDataObj = exports.GetBoardCommentsObj = exports.GetBoardCommentReplyObj = void 0;
 const swagger_1 = require("@nestjs/swagger");
+class GetBoardCommentReplyObj {
+}
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", Number)
+], GetBoardCommentReplyObj.prototype, "replyId", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], GetBoardCommentReplyObj.prototype, "writer", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], GetBoardCommentReplyObj.prototype, "content", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", Boolean)
+], GetBoardCommentReplyObj.prototype, "mine", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], GetBoardCommentReplyObj.prototype, "createdAt", void 0);
+exports.GetBoardCommentReplyObj = GetBoardCommentReplyObj;
 class GetBoardCommentsObj {
 }
 __decorate([
@@ -29,6 +52,10 @@ __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Boolean)
 ], GetBoardCommentsObj.prototype, "mine", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: GetBoardCommentReplyObj }),
+    __metadata("design:type", Array)
+], GetBoardCommentsObj.prototype, "reply", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)

@@ -35,7 +35,7 @@ export class BoardComment {
     updatedAt: Date;
 
     @OneToMany(() => BoardCommentReply, (reply) => reply.comment, { cascade: true })
-    reply: BoardCommentReply;
+    reply: BoardCommentReply[];
 
     constructor(partial: Partial<BoardComment>) {
         Object.assign(this, partial);

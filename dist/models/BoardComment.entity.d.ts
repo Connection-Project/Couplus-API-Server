@@ -8,6 +8,6 @@ export declare class BoardComment {
     user: User;
     createdAt: Date;
     updatedAt: Date;
-    reply: BoardCommentReply;
+    reply: BoardCommentReply[];
     constructor(partial: Partial<BoardComment>);
 }

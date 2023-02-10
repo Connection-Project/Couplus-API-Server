@@ -1,5 +1,22 @@
 import { ApiProperty } from '@nestjs/swagger';
 
+export class GetBoardCommentReplyObj {
+    @ApiProperty()
+    replyId: number;
+
+    @ApiProperty()
+    writer: string;
+
+    @ApiProperty()
+    content: string;
+
+    @ApiProperty()
+    mine: boolean;
+
+    @ApiProperty()
+    createdAt: string;
+}
+
 export class GetBoardCommentsObj {
     @ApiProperty()
     commentId: number;
@@ -12,6 +29,9 @@ export class GetBoardCommentsObj {
 
     @ApiProperty()
     mine: boolean;
+
+    @ApiProperty({ type: GetBoardCommentReplyObj })
+    reply: GetBoardCommentReplyObj[];
 
     @ApiProperty()
     createdAt: string;

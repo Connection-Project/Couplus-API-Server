@@ -22,7 +22,13 @@ let CommentModule = class CommentModule {
 CommentModule = __decorate([
     (0, common_1.Module)({
         imports: [typeorm_1.TypeOrmModule.forFeature([BoardComment_entity_1.BoardComment, Board_entity_1.Board, User_entity_1.User])],
-        providers: [boardComment_service_1.CommentService, board_repository_1.BoardRepository, boardComment_repository_1.BoardCommentRepository, user_repository_1.UserRepository],
+        providers: [
+            boardComment_service_1.CommentService,
+            board_repository_1.BoardRepository,
+            boardComment_repository_1.BoardCommentRepository,
+            boardComment_repository_1.BoardCommentRepository,
+            user_repository_1.UserRepository,
+        ],
         controllers: [boardComment_controller_1.CommentController],
     })
 ], CommentModule);

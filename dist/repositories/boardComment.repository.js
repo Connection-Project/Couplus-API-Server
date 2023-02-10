@@ -39,6 +39,8 @@ let BoardCommentRepository = class BoardCommentRepository {
             .createQueryBuilder('bc')
             .innerJoinAndSelect('bc.board', 'b')
             .innerJoinAndSelect('bc.user', 'u')
+            .leftJoinAndSelect('bc.reply', 'bcr')
+            .innerJoinAndSelect('bcr.user', 'ru')
             .where('b.id = :boardId', { boardId: boardId })
             .orderBy('bc.createdAt', 'DESC');
         return query.getMany();

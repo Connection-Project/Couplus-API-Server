@@ -23,7 +23,6 @@ const create_req_dto_1 = require("./dto/req/create.req.dto");
 const update_req_dto_1 = require("./dto/req/update.req.dto");
 const create_res_dto_1 = require("./dto/res/create.res.dto");
 const delete_res_dto_1 = require("./dto/res/delete.res.dto");
-const getReplys_res_dto_1 = require("./dto/res/getReplys.res.dto");
 const update_res_dto_2 = require("./dto/res/update.res.dto");
 let BoardcommentreplyController = class BoardcommentreplyController {
     constructor(boardCommentReplyService) {
@@ -31,9 +30,6 @@ let BoardcommentreplyController = class BoardcommentreplyController {
     }
     async create(req, body) {
         return await this.boardCommentReplyService.create(req.user['userId'], body);
-    }
-    async getBoardComments(req, commentId) {
-        return await this.boardCommentReplyService.getBoardCommentReplys(req.user['userId'], commentId);
     }
     async update(req, replyId, body) {
         return await this.boardCommentReplyService.update(req.user['userId'], replyId, body);
@@ -60,19 +56,6 @@ __decorate([
     __metadata("design:paramtypes", [Object, create_req_dto_1.CreateBoardCommentReplyReqDto]),
     __metadata("design:returntype", Promise)
 ], BoardcommentreplyController.prototype, "create", null);
-__decorate([
-    (0, common_1.Get)(':commentId'),
-    (0, swagger_1.ApiCookieAuth)(),
-    (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
-    (0, swagger_1.ApiOperation)({ summary: '대댓글 리스트' }),
-    (0, swagger_1.ApiResponse)({ status: 200, type: getReplys_res_dto_1.GetBoardCommentsReplySuccessDto, description: '대댓글 리스트 성공' }),
-    (0, swagger_1.ApiResponse)({ status: 400, type: getReplys_res_dto_1.GetBoardCommentReplysFailDto, description: '대댓글 리스트 실패' }),
-    __param(0, (0, common_1.Req)()),
-    __param(1, (0, common_1.Param)('commentId', common_1.ParseIntPipe)),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Number]),
-    __metadata("design:returntype", Promise)
-], BoardcommentreplyController.prototype, "getBoardComments", null);
 __decorate([
     (0, common_1.Patch)(':replyId'),
     (0, swagger_1.ApiCookieAuth)(),

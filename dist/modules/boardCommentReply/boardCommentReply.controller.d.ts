@@ -6,7 +6,6 @@ export declare class BoardcommentreplyController {
     private readonly boardCommentReplyService;
     constructor(boardCommentReplyService: BoardcommentreplyService);
     create(req: Request, body: CreateBoardCommentReplyReqDto): Promise<any>;
-    getBoardComments(req: Request, commentId: number): Promise<any>;
     update(req: Request, replyId: number, body: UpdateBoardCommentReplyDto): Promise<any>;
     delete(req: Request, replyId: number): Promise<any>;
 }

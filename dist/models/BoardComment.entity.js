@@ -47,7 +47,7 @@ __decorate([
 ], BoardComment.prototype, "updatedAt", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => BoardCommentReply_entity_1.BoardCommentReply, (reply) => reply.comment, { cascade: true }),
-    __metadata("design:type", BoardCommentReply_entity_1.BoardCommentReply)
+    __metadata("design:type", Array)
 ], BoardComment.prototype, "reply", void 0);
 BoardComment = __decorate([
     (0, typeorm_1.Entity)({ name: 'BoardComments' }),

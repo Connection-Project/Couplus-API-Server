@@ -44,15 +44,15 @@ export class BoardcommentreplyController {
     }
 
     // TODO : 차후 비로그인도 볼 수 있게 변경 (interceptor 적용)
-    @Get(':commentId')
-    @ApiCookieAuth()
-    @UseGuards(AccessTokenGuard)
-    @ApiOperation({ summary: '대댓글 리스트' })
-    @ApiResponse({ status: 200, type: GetBoardCommentsReplySuccessDto, description: '대댓글 리스트 성공' })
-    @ApiResponse({ status: 400, type: GetBoardCommentReplysFailDto, description: '대댓글 리스트 실패' })
-    async getBoardComments(@Req() req: Request, @Param('commentId', ParseIntPipe) commentId: number) {
-        return await this.boardCommentReplyService.getBoardCommentReplys(req.user['userId'], commentId);
-    }
+    // @Get(':commentId')
+    // @ApiCookieAuth()
+    // @UseGuards(AccessTokenGuard)
+    // @ApiOperation({ summary: '대댓글 리스트' })
+    // @ApiResponse({ status: 200, type: GetBoardCommentsReplySuccessDto, description: '대댓글 리스트 성공' })
+    // @ApiResponse({ status: 400, type: GetBoardCommentReplysFailDto, description: '대댓글 리스트 실패' })
+    // async getBoardComments(@Req() req: Request, @Param('commentId', ParseIntPipe) commentId: number) {
+    //     return await this.boardCommentReplyService.getBoardCommentReplys(req.user['userId'], commentId);
+    // }
 
     @Patch(':replyId')
     @ApiCookieAuth()

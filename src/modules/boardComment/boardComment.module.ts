@@ -11,7 +11,13 @@ import { UserRepository } from 'src/repositories/user.repository';
 
 @Module({
     imports: [TypeOrmModule.forFeature([BoardComment, Board, User])],
-    providers: [CommentService, BoardRepository, BoardCommentRepository, UserRepository],
+    providers: [
+        CommentService,
+        BoardRepository,
+        BoardCommentRepository,
+        BoardCommentRepository,
+        UserRepository,
+    ],
     controllers: [CommentController],
 })
 export class CommentModule {}

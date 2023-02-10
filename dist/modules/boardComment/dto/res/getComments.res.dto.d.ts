@@ -1,8 +1,16 @@
+export declare class GetBoardCommentReplyObj {
+    replyId: number;
+    writer: string;
+    content: string;
+    mine: boolean;
+    createdAt: string;
+}
 export declare class GetBoardCommentsObj {
     commentId: number;
     writer: string;
     content: string;
     mine: boolean;
+    reply: GetBoardCommentReplyObj[];
     createdAt: string;
 }
 export declare class GetBoardCommentsDataObj {
