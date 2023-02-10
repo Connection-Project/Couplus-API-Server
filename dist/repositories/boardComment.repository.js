@@ -25,8 +25,7 @@ let BoardCommentRepository = class BoardCommentRepository {
         return this.boardCommentRepository.create();
     }
     async save(boardComment) {
-        await this.boardCommentRepository.save(boardComment);
-        return;
+        return await this.boardCommentRepository.save(boardComment);
     }
     async findOneById(commentId) {
         return await this.boardCommentRepository
