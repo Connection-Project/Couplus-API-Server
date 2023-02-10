@@ -89,6 +89,7 @@ let CommentService = class CommentService {
             if (boardComment) {
                 console.log(body);
                 if (content !== '' && content !== boardComment.content) {
+                    console.log('들어 오냐?');
                     boardComment.content;
                     await this.boardCommentRepository.save(boardComment);
                 }
