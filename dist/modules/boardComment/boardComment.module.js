@@ -18,11 +18,12 @@ const boardComment_repository_1 = require("../../repositories/boardComment.repos
 const User_entity_1 = require("../../models/User.entity");
 const user_repository_1 = require("../../repositories/user.repository");
 const boardCommentReply_repository_1 = require("../../repositories/boardCommentReply.repository");
+const BoardCommentReply_entity_1 = require("../../models/BoardCommentReply.entity");
 let CommentModule = class CommentModule {
 };
 CommentModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([BoardComment_entity_1.BoardComment, Board_entity_1.Board, User_entity_1.User])],
+        imports: [typeorm_1.TypeOrmModule.forFeature([BoardComment_entity_1.BoardComment, Board_entity_1.Board, BoardCommentReply_entity_1.BoardCommentReply, User_entity_1.User])],
         providers: [
             boardComment_service_1.CommentService,
             board_repository_1.BoardRepository,
