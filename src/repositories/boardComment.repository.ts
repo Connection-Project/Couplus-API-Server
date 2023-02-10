@@ -14,11 +14,11 @@ export class BoardCommentRepository {
         return this.boardCommentRepository.create();
     }
 
-    async save(boardComment: BoardComment): Promise<BoardComment> {
-        return await this.boardCommentRepository.save(boardComment);
+    async save(boardComment: BoardComment): Promise<void> {
+        await this.boardCommentRepository.save(boardComment);
     }
 
-    async findOneById(commentId): Promise<BoardComment> {
+    async findOneById(commentId: number): Promise<BoardComment> {
         return await this.boardCommentRepository
             .createQueryBuilder('bc')
             .where('id = :commentId', { commentId: commentId })

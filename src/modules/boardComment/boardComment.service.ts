@@ -92,7 +92,8 @@ export class CommentService {
                 if (content !== '' && content !== boardComment.content) {
                     console.log('들어 오냐?');
                     boardComment.content;
-                    await this.boardCommentRepository.save(boardComment);
+                    const result = await this.boardCommentRepository.save(boardComment);
+                    console.log(result);
                 }
                 status = 200;
                 resultCode = 1;
