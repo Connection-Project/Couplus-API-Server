@@ -69,7 +69,7 @@ export class CommentService {
                 // ! 대댓글 리스트
                 for (let j = 0; j < boardComment[i].reply.length; j++) {
                     let replyMine = false;
-                    if (userId && userId === boardComment[i].reply[j].user.id) commentMine = true;
+                    if (userId && userId === boardComment[i].reply[j].user.id) replyMine = true;
 
                     reply[j] = {
                         replyId: boardComment[i].reply[j].id,

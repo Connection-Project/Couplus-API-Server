@@ -71,7 +71,7 @@ let CommentService = class CommentService {
                 for (let j = 0; j < boardComment[i].reply.length; j++) {
                     let replyMine = false;
                     if (userId && userId === boardComment[i].reply[j].user.id)
-                        commentMine = true;
+                        replyMine = true;
                     reply[j] = {
                         replyId: boardComment[i].reply[j].id,
                         writer: boardComment[i].reply[j].user.nickName,
