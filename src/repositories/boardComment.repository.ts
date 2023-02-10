@@ -14,9 +14,8 @@ export class BoardCommentRepository {
         return this.boardCommentRepository.create();
     }
 
-    async save(boardComment: BoardComment): Promise<void> {
-        await this.boardCommentRepository.save(boardComment);
-        return;
+    async save(boardComment: BoardComment): Promise<BoardComment> {
+        return await this.boardCommentRepository.save(boardComment);
     }
 
     async findOneById(commentId): Promise<BoardComment> {
