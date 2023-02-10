@@ -65,7 +65,7 @@ __decorate([
     (0, swagger_1.ApiCookieAuth)(),
     (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
     (0, swagger_1.ApiOperation)({ summary: '대댓글 리스트' }),
-    (0, swagger_1.ApiResponse)({ status: 200, type: getReplys_res_dto_1.GetBoardCommentsSuccessDto, description: '대댓글 리스트 성공' }),
+    (0, swagger_1.ApiResponse)({ status: 200, type: getReplys_res_dto_1.GetBoardCommentsReplySuccessDto, description: '대댓글 리스트 성공' }),
     (0, swagger_1.ApiResponse)({ status: 400, type: getReplys_res_dto_1.GetBoardCommentReplysFailDto, description: '대댓글 리스트 실패' }),
     __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.Param)('commentId', common_1.ParseIntPipe)),

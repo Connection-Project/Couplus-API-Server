@@ -10,6 +10,7 @@ import {
 } from 'typeorm';
 import { FeedComment } from './FeedComment.entity';
 import { FeedImage } from './FeedImage.entity';
+import { HashTag } from './HashTag.entity';
 import { User } from './User.entity';
 
 @Entity({ name: 'Feed' })
@@ -35,6 +36,9 @@ export class Feed {
 
     @OneToMany(() => FeedComment, (comment) => comment.feed, { cascade: true })
     comment: FeedComment[];
+
+    @OneToMany(() => HashTag, (hashtag) => hashtag.feed, { cascade: true })
+    hashtag: HashTag[];
 
     constructor(partial: Partial<Feed>) {
         Object.assign(this, partial);

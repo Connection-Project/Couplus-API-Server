@@ -8,7 +8,7 @@ export declare class GetBoardCommentReplyObj {
 export declare class GetBoardCommentReplysDataObj {
     items: GetBoardCommentReplyObj;
 }
-export declare class GetBoardCommentsSuccessDto {
+export declare class GetBoardCommentsReplySuccessDto {
     resultCode: number;
     data: GetBoardCommentReplysDataObj;
 }

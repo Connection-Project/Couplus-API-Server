@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GetBoardCommentReplysFailDto = exports.GetBoardCommentsSuccessDto = exports.GetBoardCommentReplysDataObj = exports.GetBoardCommentReplyObj = void 0;
+exports.GetBoardCommentReplysFailDto = exports.GetBoardCommentsReplySuccessDto = exports.GetBoardCommentReplysDataObj = exports.GetBoardCommentReplyObj = void 0;
 const swagger_1 = require("@nestjs/swagger");
 class GetBoardCommentReplyObj {
 }
@@ -41,17 +41,17 @@ __decorate([
     __metadata("design:type", GetBoardCommentReplyObj)
 ], GetBoardCommentReplysDataObj.prototype, "items", void 0);
 exports.GetBoardCommentReplysDataObj = GetBoardCommentReplysDataObj;
-class GetBoardCommentsSuccessDto {
+class GetBoardCommentsReplySuccessDto {
 }
 __decorate([
     (0, swagger_1.ApiProperty)({ default: 1 }),
     __metadata("design:type", Number)
-], GetBoardCommentsSuccessDto.prototype, "resultCode", void 0);
+], GetBoardCommentsReplySuccessDto.prototype, "resultCode", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ type: GetBoardCommentReplysDataObj }),
     __metadata("design:type", GetBoardCommentReplysDataObj)
-], GetBoardCommentsSuccessDto.prototype, "data", void 0);
-exports.GetBoardCommentsSuccessDto = GetBoardCommentsSuccessDto;
+], GetBoardCommentsReplySuccessDto.prototype, "data", void 0);
+exports.GetBoardCommentsReplySuccessDto = GetBoardCommentsReplySuccessDto;
 class GetBoardCommentReplysFailDto {
 }
 __decorate([

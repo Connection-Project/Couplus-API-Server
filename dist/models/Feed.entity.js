@@ -13,6 +13,7 @@ exports.Feed = void 0;
 const typeorm_1 = require("typeorm");
 const FeedComment_entity_1 = require("./FeedComment.entity");
 const FeedImage_entity_1 = require("./FeedImage.entity");
+const HashTag_entity_1 = require("./HashTag.entity");
 const User_entity_1 = require("./User.entity");
 let Feed = class Feed {
     constructor(partial) {
@@ -48,6 +49,10 @@ __decorate([
     (0, typeorm_1.OneToMany)(() => FeedComment_entity_1.FeedComment, (comment) => comment.feed, { cascade: true }),
     __metadata("design:type", Array)
 ], Feed.prototype, "comment", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => HashTag_entity_1.HashTag, (hashtag) => hashtag.feed, { cascade: true }),
+    __metadata("design:type", Array)
+], Feed.prototype, "hashtag", void 0);
 Feed = __decorate([
     (0, typeorm_1.Entity)({ name: 'Feed' }),
     __metadata("design:paramtypes", [Object])

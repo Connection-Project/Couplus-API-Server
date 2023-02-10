@@ -5,13 +5,27 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FeedService = void 0;
 const common_1 = require("@nestjs/common");
+const aws_service_1 = require("../../lib/aws/src/aws.service");
+const feed_repository_1 = require("../../repositories/feed.repository");
+const feedImage_repository_1 = require("../../repositories/feedImage.repository");
 let FeedService = class FeedService {
+    constructor(awsService, feedRepository, feedImageRepository) {
+        this.awsService = awsService;
+        this.feedRepository = feedRepository;
+        this.feedImageRepository = feedImageRepository;
+    }
 };
 FeedService = __decorate([
-    (0, common_1.Injectable)()
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [aws_service_1.AwsService,
+        feed_repository_1.FeedRepository,
+        feedImage_repository_1.FeedImageRepository])
 ], FeedService);
 exports.FeedService = FeedService;
 //# sourceMappingURL=feed.service.js.map

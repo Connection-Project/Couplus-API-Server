@@ -22,7 +22,7 @@ export class GetBoardCommentReplysDataObj {
     items: GetBoardCommentReplyObj;
 }
 
-export class GetBoardCommentsSuccessDto {
+export class GetBoardCommentsReplySuccessDto {
     @ApiProperty({ default: 1 })
     resultCode: number;
 

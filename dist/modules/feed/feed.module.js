@@ -8,14 +8,25 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FeedModule = void 0;
 const common_1 = require("@nestjs/common");
+const typeorm_1 = require("@nestjs/typeorm");
+const aws_service_1 = require("../../lib/aws/src/aws.service");
+const Feed_entity_1 = require("../../models/Feed.entity");
+const FeedComment_entity_1 = require("../../models/FeedComment.entity");
+const FeedImage_entity_1 = require("../../models/FeedImage.entity");
+const FeedLiked_entity_1 = require("../../models/FeedLiked.entity");
+const HashTag_entity_1 = require("../../models/HashTag.entity");
+const User_entity_1 = require("../../models/User.entity");
+const feed_repository_1 = require("../../repositories/feed.repository");
+const feedImage_repository_1 = require("../../repositories/feedImage.repository");
 const feed_controller_1 = require("./feed.controller");
 const feed_service_1 = require("./feed.service");
 let FeedModule = class FeedModule {
 };
 FeedModule = __decorate([
     (0, common_1.Module)({
+        imports: [typeorm_1.TypeOrmModule.forFeature([Feed_entity_1.Feed, FeedImage_entity_1.FeedImage, FeedComment_entity_1.FeedComment, User_entity_1.User, HashTag_entity_1.HashTag, FeedLiked_entity_1.FeedLiked])],
         controllers: [feed_controller_1.FeedController],
-        providers: [feed_service_1.FeedService]
+        providers: [feed_service_1.FeedService, aws_service_1.AwsService, feed_repository_1.FeedRepository, feedImage_repository_1.FeedImageRepository],
     })
 ], FeedModule);
 exports.FeedModule = FeedModule;

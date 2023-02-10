@@ -20,7 +20,7 @@ import { CreateBoardCommentReplyReqDto } from './dto/req/create.req.dto';
 import { UpdateBoardCommentReplyDto } from './dto/req/update.req.dto';
 import { CreateBoardCommentReplyFailDto, NotFoundReplyCreateDto } from './dto/res/create.res.dto';
 import { DeleteBoardCommentReplyFailDto, NotFoundReplyDeleteDto } from './dto/res/delete.res.dto';
-import { GetBoardCommentReplysFailDto, GetBoardCommentsSuccessDto } from './dto/res/getReplys.res.dto';
+import { GetBoardCommentReplysFailDto, GetBoardCommentsReplySuccessDto } from './dto/res/getReplys.res.dto';
 import { NotFoundReplyUpdateDto } from './dto/res/update.res.dto';
 
 @ApiTags('게시글 대댓글')
@@ -48,7 +48,7 @@ export class BoardcommentreplyController {
     @ApiCookieAuth()
     @UseGuards(AccessTokenGuard)
     @ApiOperation({ summary: '대댓글 리스트' })
-    @ApiResponse({ status: 200, type: GetBoardCommentsSuccessDto, description: '대댓글 리스트 성공' })
+    @ApiResponse({ status: 200, type: GetBoardCommentsReplySuccessDto, description: '대댓글 리스트 성공' })
     @ApiResponse({ status: 400, type: GetBoardCommentReplysFailDto, description: '대댓글 리스트 실패' })
     async getBoardComments(@Req() req: Request, @Param('commentId', ParseIntPipe) commentId: number) {
         return await this.boardCommentReplyService.getBoardCommentReplys(req.user['userId'], commentId);
