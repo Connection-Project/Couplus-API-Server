@@ -79,7 +79,7 @@ let BoardcommentreplyService = class BoardcommentreplyService {
             const boardCommentReply = await this.boardCommentReplyRepository.findOneByIdAndUserId(replyId, userId);
             if (boardCommentReply) {
                 if (content !== '' && content !== boardCommentReply.content) {
-                    boardCommentReply.content;
+                    boardCommentReply.content = content;
                     await this.boardCommentReplyRepository.save(boardCommentReply);
                 }
                 status = 200;

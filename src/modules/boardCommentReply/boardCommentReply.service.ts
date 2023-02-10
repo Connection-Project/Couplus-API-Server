@@ -76,7 +76,7 @@ export class BoardcommentreplyService {
             if (boardCommentReply) {
                 // ! 내용이 공백이 아니고 내용이 DB의 값과 똑같지 않으면 수정
                 if (content !== '' && content !== boardCommentReply.content) {
-                    boardCommentReply.content;
+                    boardCommentReply.content = content;
                     await this.boardCommentReplyRepository.save(boardCommentReply);
                 }
                 status = 200;
