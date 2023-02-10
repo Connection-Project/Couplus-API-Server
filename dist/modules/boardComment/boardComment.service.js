@@ -87,6 +87,7 @@ let CommentService = class CommentService {
             const { content } = body;
             const boardComment = await this.boardCommentRepository.findOneByIdAndUserId(commentId, userId);
             if (boardComment) {
+                console.log(body);
                 if (content !== '' && content !== boardComment.content) {
                     boardComment.content;
                     await this.boardCommentRepository.save(boardComment);

@@ -33,7 +33,7 @@ let BoardCommentReplyRepository = class BoardCommentReplyRepository {
             .createQueryBuilder('bcr')
             .innerJoinAndSelect('bcr.comment', 'bc')
             .innerJoinAndSelect('bcr.user', 'u')
-            .where('b.id = :commentId', { commentId: commentId })
+            .where('bc.id = :commentId', { commentId: commentId })
             .orderBy('bc.createdAt', 'DESC');
         return query.getMany();
     }
