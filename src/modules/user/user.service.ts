@@ -3,6 +3,7 @@ import { AwsService } from 'src/lib/aws/src/aws.service';
 import { User } from 'src/models/User.entity';
 import { UserRepository } from 'src/repositories/user.repository';
 import { GenDigestPwd } from 'src/utils/crypto';
+import { ReturnResDto } from '../common/dto/return/return.res.dto';
 import { EmailRegistUserReqDto, SocialRegistUserReqDto } from './dto/req/create.dto';
 import { UpdateUserReqDto } from './dto/req/update.dto';
 import { getInfoObj } from './dto/res/getInfo.res.dto';
@@ -11,15 +12,13 @@ import { getInfoObj } from './dto/res/getInfo.res.dto';
 export class UserService {
     constructor(private readonly awsService: AwsService, private userRepository: UserRepository) {}
 
-    async emailSignUp(file: File, body: EmailRegistUserReqDto): Promise<any> {
+    async emailSignUp(file: File, body: EmailRegistUserReqDto): Promise<ReturnResDto> {
         try {
             const { email } = body;
             const existUser: User = await this.userRepository.findByKey('email', email);
-            let status = 0;
             let resultCode = 0;
             if (existUser) {
                 // * 이미 존재 하는 계정
-                status = 201;
                 resultCode = 1001;
             } else {
                 let imageKey = null;
@@ -37,25 +36,22 @@ export class UserService {
                 };
                 const newUser: User = await this.userRepository.create(createBody);
                 await this.userRepository.save(newUser);
-                status = 200;
                 resultCode = 1;
             }
-            return { status: status, data: { resultCode: resultCode, data: null } };
+            return { data: { resultCode: resultCode, data: null } };
         } catch (err) {
             console.log(err);
-            return { status: 401, data: { resultCode: 1002, data: null } };
+            return { data: { resultCode: 1002, data: null } };
         }
     }
 
-    async socialSignUp(file: File, body: SocialRegistUserReqDto): Promise<any> {
+    async socialSignUp(file: File, body: SocialRegistUserReqDto): Promise<ReturnResDto> {
         try {
             const { email } = body;
             const existUser: User = await this.userRepository.findByKey('email', email);
-            let status = 0;
             let resultCode = 0;
             if (existUser) {
                 // * 이미 존재 하는 계정
-                status = 201;
                 resultCode = 1001;
             } else {
                 let imageKey = null;
@@ -73,17 +69,16 @@ export class UserService {
                 };
                 const newUser: User = this.userRepository.create(createBody);
                 await this.userRepository.save(newUser);
-                status = 200;
                 resultCode = 1;
             }
-            return { status: status, data: { resultCode: resultCode, data: null } };
+            return { data: { resultCode: resultCode, data: null } };
         } catch (err) {
             console.log(err);
-            return { status: 401, data: { resultCode: 1003, data: null } };
+            return { data: { resultCode: 1003, data: null } };
         }
     }
 
-    async getInfo(userId: number): Promise<any> {
+    async getInfo(userId: number): Promise<ReturnResDto> {
         try {
             const user: User = await this.userRepository.findByKey('id', userId);
             const data: getInfoObj = {
@@ -93,14 +88,14 @@ export class UserService {
                 phone: user.phone,
                 registType: user.registType,
             };
-            return { status: 200, data: { resultCode: 1, data: data } };
+            return { data: { resultCode: 1, data: data } };
         } catch (err) {
             console.log(err);
-            return { status: 401, data: { resultCode: 1011, data: null } };
+            return { data: { resultCode: 1011, data: null } };
         }
     }
 
-    async update(userId: number, file: File, body: UpdateUserReqDto): Promise<any> {
+    async update(userId: number, file: File, body: UpdateUserReqDto): Promise<ReturnResDto> {
         try {
             const { password, name, phone, nickName } = body;
             const user: User = await this.userRepository.findByKey('id', userId);
@@ -127,14 +122,14 @@ export class UserService {
                 }
             }
             await this.userRepository.save(user);
-            return { status: 200, data: { resultCode: 1, data: null } };
+            return { data: { resultCode: 1, data: null } };
         } catch (err) {
             console.log(err);
-            return { status: 401, data: { resultCode: 1021, data: null } };
+            return { data: { resultCode: 1021, data: null } };
         }
     }
 
-    async delete(userId: number): Promise<any> {
+    async delete(userId: number): Promise<ReturnResDto> {
         try {
             const user: User = await this.userRepository.findByKey('id', userId);
             // ! 기존 파일 삭제
@@ -143,10 +138,34 @@ export class UserService {
                 Key: user.imageKey,
             });
             await this.userRepository.delete(userId);
-            return { status: 200, data: { resultCode: 1, data: null } };
+            return { data: { resultCode: 1, data: null } };
         } catch (err) {
             console.log(err);
-            return { status: 401, data: { resultCode: 1031, data: null } };
+            return { data: { resultCode: 1031, data: null } };
+        }
+    }
+
+    async getUserRandom(): Promise<ReturnResDto> {
+        try {
+            const user: User[] = await this.userRepository.getManyRandomUser();
+            const items = [];
+            for (let i = 0; i < user.length; i++) {
+                let pet = null;
+                user[i].pet.forEach((o) => {
+                    if (o.represent) {
+                        pet = o.breed;
+                    }
+                });
+                items[i] = {
+                    userId: user[i].id,
+                    breed: user[i].pet.length > 1 ? pet + '외 ' + (user[i].pet.length - 1) : pet, // ! pet이 null이면 강아지 등록이 되어있지 않음
+                    image: user[i].imagePath,
+                };
+            }
+            return { data: { resultCode: 200, data: items } };
+        } catch (err) {
+            console.log(err);
+            return { data: { resultCode: 1041, data: null } };
         }
     }
 }

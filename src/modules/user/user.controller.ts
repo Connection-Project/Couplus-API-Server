@@ -22,6 +22,8 @@ import { UpdateUserReqDto } from './dto/req/update.dto';
 import { WithdrawUserFailDto } from './dto/res/delete.res.dto';
 import { AccessTokenGuard } from 'src/lib/jwt/guards/accessToken.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { ReturnResDto } from '../common/dto/return/return.res.dto';
+import { GetManyRandomUserFailDto, GetManyRandomUserSuccessDto } from './dto/res/getManyRandom.res.dto';
 
 @ApiTags('유저 정보')
 @Controller('user')
@@ -34,8 +36,8 @@ export class UserController {
     @ApiOperation({ summary: '이메일 회원가입' })
     @ApiResponse({ status: 200, type: ResultSuccessDto, description: '이메일 회원가입 성공' })
     @ApiResponse({ status: 201, type: ExistUserDto, description: '이미 존재 하는 계정' })
-    @ApiResponse({ status: 401, type: EmailSignInFailDto, description: '이메일 회원가입 실패' })
-    async emailSignUp(@UploadedFile() file, @Body() body: EmailRegistUserReqDto) {
+    @ApiResponse({ status: 400, type: EmailSignInFailDto, description: '이메일 회원가입 실패' })
+    async emailSignUp(@UploadedFile() file, @Body() body: EmailRegistUserReqDto): Promise<ReturnResDto> {
         return this.userService.emailSignUp(file, body);
     }
 
@@ -45,8 +47,8 @@ export class UserController {
     @ApiOperation({ summary: '소셜 회원가입' })
     @ApiResponse({ status: 200, type: ResultSuccessDto, description: '소셜 회원가입 성공' })
     @ApiResponse({ status: 201, type: ExistUserDto, description: '이미 존재 하는 계정(이메일 회원 존재)' })
-    @ApiResponse({ status: 401, type: SocialSignInFailDto, description: '소셜 회원가입 실패' })
-    async socialSignUp(@UploadedFile() file, @Body() body: SocialRegistUserReqDto) {
+    @ApiResponse({ status: 400, type: SocialSignInFailDto, description: '소셜 회원가입 실패' })
+    async socialSignUp(@UploadedFile() file, @Body() body: SocialRegistUserReqDto): Promise<ReturnResDto> {
         return this.userService.socialSignUp(file, body);
     }
 
@@ -55,8 +57,8 @@ export class UserController {
     @ApiCookieAuth()
     @ApiOperation({ summary: '유저 정보' })
     @ApiResponse({ status: 200, type: getInfoSuccessDto, description: '유저 정보 호출 성공' })
-    @ApiResponse({ status: 401, type: getInfoFailDto, description: '유저 정보 호출 실패' })
-    async getInfo(@Req() req: Request) {
+    @ApiResponse({ status: 400, type: getInfoFailDto, description: '유저 정보 호출 실패' })
+    async getInfo(@Req() req: Request): Promise<ReturnResDto> {
         return this.userService.getInfo(req.user['userId']);
     }
 
@@ -67,8 +69,12 @@ export class UserController {
     @ApiConsumes('multipart/form-data')
     @ApiOperation({ summary: '유저 정보 수정' })
     @ApiResponse({ status: 200, type: ResultSuccessDto, description: '유저 정보 수정 성공' })
-    @ApiResponse({ status: 401, type: UpdateUserFailDto, description: '유저 정보 수정 실패' })
-    async update(@Req() req: Request, @UploadedFile() file, @Body() body: UpdateUserReqDto) {
+    @ApiResponse({ status: 400, type: UpdateUserFailDto, description: '유저 정보 수정 실패' })
+    async update(
+        @Req() req: Request,
+        @UploadedFile() file,
+        @Body() body: UpdateUserReqDto,
+    ): Promise<ReturnResDto> {
         return this.userService.update(req.user['userId'], file, body);
     }
 
@@ -77,8 +83,16 @@ export class UserController {
     @ApiCookieAuth()
     @ApiOperation({ summary: '회원 탈퇴' })
     @ApiResponse({ status: 200, type: ResultSuccessDto, description: '회원 탈퇴 성공' })
-    @ApiResponse({ status: 401, type: WithdrawUserFailDto, description: '회원 탈퇴 실패' })
-    async delete(@Req() req: Request) {
+    @ApiResponse({ status: 400, type: WithdrawUserFailDto, description: '회원 탈퇴 실패' })
+    async delete(@Req() req: Request): Promise<ReturnResDto> {
         return this.userService.delete(req.user['userId']);
+    }
+
+    @Get()
+    @ApiOperation({ summary: '랜덤 유저 리스트' })
+    @ApiResponse({ status: 200, type: GetManyRandomUserSuccessDto, description: '랜덤 유저 리스트 성공' })
+    @ApiResponse({ status: 400, type: GetManyRandomUserFailDto, description: '랜덤 유저 리스트 실패' })
+    async getUserRandom(): Promise<ReturnResDto> {
+        return await this.userService.getUserRandom();
     }
 }

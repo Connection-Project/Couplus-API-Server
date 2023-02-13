@@ -23,10 +23,8 @@ let UserService = class UserService {
         try {
             const { email } = body;
             const existUser = await this.userRepository.findByKey('email', email);
-            let status = 0;
             let resultCode = 0;
             if (existUser) {
-                status = 201;
                 resultCode = 1001;
             }
             else {
@@ -41,24 +39,21 @@ let UserService = class UserService {
                     imagePath }, body);
                 const newUser = await this.userRepository.create(createBody);
                 await this.userRepository.save(newUser);
-                status = 200;
                 resultCode = 1;
             }
-            return { status: status, data: { resultCode: resultCode, data: null } };
+            return { data: { resultCode: resultCode, data: null } };
         }
         catch (err) {
             console.log(err);
-            return { status: 401, data: { resultCode: 1002, data: null } };
+            return { data: { resultCode: 1002, data: null } };
         }
     }
     async socialSignUp(file, body) {
         try {
             const { email } = body;
             const existUser = await this.userRepository.findByKey('email', email);
-            let status = 0;
             let resultCode = 0;
             if (existUser) {
-                status = 201;
                 resultCode = 1001;
             }
             else {
@@ -73,14 +68,13 @@ let UserService = class UserService {
                     imagePath }, body);
                 const newUser = this.userRepository.create(createBody);
                 await this.userRepository.save(newUser);
-                status = 200;
                 resultCode = 1;
             }
-            return { status: status, data: { resultCode: resultCode, data: null } };
+            return { data: { resultCode: resultCode, data: null } };
         }
         catch (err) {
             console.log(err);
-            return { status: 401, data: { resultCode: 1003, data: null } };
+            return { data: { resultCode: 1003, data: null } };
         }
     }
     async getInfo(userId) {
@@ -93,11 +87,11 @@ let UserService = class UserService {
                 phone: user.phone,
                 registType: user.registType,
             };
-            return { status: 200, data: { resultCode: 1, data: data } };
+            return { data: { resultCode: 1, data: data } };
         }
         catch (err) {
             console.log(err);
-            return { status: 401, data: { resultCode: 1011, data: null } };
+            return { data: { resultCode: 1011, data: null } };
         }
     }
     async update(userId, file, body) {
@@ -128,11 +122,11 @@ let UserService = class UserService {
                 }
             }
             await this.userRepository.save(user);
-            return { status: 200, data: { resultCode: 1, data: null } };
+            return { data: { resultCode: 1, data: null } };
         }
         catch (err) {
             console.log(err);
-            return { status: 401, data: { resultCode: 1021, data: null } };
+            return { data: { resultCode: 1021, data: null } };
         }
     }
     async delete(userId) {
@@ -143,11 +137,35 @@ let UserService = class UserService {
                 Key: user.imageKey,
             });
             await this.userRepository.delete(userId);
-            return { status: 200, data: { resultCode: 1, data: null } };
+            return { data: { resultCode: 1, data: null } };
         }
         catch (err) {
             console.log(err);
-            return { status: 401, data: { resultCode: 1031, data: null } };
+            return { data: { resultCode: 1031, data: null } };
+        }
+    }
+    async getUserRandom() {
+        try {
+            const user = await this.userRepository.getManyRandomUser();
+            const items = [];
+            for (let i = 0; i < user.length; i++) {
+                let pet = null;
+                user[i].pet.forEach((o) => {
+                    if (o.represent) {
+                        pet = o.breed;
+                    }
+                });
+                items[i] = {
+                    userId: user[i].id,
+                    breed: user[i].pet.length > 1 ? pet + '외 ' + (user[i].pet.length - 1) : pet,
+                    image: user[i].imagePath,
+                };
+            }
+            return { data: { resultCode: 200, data: items } };
+        }
+        catch (err) {
+            console.log(err);
+            return { data: { resultCode: 1041, data: null } };
         }
     }
 };

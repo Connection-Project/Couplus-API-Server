@@ -8,4 +8,5 @@ export declare class UserRepository {
     findByKey(key: string, value: string | number): Promise<User>;
     delete(userId: number): Promise<void>;
     save(user: User): Promise<void>;
+    getManyRandomUser(): Promise<User[]>;
 }

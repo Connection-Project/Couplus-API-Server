@@ -50,6 +50,14 @@ let UserRepository = class UserRepository {
     async save(user) {
         await this.userRepository.save(user);
     }
+    async getManyRandomUser() {
+        return this.userRepository
+            .createQueryBuilder('u')
+            .leftJoinAndSelect('u.pet', 'p')
+            .orderBy('RANDOM()')
+            .limit(4)
+            .getMany();
+    }
 };
 UserRepository = __decorate([
     (0, common_1.Injectable)(),

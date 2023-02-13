@@ -16,8 +16,6 @@ import { FeedModule } from './feed/feed.module';
         CommentModule,
         BoardCommentReplyModule,
         FeedModule,
-        // ProductModule,
-        // CartModule
     ],
 })
 export class IndexModule {}

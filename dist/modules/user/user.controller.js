@@ -25,6 +25,7 @@ const update_dto_1 = require("./dto/req/update.dto");
 const delete_res_dto_1 = require("./dto/res/delete.res.dto");
 const accessToken_guard_1 = require("../../lib/jwt/guards/accessToken.guard");
 const platform_express_1 = require("@nestjs/platform-express");
+const getManyRandom_res_dto_1 = require("./dto/res/getManyRandom.res.dto");
 let UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
@@ -44,6 +45,9 @@ let UserController = class UserController {
     async delete(req) {
         return this.userService.delete(req.user['userId']);
     }
+    async getUserRandom() {
+        return await this.userService.getUserRandom();
+    }
 };
 __decorate([
     (0, common_1.Post)('signUp/email'),
@@ -52,7 +56,7 @@ __decorate([
     (0, swagger_1.ApiOperation)({ summary: '이메일 회원가입' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: result_res_dto_1.ResultSuccessDto, description: '이메일 회원가입 성공' }),
     (0, swagger_1.ApiResponse)({ status: 201, type: create_res_dto_1.ExistUserDto, description: '이미 존재 하는 계정' }),
-    (0, swagger_1.ApiResponse)({ status: 401, type: create_res_dto_1.EmailSignInFailDto, description: '이메일 회원가입 실패' }),
+    (0, swagger_1.ApiResponse)({ status: 400, type: create_res_dto_1.EmailSignInFailDto, description: '이메일 회원가입 실패' }),
     __param(0, (0, common_1.UploadedFile)()),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -66,7 +70,7 @@ __decorate([
     (0, swagger_1.ApiOperation)({ summary: '소셜 회원가입' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: result_res_dto_1.ResultSuccessDto, description: '소셜 회원가입 성공' }),
     (0, swagger_1.ApiResponse)({ status: 201, type: create_res_dto_1.ExistUserDto, description: '이미 존재 하는 계정(이메일 회원 존재)' }),
-    (0, swagger_1.ApiResponse)({ status: 401, type: create_res_dto_1.SocialSignInFailDto, description: '소셜 회원가입 실패' }),
+    (0, swagger_1.ApiResponse)({ status: 400, type: create_res_dto_1.SocialSignInFailDto, description: '소셜 회원가입 실패' }),
     __param(0, (0, common_1.UploadedFile)()),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -79,7 +83,7 @@ __decorate([
     (0, swagger_1.ApiCookieAuth)(),
     (0, swagger_1.ApiOperation)({ summary: '유저 정보' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: getInfo_res_dto_1.getInfoSuccessDto, description: '유저 정보 호출 성공' }),
-    (0, swagger_1.ApiResponse)({ status: 401, type: getInfo_res_dto_1.getInfoFailDto, description: '유저 정보 호출 실패' }),
+    (0, swagger_1.ApiResponse)({ status: 400, type: getInfo_res_dto_1.getInfoFailDto, description: '유저 정보 호출 실패' }),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -93,7 +97,7 @@ __decorate([
     (0, swagger_1.ApiConsumes)('multipart/form-data'),
     (0, swagger_1.ApiOperation)({ summary: '유저 정보 수정' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: result_res_dto_1.ResultSuccessDto, description: '유저 정보 수정 성공' }),
-    (0, swagger_1.ApiResponse)({ status: 401, type: update_res_dto_1.UpdateUserFailDto, description: '유저 정보 수정 실패' }),
+    (0, swagger_1.ApiResponse)({ status: 400, type: update_res_dto_1.UpdateUserFailDto, description: '유저 정보 수정 실패' }),
     __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.UploadedFile)()),
     __param(2, (0, common_1.Body)()),
@@ -107,12 +111,21 @@ __decorate([
     (0, swagger_1.ApiCookieAuth)(),
     (0, swagger_1.ApiOperation)({ summary: '회원 탈퇴' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: result_res_dto_1.ResultSuccessDto, description: '회원 탈퇴 성공' }),
-    (0, swagger_1.ApiResponse)({ status: 401, type: delete_res_dto_1.WithdrawUserFailDto, description: '회원 탈퇴 실패' }),
+    (0, swagger_1.ApiResponse)({ status: 400, type: delete_res_dto_1.WithdrawUserFailDto, description: '회원 탈퇴 실패' }),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "delete", null);
+__decorate([
+    (0, common_1.Get)(),
+    (0, swagger_1.ApiOperation)({ summary: '랜덤 유저 리스트' }),
+    (0, swagger_1.ApiResponse)({ status: 200, type: getManyRandom_res_dto_1.GetManyRandomUserSuccessDto, description: '랜덤 유저 리스트 성공' }),
+    (0, swagger_1.ApiResponse)({ status: 400, type: getManyRandom_res_dto_1.GetManyRandomUserFailDto, description: '랜덤 유저 리스트 실패' }),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "getUserRandom", null);
 UserController = __decorate([
     (0, swagger_1.ApiTags)('유저 정보'),
     (0, common_1.Controller)('user'),

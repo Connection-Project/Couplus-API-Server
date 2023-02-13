@@ -41,4 +41,13 @@ export class UserRepository {
     async save(user: User): Promise<void> {
         await this.userRepository.save(user);
     }
+
+    async getManyRandomUser(): Promise<User[]> {
+        return this.userRepository
+            .createQueryBuilder('u')
+            .leftJoinAndSelect('u.pet', 'p')
+            .orderBy('RANDOM()')
+            .limit(4)
+            .getMany();
+    }
 }
