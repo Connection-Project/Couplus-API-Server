@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { AwsService } from 'src/lib/aws/src/aws.service';
 import { User } from 'src/models/User.entity';
+import { FreindRepository } from 'src/repositories/freind.repository';
 import { UserRepository } from 'src/repositories/user.repository';
 import { GenDigestPwd } from 'src/utils/crypto';
 import { ReturnResDto } from '../common/dto/return/return.res.dto';
@@ -10,7 +11,11 @@ import { getInfoObj } from './dto/res/getInfo.res.dto';
 
 @Injectable()
 export class UserService {
-    constructor(private readonly awsService: AwsService, private userRepository: UserRepository) {}
+    constructor(
+        private readonly awsService: AwsService,
+        private readonly userRepository: UserRepository,
+        private readonly freindRepository: FreindRepository,
+    ) {}
 
     async emailSignUp(file: File, body: EmailRegistUserReqDto): Promise<ReturnResDto> {
         try {
@@ -137,6 +142,11 @@ export class UserService {
                 Bucket: 'pet-img',
                 Key: user.imageKey,
             });
+            // // ! 친구 목록 삭제
+            // await this.freindRepository.deleteAll(userId);
+
+            // ! 유저 삭제
+            // TODO : 서비스화 시키려면 회원 탈퇴 정보 이원화
             await this.userRepository.delete(userId);
             return { data: { resultCode: 1, data: null } };
         } catch (err) {

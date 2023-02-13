@@ -6,6 +6,7 @@ import { BoardModule } from './board/board.module';
 import { CommentModule } from './boardComment/boardComment.module';
 import { BoardCommentReplyModule } from './boardCommentReply/boardCommentReply.module';
 import { FeedModule } from './feed/feed.module';
+import { FreindModule } from './freind/freind.module';
 
 @Module({
     imports: [
@@ -16,6 +17,7 @@ import { FeedModule } from './feed/feed.module';
         CommentModule,
         BoardCommentReplyModule,
         FeedModule,
+        FreindModule,
     ],
 })
 export class IndexModule {}
