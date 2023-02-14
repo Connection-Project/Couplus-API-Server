@@ -15,4 +15,5 @@ export declare class UserService {
     update(userId: number, file: File, body: UpdateUserReqDto): Promise<ReturnResDto>;
     delete(userId: number): Promise<ReturnResDto>;
     getUserRandom(): Promise<ReturnResDto>;
+    getUserFreind(userId: number): Promise<ReturnResDto>;
 }

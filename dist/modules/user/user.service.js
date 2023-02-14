@@ -172,6 +172,14 @@ let UserService = class UserService {
             return { data: { resultCode: 1041, data: null } };
         }
     }
+    async getUserFreind(userId) {
+        try {
+        }
+        catch (err) {
+            console.log(err);
+            return { data: { resultCode: 1051, data: null } };
+        }
+    }
 };
 UserService = __decorate([
     (0, common_1.Injectable)(),

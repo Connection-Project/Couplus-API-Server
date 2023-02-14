@@ -180,4 +180,12 @@ export class UserService {
             return { data: { resultCode: 1041, data: null } };
         }
     }
+
+    async getUserFreind(userId: number): Promise<ReturnResDto> {
+        try {
+        } catch (err) {
+            console.log(err);
+            return { data: { resultCode: 1051, data: null } };
+        }
+    }
 }
