@@ -178,7 +178,7 @@ export class UserService {
                     image: user[i].imagePath,
                 };
             }
-            return { data: { resultCode: 200, data: items } };
+            return { data: { resultCode: 1, data: { items: items } } };
         } catch (err) {
             console.log(err);
             return { data: { resultCode: 1041, data: null } };
