@@ -26,6 +26,7 @@ const delete_res_dto_1 = require("./dto/res/delete.res.dto");
 const accessToken_guard_1 = require("../../lib/jwt/guards/accessToken.guard");
 const platform_express_1 = require("@nestjs/platform-express");
 const getManyRandom_res_dto_1 = require("./dto/res/getManyRandom.res.dto");
+const getProfile_res_dto_1 = require("./dto/res/getProfile.res.dto");
 let UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
@@ -47,6 +48,12 @@ let UserController = class UserController {
     }
     async getUserRandom() {
         return await this.userService.getUserRandom();
+    }
+    async getMyProfle(req) {
+        return await this.userService.getProfile(req.user['userId']);
+    }
+    async getFreindProfle(userId) {
+        return await this.userService.getProfile(userId);
     }
 };
 __decorate([
@@ -82,8 +89,8 @@ __decorate([
     (0, common_1.Get)('info'),
     (0, swagger_1.ApiCookieAuth)(),
     (0, swagger_1.ApiOperation)({ summary: '유저 정보' }),
-    (0, swagger_1.ApiResponse)({ status: 200, type: getInfo_res_dto_1.getInfoSuccessDto, description: '유저 정보 호출 성공' }),
-    (0, swagger_1.ApiResponse)({ status: 400, type: getInfo_res_dto_1.getInfoFailDto, description: '유저 정보 호출 실패' }),
+    (0, swagger_1.ApiResponse)({ status: 200, type: getInfo_res_dto_1.GetInfoSuccessDto, description: '유저 정보 호출 성공' }),
+    (0, swagger_1.ApiResponse)({ status: 400, type: getInfo_res_dto_1.GetInfoFailDto, description: '유저 정보 호출 실패' }),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -126,6 +133,30 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getUserRandom", null);
+__decorate([
+    (0, common_1.Get)('profile'),
+    (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
+    (0, swagger_1.ApiCookieAuth)(),
+    (0, swagger_1.ApiOperation)({ summary: '나의 프로필 정보' }),
+    (0, swagger_1.ApiResponse)({ status: 200, type: getProfile_res_dto_1.GetProfileSuccessDto, description: '프로필 응답 성공' }),
+    (0, swagger_1.ApiResponse)({ status: 400, type: getProfile_res_dto_1.GetProfileFailDto, description: '프로필 실패' }),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "getMyProfle", null);
+__decorate([
+    (0, common_1.Get)('profile/freind/:userId'),
+    (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
+    (0, swagger_1.ApiCookieAuth)(),
+    (0, swagger_1.ApiOperation)({ summary: '친구 프로필 정보' }),
+    (0, swagger_1.ApiResponse)({ status: 200, type: getProfile_res_dto_1.GetProfileSuccessDto, description: '프로필 성공' }),
+    (0, swagger_1.ApiResponse)({ status: 400, type: getProfile_res_dto_1.GetProfileFailDto, description: '프로필 실패' }),
+    __param(0, (0, common_1.Param)('userId', common_1.ParseIntPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "getFreindProfle", null);
 UserController = __decorate([
     (0, swagger_1.ApiTags)('유저 정보'),
     (0, common_1.Controller)('user'),

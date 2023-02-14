@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class getInfoObj {
+export class GetInfoObj {
     @ApiProperty()
     email: string;
 
@@ -17,15 +17,15 @@ export class getInfoObj {
     registType: string;
 }
 
-export class getInfoSuccessDto {
+export class GetInfoSuccessDto {
     @ApiProperty({ default: 1 })
     resultCode: number;
 
-    @ApiProperty({ type: getInfoObj })
-    data: getInfoObj;
+    @ApiProperty({ type: GetInfoObj })
+    data: GetInfoObj;
 }
 
-export class getInfoFailDto {
+export class GetInfoFailDto {
     @ApiProperty({ default: 1011 })
     resultCode: number;
 

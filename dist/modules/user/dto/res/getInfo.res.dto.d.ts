@@ -1,15 +1,15 @@
-export declare class getInfoObj {
+export declare class GetInfoObj {
     email: string;
     name: string;
     phone: string;
     nickName: string;
     registType: string;
 }
-export declare class getInfoSuccessDto {
+export declare class GetInfoSuccessDto {
     resultCode: number;
-    data: getInfoObj;
+    data: GetInfoObj;
 }
-export declare class getInfoFailDto {
+export declare class GetInfoFailDto {
     resultCode: number;
     data: any;
 }

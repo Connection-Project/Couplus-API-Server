@@ -66,6 +66,13 @@ let FreindRepository = class FreindRepository {
             .execute();
         return;
     }
+    async getCount(userId) {
+        return await this.freindRepository
+            .createQueryBuilder('f')
+            .where('status = :status', { status: Freind_entity_1.FreindStatus.confirmed })
+            .andWhere('userId = :userId', { userId: userId })
+            .getCount();
+    }
 };
 FreindRepository = __decorate([
     (0, common_1.Injectable)(),

@@ -3,6 +3,8 @@ import {
     Controller,
     Delete,
     Get,
+    Param,
+    ParseIntPipe,
     Patch,
     Post,
     Req,
@@ -16,7 +18,7 @@ import { EmailRegistUserReqDto, SocialRegistUserReqDto } from './dto/req/create.
 import { ApiConsumes, ApiCookieAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ResultSuccessDto } from '../common/dto/res/result.res.dto';
 import { EmailSignInFailDto, ExistUserDto, SocialSignInFailDto } from './dto/res/create.res.dto';
-import { getInfoFailDto, getInfoSuccessDto } from './dto/res/getInfo.res.dto';
+import { GetInfoFailDto, GetInfoSuccessDto } from './dto/res/getInfo.res.dto';
 import { UpdateUserFailDto } from './dto/res/update.res.dto';
 import { UpdateUserReqDto } from './dto/req/update.dto';
 import { WithdrawUserFailDto } from './dto/res/delete.res.dto';
@@ -24,6 +26,7 @@ import { AccessTokenGuard } from 'src/lib/jwt/guards/accessToken.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ReturnResDto } from '../common/dto/return/return.res.dto';
 import { GetManyRandomUserFailDto, GetManyRandomUserSuccessDto } from './dto/res/getManyRandom.res.dto';
+import { GetProfileFailDto, GetProfileSuccessDto } from './dto/res/getProfile.res.dto';
 
 @ApiTags('유저 정보')
 @Controller('user')
@@ -56,8 +59,8 @@ export class UserController {
     @Get('info')
     @ApiCookieAuth()
     @ApiOperation({ summary: '유저 정보' })
-    @ApiResponse({ status: 200, type: getInfoSuccessDto, description: '유저 정보 호출 성공' })
-    @ApiResponse({ status: 400, type: getInfoFailDto, description: '유저 정보 호출 실패' })
+    @ApiResponse({ status: 200, type: GetInfoSuccessDto, description: '유저 정보 호출 성공' })
+    @ApiResponse({ status: 400, type: GetInfoFailDto, description: '유저 정보 호출 실패' })
     async getInfo(@Req() req: Request): Promise<ReturnResDto> {
         return this.userService.getInfo(req.user['userId']);
     }
@@ -94,5 +97,25 @@ export class UserController {
     @ApiResponse({ status: 400, type: GetManyRandomUserFailDto, description: '랜덤 유저 리스트 실패' })
     async getUserRandom(): Promise<ReturnResDto> {
         return await this.userService.getUserRandom();
+    }
+
+    @Get('profile')
+    @UseGuards(AccessTokenGuard)
+    @ApiCookieAuth()
+    @ApiOperation({ summary: '나의 프로필 정보' })
+    @ApiResponse({ status: 200, type: GetProfileSuccessDto, description: '프로필 응답 성공' })
+    @ApiResponse({ status: 400, type: GetProfileFailDto, description: '프로필 실패' })
+    async getMyProfle(@Req() req: Request): Promise<ReturnResDto> {
+        return await this.userService.getProfile(req.user['userId']);
+    }
+
+    @Get('profile/freind/:userId')
+    @UseGuards(AccessTokenGuard)
+    @ApiCookieAuth()
+    @ApiOperation({ summary: '친구 프로필 정보' })
+    @ApiResponse({ status: 200, type: GetProfileSuccessDto, description: '프로필 성공' })
+    @ApiResponse({ status: 400, type: GetProfileFailDto, description: '프로필 실패' })
+    async getFreindProfle(@Param('userId', ParseIntPipe) userId: number): Promise<ReturnResDto> {
+        return await this.userService.getProfile(userId);
     }
 }

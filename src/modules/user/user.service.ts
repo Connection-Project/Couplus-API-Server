@@ -1,13 +1,15 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { AwsService } from 'src/lib/aws/src/aws.service';
+import { MyPet } from 'src/models/MyPets.entity';
 import { User } from 'src/models/User.entity';
+import { FeedRepository } from 'src/repositories/feed.repository';
 import { FreindRepository } from 'src/repositories/freind.repository';
+import { MyPetRepository } from 'src/repositories/myPet.repository';
 import { UserRepository } from 'src/repositories/user.repository';
 import { GenDigestPwd } from 'src/utils/crypto';
 import { ReturnResDto } from '../common/dto/return/return.res.dto';
 import { EmailRegistUserReqDto, SocialRegistUserReqDto } from './dto/req/create.dto';
 import { UpdateUserReqDto } from './dto/req/update.dto';
-import { getInfoObj } from './dto/res/getInfo.res.dto';
 
 @Injectable()
 export class UserService {
@@ -15,6 +17,8 @@ export class UserService {
         private readonly awsService: AwsService,
         private readonly userRepository: UserRepository,
         private readonly freindRepository: FreindRepository,
+        private readonly feedRepository: FeedRepository,
+        private readonly myPetRepository: MyPetRepository,
     ) {}
 
     async emailSignUp(file: File, body: EmailRegistUserReqDto): Promise<ReturnResDto> {
@@ -86,7 +90,7 @@ export class UserService {
     async getInfo(userId: number): Promise<ReturnResDto> {
         try {
             const user: User = await this.userRepository.findByKey('id', userId);
-            const data: getInfoObj = {
+            const data = {
                 email: user.email,
                 name: user.name,
                 nickName: user.nickName,
@@ -186,8 +190,26 @@ export class UserService {
         }
     }
 
-    async getUserFreind(userId: number): Promise<ReturnResDto> {
+    async getProfile(userId: number): Promise<ReturnResDto> {
         try {
+            const user: User = await this.userRepository.findByKey('id', userId);
+            const myPet: MyPet[] = (await this.myPetRepository.findAll(userId)).reverse();
+            const myPets = [];
+            for (let i = 0; i < myPet.length; i++) {
+                myPets[i] = {
+                    myPetId: myPet[i].id,
+                    breed: myPet[i].breed,
+                    name: myPet[i].name,
+                };
+            }
+            const data = {
+                userId: user.id,
+                nickName: user.nickName,
+                feedCount: await this.feedRepository.getCount(userId),
+                freindCount: await this.freindRepository.getCount(userId),
+                myPets: myPets,
+            };
+            return { data: { resultCode: 1, data: data } };
         } catch (err) {
             console.log(err);
             return { data: { resultCode: 1051, data: null } };

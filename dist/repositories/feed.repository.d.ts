@@ -10,4 +10,5 @@ export declare class FeedRepository {
     getQuery(): SelectQueryBuilder<Feed>;
     findOne(query: SelectQueryBuilder<Feed>, addWhere: any[]): Promise<Feed>;
     findMany(query: SelectQueryBuilder<Feed>, addWhere: any[], limit: number): Promise<[Feed[], number]>;
+    getCount(userId: number): Promise<number>;
 }

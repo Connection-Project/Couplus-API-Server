@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Freind } from 'src/models/Freind.entity';
+import { Freind, FreindStatus } from 'src/models/Freind.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -61,5 +61,13 @@ export class FreindRepository {
             .where('freindId = :freindId', { freindId: freindId })
             .execute();
         return;
+    }
+
+    async getCount(userId: number): Promise<number> {
+        return await this.freindRepository
+            .createQueryBuilder('f')
+            .where('status = :status', { status: FreindStatus.confirmed })
+            .andWhere('userId = :userId', { userId: userId })
+            .getCount();
     }
 }

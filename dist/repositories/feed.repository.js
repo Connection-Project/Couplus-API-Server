@@ -69,6 +69,13 @@ let FeedRepository = class FeedRepository {
         query.orderBy('f.createdAt', 'DESC');
         return query.getManyAndCount();
     }
+    async getCount(userId) {
+        return await this.feedRepository
+            .createQueryBuilder('f')
+            .innerJoinAndSelect('f.user', 'u')
+            .andWhere('u.id = :userId', { userId: userId })
+            .getCount();
+    }
 };
 FeedRepository = __decorate([
     (0, common_1.Injectable)(),

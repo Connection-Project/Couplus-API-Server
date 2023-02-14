@@ -12,14 +12,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
 const common_1 = require("@nestjs/common");
 const aws_service_1 = require("../../lib/aws/src/aws.service");
+const feed_repository_1 = require("../../repositories/feed.repository");
 const freind_repository_1 = require("../../repositories/freind.repository");
+const myPet_repository_1 = require("../../repositories/myPet.repository");
 const user_repository_1 = require("../../repositories/user.repository");
 const crypto_1 = require("../../utils/crypto");
 let UserService = class UserService {
-    constructor(awsService, userRepository, freindRepository) {
+    constructor(awsService, userRepository, freindRepository, feedRepository, myPetRepository) {
         this.awsService = awsService;
         this.userRepository = userRepository;
         this.freindRepository = freindRepository;
+        this.feedRepository = feedRepository;
+        this.myPetRepository = myPetRepository;
     }
     async emailSignUp(file, body) {
         try {
@@ -177,8 +181,26 @@ let UserService = class UserService {
             return { data: { resultCode: 1041, data: null } };
         }
     }
-    async getUserFreind(userId) {
+    async getProfile(userId) {
         try {
+            const user = await this.userRepository.findByKey('id', userId);
+            const myPet = (await this.myPetRepository.findAll(userId)).reverse();
+            const myPets = [];
+            for (let i = 0; i < myPet.length; i++) {
+                myPets[i] = {
+                    myPetId: myPet[i].id,
+                    breed: myPet[i].breed,
+                    name: myPet[i].name,
+                };
+            }
+            const data = {
+                userId: user.id,
+                nickName: user.nickName,
+                feedCount: await this.feedRepository.getCount(userId),
+                freindCount: await this.freindRepository.getCount(userId),
+                myPets: myPets,
+            };
+            return { data: { resultCode: 1, data: data } };
         }
         catch (err) {
             console.log(err);
@@ -190,7 +212,9 @@ UserService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [aws_service_1.AwsService,
         user_repository_1.UserRepository,
-        freind_repository_1.FreindRepository])
+        freind_repository_1.FreindRepository,
+        feed_repository_1.FeedRepository,
+        myPet_repository_1.MyPetRepository])
 ], UserService);
 exports.UserService = UserService;
 //# sourceMappingURL=user.service.js.map

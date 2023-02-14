@@ -10,4 +10,5 @@ export declare class FreindRepository {
     delete(userId: number, freindId: number): Promise<void>;
     getDeleteAllByUserId(userId: number): Promise<void>;
     getDeleteAllByFreindId(freindId: number): Promise<void>;
+    getCount(userId: number): Promise<number>;
 }
