@@ -7,7 +7,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserModule = void 0;
-const user_repository_1 = require("./../../repositories/user.repository");
 const typeorm_1 = require("@nestjs/typeorm");
 const common_1 = require("@nestjs/common");
 const user_controller_1 = require("./user.controller");
@@ -16,6 +15,7 @@ const User_entity_1 = require("../../models/User.entity");
 const aws_service_1 = require("../../lib/aws/src/aws.service");
 const Freind_entity_1 = require("../../models/Freind.entity");
 const freind_repository_1 = require("../../repositories/freind.repository");
+const user_repository_1 = require("../../repositories/user.repository");
 let UserModule = class UserModule {
 };
 UserModule = __decorate([
