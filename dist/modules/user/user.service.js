@@ -154,11 +154,10 @@ let UserService = class UserService {
             const items = [];
             for (let i = 0; i < user.length; i++) {
                 let pet = null;
-                user[i].pet.forEach((o) => {
-                    if (o.represent) {
-                        pet = o.breed;
-                    }
-                });
+                for (let j = 0; j < user[i].pet.length; j++) {
+                    if (user[i].pet[j].represent)
+                        pet = user[i].pet[j].breed;
+                }
                 items[i] = {
                     userId: user[i].id,
                     breed: user[i].pet.length > 1 ? pet + '외 ' + (user[i].pet.length - 1) : pet,
