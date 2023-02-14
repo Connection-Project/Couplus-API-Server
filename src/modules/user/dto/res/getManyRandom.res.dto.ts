@@ -4,10 +4,11 @@ export class GetManyRandomUserObj {
     @ApiProperty()
     userId: number;
 
-    @ApiProperty({
-        description: 'null값이 넘어간다면 등록된 강아지가 한 마리도 없어서 예외처리 해주어야함',
-    })
-    feed: string;
+    @ApiProperty()
+    breed: string;
+
+    @ApiProperty()
+    name: string;
 
     @ApiProperty()
     image: string;

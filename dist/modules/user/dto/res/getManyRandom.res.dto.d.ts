@@ -1,6 +1,7 @@
 export declare class GetManyRandomUserObj {
     userId: number;
-    feed: string;
+    breed: string;
+    name: string;
     image: string;
 }
 export declare class GetManyRandomUserSuccessItems {

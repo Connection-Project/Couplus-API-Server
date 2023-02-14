@@ -18,11 +18,13 @@ __decorate([
     __metadata("design:type", Number)
 ], GetManyRandomUserObj.prototype, "userId", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({
-        description: 'null값이 넘어간다면 등록된 강아지가 한 마리도 없어서 예외처리 해주어야함',
-    }),
+    (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], GetManyRandomUserObj.prototype, "feed", void 0);
+], GetManyRandomUserObj.prototype, "breed", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], GetManyRandomUserObj.prototype, "name", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)

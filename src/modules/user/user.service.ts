@@ -162,20 +162,21 @@ export class UserService {
             const user: User[] = await this.userRepository.getManyRandomUser();
             const items = [];
             for (let i = 0; i < user.length; i++) {
-                let pet = null;
-                // user[i].pet.forEach((o) => {
-                //     if (o.represent) {
-                //         pet = o.breed;
-                //     }
-                // });
+                let breed = null;
+                let petName = null;
+                let image = null;
                 for (let j = 0; j < user[i].pet.length; j++) {
-                    if (user[i].pet[j].represent) pet = user[i].pet[j].breed;
+                    if (user[i].pet[j].represent) {
+                        breed = user[i].pet[j].breed;
+                        image = user[i].pet[j].imagePath;
+                        petName = user[i].pet[j].name;
+                    }
                 }
-
                 items[i] = {
                     userId: user[i].id,
-                    breed: user[i].pet.length > 1 ? pet + '외 ' + (user[i].pet.length - 1) : pet, // ! pet이 null이면 강아지 등록이 되어있지 않음
-                    image: user[i].imagePath,
+                    breed: breed,
+                    name: petName,
+                    image: image,
                 };
             }
             return { data: { resultCode: 1, data: { items: items } } };
