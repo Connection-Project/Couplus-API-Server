@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Freind } from 'src/models/Freind.entity';
-import { Brackets, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class FreindRepository {
@@ -31,6 +31,35 @@ export class FreindRepository {
         return await this.freindRepository
             .createQueryBuilder('f')
             .where('status = :status', { status: status })
+            .andWhere('freindId = :freindId', { freindId: userId })
             .getMany();
+    }
+
+    async delete(userId: number, freindId: number): Promise<void> {
+        await this.freindRepository
+            .createQueryBuilder('f')
+            .delete()
+            .where('userId = :userId', { userId: userId })
+            .andWhere('freindId = :freindId', { freindId: freindId })
+            .execute();
+        return;
+    }
+
+    async getDeleteAllByUserId(userId: number): Promise<void> {
+        await this.freindRepository
+            .createQueryBuilder('f')
+            .delete()
+            .where('userId = :userId', { userId: userId })
+            .execute();
+        return;
+    }
+
+    async getDeleteAllByFreindId(freindId: number): Promise<void> {
+        await this.freindRepository
+            .createQueryBuilder('f')
+            .delete()
+            .where('freindId = :freindId', { freindId: freindId })
+            .execute();
+        return;
     }
 }

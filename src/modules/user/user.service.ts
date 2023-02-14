@@ -142,8 +142,10 @@ export class UserService {
                 Bucket: 'pet-img',
                 Key: user.imageKey,
             });
-            // // ! 친구 목록 삭제
-            // await this.freindRepository.deleteAll(userId);
+            // ! 친구 목록 삭제
+            await this.freindRepository.getDeleteAllByUserId(userId);
+            // ! 나를 친구로 연결된 유저들 친구 목록 삭제
+            await this.freindRepository.getDeleteAllByFreindId(userId);
 
             // ! 유저 삭제
             // TODO : 서비스화 시키려면 회원 탈퇴 정보 이원화

@@ -17,16 +17,16 @@ export class FreindService {
         try {
             let resultCode = 0;
             const { freindId } = body;
-            const sender: User = await this.userRepository.findByKey('id', userId);
-            const receiver: User = await this.userRepository.findByKey('id', freindId);
+            const user: User = await this.userRepository.findByKey('id', userId);
+            const freind: User = await this.userRepository.findByKey('id', freindId);
 
             // ! 나 와 추가하려는 유저가 모두 존재해야 추가가 가능
-            if (!sender && !receiver) {
+            if (!user && !freind) {
                 resultCode = 1702;
             } else {
                 const newFreind = this.freindRepository.create();
-                newFreind.userId = sender.id;
-                newFreind.freindId = receiver.id;
+                newFreind.userId = user.id;
+                newFreind.freindId = freind.id;
                 await this.freindRepository.save(newFreind);
                 resultCode = 1;
             }
@@ -53,14 +53,14 @@ export class FreindService {
 
                 // ! 요청 보낸 친구의 상태도 변경
                 const requestFreind: Freind = await this.freindRepository.findOneByUserIdAndFreindId(
-                    userId,
+                    user.id,
                     freind.id,
                 );
                 requestFreind.status = FreindStatus.confirmed;
                 await this.freindRepository.save(requestFreind);
-
                 resultCode = 1;
             }
+            return { data: { resultCode: resultCode, data: { items: null } } };
         } catch (err) {
             console.log(err);
             return { data: { resultCode: 1711, data: null } };
@@ -70,19 +70,58 @@ export class FreindService {
     async getRequests(userId: number): Promise<ReturnResDto> {
         try {
             let resultCode = 0;
+            const items = [];
             const user: User = await this.userRepository.findByKey('id', userId);
             if (!user) {
                 resultCode = 1722;
             } else {
                 const requestFreinds: Freind[] = await this.freindRepository.findManyByStatus(
-                    userId,
+                    user.id,
                     'request',
                 );
+                for (let i = 0; i < requestFreinds.length; i++) {
+                    // ! 요청 보낸 친구의 정보
+                    const freind: User = await this.userRepository.findByKey(
+                        'id',
+                        requestFreinds[i].userId,
+                    );
+                    items[i] = {
+                        freindId: requestFreinds[i].userId,
+                        image: freind.imagePath,
+                        nickName: freind.nickName,
+                    };
+                }
             }
-            return { data: { resultCode: resultCode, data: null } };
+            return { data: { resultCode: resultCode, data: { items: items } } };
         } catch (err) {
             console.log(err);
             return { data: { resultCode: 1721, data: null } };
+        }
+    }
+
+    async delete(userId: number, freindId: number): Promise<ReturnResDto> {
+        try {
+            let resultCode = 0;
+            const user: User = await this.userRepository.findByKey('id', userId);
+            const freind: User = await this.userRepository.findByKey('id', freindId);
+            if (!user && !freind) {
+                resultCode = 1732;
+            } else {
+                // ! 해당 친구 상태 변경
+                const freindStatus: Freind = await this.freindRepository.findOneByUserIdAndFreindId(
+                    user.id,
+                    freind.id,
+                );
+                freindStatus.status = FreindStatus.request;
+                await this.freindRepository.save(freindStatus);
+
+                // ! 선택한 친구 삭제
+                await this.freindRepository.delete(user.id, freind.id);
+                resultCode = 1;
+            }
+        } catch (err) {
+            console.log(err);
+            return { data: { resultCode: 1731, data: null } };
         }
     }
 }
