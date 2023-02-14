@@ -110,8 +110,6 @@ export class UserController {
     }
 
     @Get('profile/freind/:userId')
-    @UseGuards(AccessTokenGuard)
-    @ApiCookieAuth()
     @ApiOperation({ summary: '친구 프로필 정보' })
     @ApiResponse({ status: 200, type: GetProfileSuccessDto, description: '프로필 성공' })
     @ApiResponse({ status: 400, type: GetProfileFailDto, description: '프로필 실패' })

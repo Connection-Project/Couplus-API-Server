@@ -147,8 +147,6 @@ __decorate([
 ], UserController.prototype, "getMyProfle", null);
 __decorate([
     (0, common_1.Get)('profile/freind/:userId'),
-    (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
-    (0, swagger_1.ApiCookieAuth)(),
     (0, swagger_1.ApiOperation)({ summary: '친구 프로필 정보' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: getProfile_res_dto_1.GetProfileSuccessDto, description: '프로필 성공' }),
     (0, swagger_1.ApiResponse)({ status: 400, type: getProfile_res_dto_1.GetProfileFailDto, description: '프로필 실패' }),
