@@ -3,9 +3,8 @@ export declare enum FreindStatus {
     confirmed = "confirmed"
 }
 export declare class Freind {
-    id: number;
-    sender: number;
-    reciever: number;
+    userId: number;
+    freindId: number;
     status: FreindStatus;
     createdAt: Date;
     updatedAt: Date;

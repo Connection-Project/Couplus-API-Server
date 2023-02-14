@@ -12,12 +12,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
 const common_1 = require("@nestjs/common");
 const aws_service_1 = require("../../lib/aws/src/aws.service");
+const freind_repository_1 = require("../../repositories/freind.repository");
 const user_repository_1 = require("../../repositories/user.repository");
 const crypto_1 = require("../../utils/crypto");
 let UserService = class UserService {
-    constructor(awsService, userRepository) {
+    constructor(awsService, userRepository, freindRepository) {
         this.awsService = awsService;
         this.userRepository = userRepository;
+        this.freindRepository = freindRepository;
     }
     async emailSignUp(file, body) {
         try {
@@ -136,6 +138,8 @@ let UserService = class UserService {
                 Bucket: 'pet-img',
                 Key: user.imageKey,
             });
+            await this.freindRepository.getDeleteAllByUserId(userId);
+            await this.freindRepository.getDeleteAllByFreindId(userId);
             await this.userRepository.delete(userId);
             return { data: { resultCode: 1, data: null } };
         }
@@ -171,7 +175,9 @@ let UserService = class UserService {
 };
 UserService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [aws_service_1.AwsService, user_repository_1.UserRepository])
+    __metadata("design:paramtypes", [aws_service_1.AwsService,
+        user_repository_1.UserRepository,
+        freind_repository_1.FreindRepository])
 ], UserService);
 exports.UserService = UserService;
 //# sourceMappingURL=user.service.js.map

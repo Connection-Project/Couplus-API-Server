@@ -21,6 +21,51 @@ let FreindRepository = class FreindRepository {
     constructor(freindRepository) {
         this.freindRepository = freindRepository;
     }
+    create() {
+        return this.freindRepository.create();
+    }
+    async save(freind) {
+        return await this.freindRepository.save(freind);
+    }
+    async findOneByUserIdAndFreindId(userId, freindId) {
+        return await this.freindRepository
+            .createQueryBuilder('f')
+            .where('userId = :userId', { userId: freindId })
+            .andWhere('freindId = :freindId', { freindId: userId })
+            .getOne();
+    }
+    async findManyByStatus(userId, status) {
+        return await this.freindRepository
+            .createQueryBuilder('f')
+            .where('status = :status', { status: status })
+            .andWhere('freindId = :freindId', { freindId: userId })
+            .getMany();
+    }
+    async delete(userId, freindId) {
+        await this.freindRepository
+            .createQueryBuilder('f')
+            .delete()
+            .where('userId = :userId', { userId: userId })
+            .andWhere('freindId = :freindId', { freindId: freindId })
+            .execute();
+        return;
+    }
+    async getDeleteAllByUserId(userId) {
+        await this.freindRepository
+            .createQueryBuilder('f')
+            .delete()
+            .where('userId = :userId', { userId: userId })
+            .execute();
+        return;
+    }
+    async getDeleteAllByFreindId(freindId) {
+        await this.freindRepository
+            .createQueryBuilder('f')
+            .delete()
+            .where('freindId = :freindId', { freindId: freindId })
+            .execute();
+        return;
+    }
 };
 FreindRepository = __decorate([
     (0, common_1.Injectable)(),
@@ -28,4 +73,4 @@ FreindRepository = __decorate([
     __metadata("design:paramtypes", [typeorm_2.Repository])
 ], FreindRepository);
 exports.FreindRepository = FreindRepository;
-//# sourceMappingURL=Freind.repository.js.map
+//# sourceMappingURL=freind.repository.js.map

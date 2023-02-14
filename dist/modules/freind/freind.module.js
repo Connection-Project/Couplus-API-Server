@@ -6,24 +6,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserModule = void 0;
-const user_repository_1 = require("./../../repositories/user.repository");
-const typeorm_1 = require("@nestjs/typeorm");
+exports.FreindModule = void 0;
 const common_1 = require("@nestjs/common");
-const user_controller_1 = require("./user.controller");
-const user_service_1 = require("./user.service");
+const freind_service_1 = require("./freind.service");
+const freind_controller_1 = require("./freind.controller");
+const typeorm_1 = require("@nestjs/typeorm");
 const User_entity_1 = require("../../models/User.entity");
-const aws_service_1 = require("../../lib/aws/src/aws.service");
 const Freind_entity_1 = require("../../models/Freind.entity");
+const user_repository_1 = require("../../repositories/user.repository");
 const freind_repository_1 = require("../../repositories/freind.repository");
-let UserModule = class UserModule {
+let FreindModule = class FreindModule {
 };
-UserModule = __decorate([
+FreindModule = __decorate([
     (0, common_1.Module)({
         imports: [typeorm_1.TypeOrmModule.forFeature([User_entity_1.User, Freind_entity_1.Freind])],
-        controllers: [user_controller_1.UserController],
-        providers: [user_service_1.UserService, aws_service_1.AwsService, user_repository_1.UserRepository, freind_repository_1.FreindRepository],
+        providers: [freind_service_1.FreindService, user_repository_1.UserRepository, freind_repository_1.FreindRepository],
+        controllers: [freind_controller_1.FreindController],
     })
-], UserModule);
-exports.UserModule = UserModule;
-//# sourceMappingURL=user.module.js.map
+], FreindModule);
+exports.FreindModule = FreindModule;
+//# sourceMappingURL=freind.module.js.map

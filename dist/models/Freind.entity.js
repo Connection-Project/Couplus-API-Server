@@ -22,17 +22,13 @@ let Freind = class Freind {
     }
 };
 __decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)(),
+    (0, typeorm_1.PrimaryColumn)(),
     __metadata("design:type", Number)
-], Freind.prototype, "id", void 0);
+], Freind.prototype, "userId", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: false }),
+    (0, typeorm_1.PrimaryColumn)(),
     __metadata("design:type", Number)
-], Freind.prototype, "sender", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ nullable: false }),
-    __metadata("design:type", Number)
-], Freind.prototype, "reciever", void 0);
+], Freind.prototype, "freindId", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: 'enum', enum: FreindStatus, default: FreindStatus.request }),
     __metadata("design:type", String)
