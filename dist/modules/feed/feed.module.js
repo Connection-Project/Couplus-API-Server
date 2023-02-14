@@ -18,15 +18,37 @@ const HashTag_entity_1 = require("../../models/HashTag.entity");
 const User_entity_1 = require("../../models/User.entity");
 const feed_repository_1 = require("../../repositories/feed.repository");
 const feedImage_repository_1 = require("../../repositories/feedImage.repository");
+const feedLiked_repository_1 = require("../../repositories/feedLiked.repository");
+const hashtag_repository_1 = require("../../repositories/hashtag.repository");
+const user_repository_1 = require("../../repositories/user.repository");
 const feed_controller_1 = require("./feed.controller");
 const feed_service_1 = require("./feed.service");
 let FeedModule = class FeedModule {
 };
 FeedModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([Feed_entity_1.Feed, FeedImage_entity_1.FeedImage, FeedComment_entity_1.FeedComment, User_entity_1.User, HashTag_entity_1.HashTag, FeedLiked_entity_1.FeedLiked])],
+        imports: [
+            typeorm_1.TypeOrmModule.forFeature([
+                Feed_entity_1.Feed,
+                FeedImage_entity_1.FeedImage,
+                FeedComment_entity_1.FeedComment,
+                FeedLiked_entity_1.FeedLiked,
+                User_entity_1.User,
+                HashTag_entity_1.HashTag,
+                FeedLiked_entity_1.FeedLiked,
+                HashTag_entity_1.HashTag,
+            ]),
+        ],
         controllers: [feed_controller_1.FeedController],
-        providers: [feed_service_1.FeedService, aws_service_1.AwsService, feed_repository_1.FeedRepository, feedImage_repository_1.FeedImageRepository],
+        providers: [
+            feed_service_1.FeedService,
+            aws_service_1.AwsService,
+            feed_repository_1.FeedRepository,
+            feedImage_repository_1.FeedImageRepository,
+            feedLiked_repository_1.FeedLikedRepository,
+            user_repository_1.UserRepository,
+            hashtag_repository_1.HashTagRepository,
+        ],
     })
 ], FeedModule);
 exports.FeedModule = FeedModule;

@@ -16,7 +16,7 @@ async function bootstrap() {
         credentials: true,
     });
     const config = new swagger_1.DocumentBuilder()
-        .setTitle('Swagger API')
+        .setTitle('For Dog API')
         .setDescription('http://3.35.147.147/v1/api')
         .setVersion('1.0.0')
         .addCookieAuth('x-access-auth')

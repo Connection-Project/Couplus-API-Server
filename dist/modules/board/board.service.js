@@ -59,12 +59,6 @@ let BoardService = class BoardService {
             const query = this.boardRepository.getQuery();
             const boardWhere = [
                 {
-                    key: 'u.id = :userId',
-                    value: {
-                        userId: userId,
-                    },
-                },
-                {
                     key: 'b.type = :type',
                     value: {
                         type: type,

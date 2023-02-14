@@ -51,7 +51,8 @@ let FeedRepository = class FeedRepository {
             .createQueryBuilder('f')
             .innerJoinAndSelect('f.user', 'u')
             .leftJoinAndSelect('f.image', 'fi')
-            .leftJoinAndSelect('f.comment', 'fc');
+            .leftJoinAndSelect('f.comment', 'fc')
+            .leftJoinAndSelect('f.hashtag', 'h');
     }
     async findOne(query, addWhere) {
         for (let i = 0; i < addWhere.length; i++) {
