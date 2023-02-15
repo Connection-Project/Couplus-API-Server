@@ -167,13 +167,14 @@ export class UserService {
             const items = [];
             for (let i = 0; i < user.length; i++) {
                 const pet: MyPet = await this.myPetRepository.getRepresentPetOne(user[i].id);
+                const pets: MyPet[] = await this.myPetRepository.findAll(user[i].id);
                 let breed = pet ? pet.breed : null;
 
                 console.log(user[i].id + ',' + user[i].pet.length);
                 console.log(user[i].pet);
                 items[i] = {
                     userId: user[i].id,
-                    breed: user[i].pet.length > 1 ? `${breed} 외 ${user[i].pet.length - 1}마리` : breed,
+                    breed: pets.length > 1 ? `${breed} 외 ${pets.length - 1}마리` : breed,
                     name: pet ? pet.name : null,
                     image: pet ? pet.imagePath : null,
                 };
