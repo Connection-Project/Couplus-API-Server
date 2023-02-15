@@ -52,7 +52,7 @@ let UserController = class UserController {
     async getMyProfle(req) {
         return await this.userService.getProfile(req.user['userId']);
     }
-    async getFreindProfle(userId) {
+    async getfriendProfle(userId) {
         return await this.userService.getProfile(userId);
     }
 };
@@ -146,7 +146,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getMyProfle", null);
 __decorate([
-    (0, common_1.Get)('profile/freind/:userId'),
+    (0, common_1.Get)('profile/friend/:userId'),
     (0, swagger_1.ApiOperation)({ summary: '친구 프로필 정보' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: getProfile_res_dto_1.GetProfileSuccessDto, description: '프로필 성공' }),
     (0, swagger_1.ApiResponse)({ status: 400, type: getProfile_res_dto_1.GetProfileFailDto, description: '프로필 실패' }),
@@ -154,7 +154,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
-], UserController.prototype, "getFreindProfle", null);
+], UserController.prototype, "getfriendProfle", null);
 UserController = __decorate([
     (0, swagger_1.ApiTags)('유저 정보'),
     (0, common_1.Controller)('user'),

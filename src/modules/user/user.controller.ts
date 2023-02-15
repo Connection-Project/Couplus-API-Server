@@ -109,11 +109,11 @@ export class UserController {
         return await this.userService.getProfile(req.user['userId']);
     }
 
-    @Get('profile/freind/:userId')
+    @Get('profile/friend/:userId')
     @ApiOperation({ summary: '친구 프로필 정보' })
     @ApiResponse({ status: 200, type: GetProfileSuccessDto, description: '프로필 성공' })
     @ApiResponse({ status: 400, type: GetProfileFailDto, description: '프로필 실패' })
-    async getFreindProfle(@Param('userId', ParseIntPipe) userId: number): Promise<ReturnResDto> {
+    async getfriendProfle(@Param('userId', ParseIntPipe) userId: number): Promise<ReturnResDto> {
         return await this.userService.getProfile(userId);
     }
 }

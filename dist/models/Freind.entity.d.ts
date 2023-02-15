@@ -1,12 +1,12 @@
-export declare enum FreindStatus {
+export declare enum FriendStatus {
     request = "request",
     confirmed = "confirmed"
 }
-export declare class Freind {
+export declare class Friend {
     userId: number;
-    freindId: number;
-    status: FreindStatus;
+    friendId: number;
+    status: FriendStatus;
     createdAt: Date;
     updatedAt: Date;
-    constructor(partial: Partial<Freind>);
+    constructor(partial: Partial<Friend>);
 }

@@ -1,20 +1,20 @@
 import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from 'typeorm';
 
-export enum FreindStatus {
+export enum FriendStatus {
     request = 'request', // ! 요청 중
     confirmed = 'confirmed', // ! 친구
 }
 
-@Entity({ name: 'Freinds' })
-export class Freind {
+@Entity({ name: 'friends' })
+export class Friend {
     @PrimaryColumn()
     userId: number;
 
     @PrimaryColumn()
-    freindId: number;
+    friendId: number;
 
-    @Column({ type: 'enum', enum: FreindStatus, default: FreindStatus.request })
-    status: FreindStatus;
+    @Column({ type: 'enum', enum: FriendStatus, default: FriendStatus.request })
+    status: FriendStatus;
 
     @CreateDateColumn({ type: 'timestamp' })
     createdAt: Date;
@@ -22,7 +22,7 @@ export class Freind {
     @UpdateDateColumn({ type: 'timestamp' })
     updatedAt: Date;
 
-    constructor(partial: Partial<Freind>) {
+    constructor(partial: Partial<Friend>) {
         Object.assign(this, partial);
     }
 }

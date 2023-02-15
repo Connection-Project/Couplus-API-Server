@@ -88,14 +88,14 @@ let FeedService = class FeedService {
             return { data: { resultCode: 1811, data: null } };
         }
     }
-    async getFreindFeeds(freindId, limit) {
+    async getfriendFeeds(friendId, limit) {
         try {
             const query = this.feedRepository.getQuery();
             const feedWhere = [
                 {
                     key: 'u.id = :userId',
                     value: {
-                        userId: freindId,
+                        userId: friendId,
                     },
                 },
             ];

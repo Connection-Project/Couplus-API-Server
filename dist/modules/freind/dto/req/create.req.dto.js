@@ -9,13 +9,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateFreindReqDto = void 0;
+exports.CreatefriendReqDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
-class CreateFreindReqDto {
+class CreatefriendReqDto {
 }
 __decorate([
     (0, swagger_1.ApiProperty)({ description: '친구 추가하려는 userId를 보내주면 됨' }),
     __metadata("design:type", Number)
-], CreateFreindReqDto.prototype, "freindId", void 0);
-exports.CreateFreindReqDto = CreateFreindReqDto;
+], CreatefriendReqDto.prototype, "friendId", void 0);
+exports.CreatefriendReqDto = CreatefriendReqDto;
 //# sourceMappingURL=create.req.dto.js.map

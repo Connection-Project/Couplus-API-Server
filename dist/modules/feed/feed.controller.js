@@ -33,8 +33,8 @@ let FeedController = class FeedController {
     async getMyFeeds(userId, limit) {
         return await this.feedService.getMyFeeds(userId, limit);
     }
-    async getFreindFeeds(userId, limit) {
-        return await this.feedService.getFreindFeeds(userId, limit);
+    async getfriendFeeds(userId, limit) {
+        return await this.feedService.getfriendFeeds(userId, limit);
     }
 };
 __decorate([
@@ -67,7 +67,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], FeedController.prototype, "getMyFeeds", null);
 __decorate([
-    (0, common_1.Get)('freind/:userId/:limit'),
+    (0, common_1.Get)('friend/:userId/:limit'),
     (0, swagger_1.ApiOperation)({ summary: '친구 피드 리스트' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: getFeeds_res_dto_1.GetFeedsSuccessDto, description: '친구 피드 리스트 성공' }),
     (0, swagger_1.ApiResponse)({ status: 400, type: getFeeds_res_dto_1.GetFeedsFailDto, description: '친구 피드 리스트 실패' }),
@@ -76,7 +76,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number, Number]),
     __metadata("design:returntype", Promise)
-], FeedController.prototype, "getFreindFeeds", null);
+], FeedController.prototype, "getfriendFeeds", null);
 FeedController = __decorate([
     (0, swagger_1.ApiTags)('피드 관리'),
     (0, common_1.Controller)('feed'),

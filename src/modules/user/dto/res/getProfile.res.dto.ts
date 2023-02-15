@@ -25,7 +25,7 @@ export class GetProfileObj {
     feedCount: number;
 
     @ApiProperty()
-    freindCount: number;
+    friendCount: number;
 
     @ApiProperty({ type: MyPetsObj })
     myPets: MyPetsObj[];

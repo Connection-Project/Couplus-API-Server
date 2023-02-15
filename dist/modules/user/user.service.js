@@ -13,15 +13,15 @@ exports.UserService = void 0;
 const common_1 = require("@nestjs/common");
 const aws_service_1 = require("../../lib/aws/src/aws.service");
 const feed_repository_1 = require("../../repositories/feed.repository");
-const freind_repository_1 = require("../../repositories/freind.repository");
+const friend_repository_1 = require("../../repositories/friend.repository");
 const myPet_repository_1 = require("../../repositories/myPet.repository");
 const user_repository_1 = require("../../repositories/user.repository");
 const crypto_1 = require("../../utils/crypto");
 let UserService = class UserService {
-    constructor(awsService, userRepository, freindRepository, feedRepository, myPetRepository) {
+    constructor(awsService, userRepository, friendRepository, feedRepository, myPetRepository) {
         this.awsService = awsService;
         this.userRepository = userRepository;
-        this.freindRepository = freindRepository;
+        this.friendRepository = friendRepository;
         this.feedRepository = feedRepository;
         this.myPetRepository = myPetRepository;
     }
@@ -143,8 +143,8 @@ let UserService = class UserService {
                 Bucket: 'pet-img',
                 Key: user.imageKey,
             });
-            await this.freindRepository.getDeleteAllByUserId(userId);
-            await this.freindRepository.getDeleteAllByFreindId(userId);
+            await this.friendRepository.getDeleteAllByUserId(userId);
+            await this.friendRepository.getDeleteAllByfriendId(userId);
             await this.userRepository.delete(userId);
             return { data: { resultCode: 1, data: null } };
         }
@@ -196,7 +196,7 @@ let UserService = class UserService {
                 nickName: user.nickName,
                 image: image,
                 feedCount: await this.feedRepository.getCount(userId),
-                freindCount: await this.freindRepository.getCount(userId),
+                friendCount: await this.friendRepository.getCount(userId),
                 myPets: myPets,
             };
             return { data: { resultCode: 1, data: data } };
@@ -211,7 +211,7 @@ UserService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [aws_service_1.AwsService,
         user_repository_1.UserRepository,
-        freind_repository_1.FreindRepository,
+        friend_repository_1.FriendRepository,
         feed_repository_1.FeedRepository,
         myPet_repository_1.MyPetRepository])
 ], UserService);

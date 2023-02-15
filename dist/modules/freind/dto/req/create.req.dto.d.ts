@@ -1,3 +1,3 @@
-export declare class CreateFreindReqDto {
-    freindId: number;
+export declare class CreatefriendReqDto {
+    friendId: number;
 }

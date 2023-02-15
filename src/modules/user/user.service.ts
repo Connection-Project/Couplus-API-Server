@@ -3,7 +3,7 @@ import { AwsService } from 'src/lib/aws/src/aws.service';
 import { MyPet } from 'src/models/MyPets.entity';
 import { User } from 'src/models/User.entity';
 import { FeedRepository } from 'src/repositories/feed.repository';
-import { FreindRepository } from 'src/repositories/freind.repository';
+import { FriendRepository } from 'src/repositories/friend.repository';
 import { MyPetRepository } from 'src/repositories/myPet.repository';
 import { UserRepository } from 'src/repositories/user.repository';
 import { GenDigestPwd } from 'src/utils/crypto';
@@ -16,7 +16,7 @@ export class UserService {
     constructor(
         private readonly awsService: AwsService,
         private readonly userRepository: UserRepository,
-        private readonly freindRepository: FreindRepository,
+        private readonly friendRepository: FriendRepository,
         private readonly feedRepository: FeedRepository,
         private readonly myPetRepository: MyPetRepository,
     ) {}
@@ -147,9 +147,9 @@ export class UserService {
                 Key: user.imageKey,
             });
             // ! 친구 목록 삭제
-            await this.freindRepository.getDeleteAllByUserId(userId);
+            await this.friendRepository.getDeleteAllByUserId(userId);
             // ! 나를 친구로 연결된 유저들 친구 목록 삭제
-            await this.freindRepository.getDeleteAllByFreindId(userId);
+            await this.friendRepository.getDeleteAllByfriendId(userId);
 
             // ! 유저 삭제
             // TODO : 서비스화 시키려면 회원 탈퇴 정보 이원화
@@ -204,7 +204,7 @@ export class UserService {
                 nickName: user.nickName,
                 image: image,
                 feedCount: await this.feedRepository.getCount(userId),
-                freindCount: await this.freindRepository.getCount(userId),
+                friendCount: await this.friendRepository.getCount(userId),
                 myPets: myPets,
             };
             return { data: { resultCode: 1, data: data } };

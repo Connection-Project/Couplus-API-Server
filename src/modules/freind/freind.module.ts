@@ -1,15 +1,15 @@
 import { Module } from '@nestjs/common';
-import { FreindService } from './freind.service';
-import { FreindController } from './freind.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Friend } from 'src/models/Freind.entity';
 import { User } from 'src/models/User.entity';
-import { Freind } from 'src/models/Freind.entity';
+import { FriendRepository } from 'src/repositories/friend.repository';
 import { UserRepository } from 'src/repositories/user.repository';
-import { FreindRepository } from 'src/repositories/freind.repository';
+import { FriendController } from './freind.controller';
+import { FriendService } from './freind.service';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([User, Freind])],
-    providers: [FreindService, UserRepository, FreindRepository],
-    controllers: [FreindController],
+    imports: [TypeOrmModule.forFeature([User, Friend])],
+    providers: [FriendService, UserRepository, FriendRepository],
+    controllers: [FriendController],
 })
-export class FreindModule {}
+export class FriendModule {}

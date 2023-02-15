@@ -9,50 +9,50 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GetRequestFreindFailDto = exports.GetRequestFreindSuccessDto = exports.GetRequestFreindSuccessItems = exports.GetReuestFreindsObj = void 0;
+exports.GetRequestfriendFailDto = exports.GetRequestfriendSuccessDto = exports.GetRequestfriendSuccessItems = exports.GetReuestfriendsObj = void 0;
 const swagger_1 = require("@nestjs/swagger");
-class GetReuestFreindsObj {
+class GetReuestfriendsObj {
 }
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Number)
-], GetReuestFreindsObj.prototype, "freindId", void 0);
+], GetReuestfriendsObj.prototype, "friendId", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], GetReuestFreindsObj.prototype, "image", void 0);
+], GetReuestfriendsObj.prototype, "image", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], GetReuestFreindsObj.prototype, "nickName", void 0);
-exports.GetReuestFreindsObj = GetReuestFreindsObj;
-class GetRequestFreindSuccessItems {
+], GetReuestfriendsObj.prototype, "nickName", void 0);
+exports.GetReuestfriendsObj = GetReuestfriendsObj;
+class GetRequestfriendSuccessItems {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ type: GetReuestFreindsObj }),
+    (0, swagger_1.ApiProperty)({ type: GetReuestfriendsObj }),
     __metadata("design:type", Array)
-], GetRequestFreindSuccessItems.prototype, "items", void 0);
-exports.GetRequestFreindSuccessItems = GetRequestFreindSuccessItems;
-class GetRequestFreindSuccessDto {
+], GetRequestfriendSuccessItems.prototype, "items", void 0);
+exports.GetRequestfriendSuccessItems = GetRequestfriendSuccessItems;
+class GetRequestfriendSuccessDto {
 }
 __decorate([
     (0, swagger_1.ApiProperty)({ default: 1 }),
     __metadata("design:type", Number)
-], GetRequestFreindSuccessDto.prototype, "resultCode", void 0);
+], GetRequestfriendSuccessDto.prototype, "resultCode", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ type: GetRequestFreindSuccessItems }),
-    __metadata("design:type", GetRequestFreindSuccessItems)
-], GetRequestFreindSuccessDto.prototype, "data", void 0);
-exports.GetRequestFreindSuccessDto = GetRequestFreindSuccessDto;
-class GetRequestFreindFailDto {
+    (0, swagger_1.ApiProperty)({ type: GetRequestfriendSuccessItems }),
+    __metadata("design:type", GetRequestfriendSuccessItems)
+], GetRequestfriendSuccessDto.prototype, "data", void 0);
+exports.GetRequestfriendSuccessDto = GetRequestfriendSuccessDto;
+class GetRequestfriendFailDto {
 }
 __decorate([
     (0, swagger_1.ApiProperty)({ default: 1721 }),
     __metadata("design:type", Number)
-], GetRequestFreindFailDto.prototype, "resultCode", void 0);
+], GetRequestfriendFailDto.prototype, "resultCode", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ default: null }),
     __metadata("design:type", Object)
-], GetRequestFreindFailDto.prototype, "data", void 0);
-exports.GetRequestFreindFailDto = GetRequestFreindFailDto;
+], GetRequestfriendFailDto.prototype, "data", void 0);
+exports.GetRequestfriendFailDto = GetRequestfriendFailDto;
 //# sourceMappingURL=getRequests.res.dto.js.map

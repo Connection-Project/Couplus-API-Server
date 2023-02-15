@@ -9,30 +9,31 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.FreindService = void 0;
-const Freind_entity_1 = require("./../../models/Freind.entity");
+exports.FriendService = void 0;
 const common_1 = require("@nestjs/common");
-const freind_repository_1 = require("../../repositories/freind.repository");
+const Freind_entity_1 = require("../../models/Freind.entity");
+const friend_repository_1 = require("../../repositories/friend.repository");
 const user_repository_1 = require("../../repositories/user.repository");
-let FreindService = class FreindService {
-    constructor(freindRepository, userRepository) {
-        this.freindRepository = freindRepository;
+let FriendService = class FriendService {
+    constructor(friendRepository, userRepository) {
+        this.friendRepository = friendRepository;
         this.userRepository = userRepository;
     }
     async create(userId, body) {
         try {
             let resultCode = 0;
-            const { freindId } = body;
+            const { friendId } = body;
+            console.log(friendId);
             const user = await this.userRepository.findByKey('id', userId);
-            const freind = await this.userRepository.findByKey('id', freindId);
-            if (!user && !freind) {
+            const friend = await this.userRepository.findByKey('id', friendId);
+            if (!user && !friend) {
                 resultCode = 1702;
             }
             else {
-                const newFreind = this.freindRepository.create();
-                newFreind.userId = user.id;
-                newFreind.freindId = freind.id;
-                await this.freindRepository.save(newFreind);
+                const newfriend = this.friendRepository.create();
+                newfriend.userId = user.id;
+                newfriend.friendId = friend.id;
+                await this.friendRepository.save(newfriend);
                 resultCode = 1;
             }
             return { data: { resultCode: resultCode, data: null } };
@@ -42,23 +43,23 @@ let FreindService = class FreindService {
             return { data: { resultCode: 1701, data: null } };
         }
     }
-    async requestConfirm(userId, freindId) {
+    async requestConfirm(userId, friendId) {
         try {
             let resultCode = 0;
             const user = await this.userRepository.findByKey('id', userId);
-            const freind = await this.userRepository.findByKey('id', freindId);
-            if (!user && !freind) {
+            const friend = await this.userRepository.findByKey('id', friendId);
+            if (!user && !friend) {
                 resultCode = 1712;
             }
             else {
-                const newFreind = this.freindRepository.create();
-                newFreind.userId = user.id;
-                newFreind.freindId = freind.id;
-                newFreind.status = Freind_entity_1.FreindStatus.confirmed;
-                await this.freindRepository.save(newFreind);
-                const requestFreind = await this.freindRepository.findOneByUserIdAndFreindId(user.id, freind.id);
-                requestFreind.status = Freind_entity_1.FreindStatus.confirmed;
-                await this.freindRepository.save(requestFreind);
+                const newfriend = this.friendRepository.create();
+                newfriend.userId = user.id;
+                newfriend.friendId = friend.id;
+                newfriend.status = Freind_entity_1.FriendStatus.confirmed;
+                await this.friendRepository.save(newfriend);
+                const requestfriend = await this.friendRepository.findOneByUserIdAndfriendId(user.id, friend.id);
+                requestfriend.status = Freind_entity_1.FriendStatus.confirmed;
+                await this.friendRepository.save(requestfriend);
                 resultCode = 1;
             }
             return { data: { resultCode: resultCode, data: { items: null } } };
@@ -77,13 +78,13 @@ let FreindService = class FreindService {
                 resultCode = 1722;
             }
             else {
-                const requestFreinds = await this.freindRepository.findManyByStatus(user.id, 'request');
-                for (let i = 0; i < requestFreinds.length; i++) {
-                    const freind = await this.userRepository.findByKey('id', requestFreinds[i].userId);
+                const requestfriends = await this.friendRepository.findManyByStatus(user.id, 'request');
+                for (let i = 0; i < requestfriends.length; i++) {
+                    const friend = await this.userRepository.findByKey('id', requestfriends[i].userId);
                     items[i] = {
-                        freindId: requestFreinds[i].userId,
-                        image: freind.imagePath,
-                        nickName: freind.nickName,
+                        friendId: requestfriends[i].userId,
+                        image: friend.imagePath,
+                        nickName: friend.nickName,
                     };
                 }
             }
@@ -94,19 +95,19 @@ let FreindService = class FreindService {
             return { data: { resultCode: 1721, data: null } };
         }
     }
-    async delete(userId, freindId) {
+    async delete(userId, friendId) {
         try {
             let resultCode = 0;
             const user = await this.userRepository.findByKey('id', userId);
-            const freind = await this.userRepository.findByKey('id', freindId);
-            if (!user && !freind) {
+            const friend = await this.userRepository.findByKey('id', friendId);
+            if (!user && !friend) {
                 resultCode = 1732;
             }
             else {
-                const freindStatus = await this.freindRepository.findOneByUserIdAndFreindId(user.id, freind.id);
-                freindStatus.status = Freind_entity_1.FreindStatus.request;
-                await this.freindRepository.save(freindStatus);
-                await this.freindRepository.delete(user.id, freind.id);
+                const friendStatus = await this.friendRepository.findOneByUserIdAndfriendId(user.id, friend.id);
+                friendStatus.status = Freind_entity_1.FriendStatus.request;
+                await this.friendRepository.save(friendStatus);
+                await this.friendRepository.delete(user.id, friend.id);
                 resultCode = 1;
             }
         }
@@ -116,10 +117,10 @@ let FreindService = class FreindService {
         }
     }
 };
-FreindService = __decorate([
+FriendService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [freind_repository_1.FreindRepository,
+    __metadata("design:paramtypes", [friend_repository_1.FriendRepository,
         user_repository_1.UserRepository])
-], FreindService);
-exports.FreindService = FreindService;
+], FriendService);
+exports.FriendService = FriendService;
 //# sourceMappingURL=freind.service.js.map

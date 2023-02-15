@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class GetReuestFreindsObj {
+export class GetReuestfriendsObj {
     @ApiProperty()
-    freindId: number;
+    friendId: number;
 
     @ApiProperty()
     image: string;
@@ -11,20 +11,20 @@ export class GetReuestFreindsObj {
     nickName: string;
 }
 
-export class GetRequestFreindSuccessItems {
-    @ApiProperty({ type: GetReuestFreindsObj })
-    items: GetReuestFreindsObj[];
+export class GetRequestfriendSuccessItems {
+    @ApiProperty({ type: GetReuestfriendsObj })
+    items: GetReuestfriendsObj[];
 }
 
-export class GetRequestFreindSuccessDto {
+export class GetRequestfriendSuccessDto {
     @ApiProperty({ default: 1 })
     resultCode: number;
 
-    @ApiProperty({ type: GetRequestFreindSuccessItems })
-    data: GetRequestFreindSuccessItems;
+    @ApiProperty({ type: GetRequestfriendSuccessItems })
+    data: GetRequestfriendSuccessItems;
 }
 
-export class GetRequestFreindFailDto {
+export class GetRequestfriendFailDto {
     @ApiProperty({ default: 1721 })
     resultCode: number;
 

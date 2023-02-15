@@ -1,2 +1,2 @@
-export declare class FreindModule {
+export declare class FriendModule {
 }

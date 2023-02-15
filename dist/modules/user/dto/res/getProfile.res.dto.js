@@ -47,7 +47,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Number)
-], GetProfileObj.prototype, "freindCount", void 0);
+], GetProfileObj.prototype, "friendCount", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ type: MyPetsObj }),
     __metadata("design:type", Array)

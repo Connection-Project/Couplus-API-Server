@@ -9,14 +9,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Freind = exports.FreindStatus = void 0;
+exports.Friend = exports.FriendStatus = void 0;
 const typeorm_1 = require("typeorm");
-var FreindStatus;
-(function (FreindStatus) {
-    FreindStatus["request"] = "request";
-    FreindStatus["confirmed"] = "confirmed";
-})(FreindStatus = exports.FreindStatus || (exports.FreindStatus = {}));
-let Freind = class Freind {
+var FriendStatus;
+(function (FriendStatus) {
+    FriendStatus["request"] = "request";
+    FriendStatus["confirmed"] = "confirmed";
+})(FriendStatus = exports.FriendStatus || (exports.FriendStatus = {}));
+let Friend = class Friend {
     constructor(partial) {
         Object.assign(this, partial);
     }
@@ -24,26 +24,26 @@ let Freind = class Freind {
 __decorate([
     (0, typeorm_1.PrimaryColumn)(),
     __metadata("design:type", Number)
-], Freind.prototype, "userId", void 0);
+], Friend.prototype, "userId", void 0);
 __decorate([
     (0, typeorm_1.PrimaryColumn)(),
     __metadata("design:type", Number)
-], Freind.prototype, "freindId", void 0);
+], Friend.prototype, "friendId", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'enum', enum: FreindStatus, default: FreindStatus.request }),
+    (0, typeorm_1.Column)({ type: 'enum', enum: FriendStatus, default: FriendStatus.request }),
     __metadata("design:type", String)
-], Freind.prototype, "status", void 0);
+], Friend.prototype, "status", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)({ type: 'timestamp' }),
     __metadata("design:type", Date)
-], Freind.prototype, "createdAt", void 0);
+], Friend.prototype, "createdAt", void 0);
 __decorate([
     (0, typeorm_1.UpdateDateColumn)({ type: 'timestamp' }),
     __metadata("design:type", Date)
-], Freind.prototype, "updatedAt", void 0);
-Freind = __decorate([
-    (0, typeorm_1.Entity)({ name: 'Freinds' }),
+], Friend.prototype, "updatedAt", void 0);
+Friend = __decorate([
+    (0, typeorm_1.Entity)({ name: 'friends' }),
     __metadata("design:paramtypes", [Object])
-], Freind);
-exports.Freind = Freind;
+], Friend);
+exports.Friend = Friend;
 //# sourceMappingURL=Freind.entity.js.map

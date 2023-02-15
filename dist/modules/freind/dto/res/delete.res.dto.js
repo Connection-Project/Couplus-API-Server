@@ -9,17 +9,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DeleteFreindFailDto = void 0;
+exports.DeletefriendFailDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
-class DeleteFreindFailDto {
+class DeletefriendFailDto {
 }
 __decorate([
     (0, swagger_1.ApiProperty)({ default: 1732 }),
     __metadata("design:type", Number)
-], DeleteFreindFailDto.prototype, "resultCode", void 0);
+], DeletefriendFailDto.prototype, "resultCode", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ default: null }),
     __metadata("design:type", Object)
-], DeleteFreindFailDto.prototype, "data", void 0);
-exports.DeleteFreindFailDto = DeleteFreindFailDto;
+], DeletefriendFailDto.prototype, "data", void 0);
+exports.DeletefriendFailDto = DeletefriendFailDto;
 //# sourceMappingURL=delete.res.dto.js.map

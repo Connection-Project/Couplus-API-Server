@@ -6,23 +6,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.FreindModule = void 0;
+exports.FriendModule = void 0;
 const common_1 = require("@nestjs/common");
-const freind_service_1 = require("./freind.service");
-const freind_controller_1 = require("./freind.controller");
 const typeorm_1 = require("@nestjs/typeorm");
-const User_entity_1 = require("../../models/User.entity");
 const Freind_entity_1 = require("../../models/Freind.entity");
+const User_entity_1 = require("../../models/User.entity");
+const friend_repository_1 = require("../../repositories/friend.repository");
 const user_repository_1 = require("../../repositories/user.repository");
-const freind_repository_1 = require("../../repositories/freind.repository");
-let FreindModule = class FreindModule {
+const freind_controller_1 = require("./freind.controller");
+const freind_service_1 = require("./freind.service");
+let FriendModule = class FriendModule {
 };
-FreindModule = __decorate([
+FriendModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([User_entity_1.User, Freind_entity_1.Freind])],
-        providers: [freind_service_1.FreindService, user_repository_1.UserRepository, freind_repository_1.FreindRepository],
-        controllers: [freind_controller_1.FreindController],
+        imports: [typeorm_1.TypeOrmModule.forFeature([User_entity_1.User, Freind_entity_1.Friend])],
+        providers: [freind_service_1.FriendService, user_repository_1.UserRepository, friend_repository_1.FriendRepository],
+        controllers: [freind_controller_1.FriendController],
     })
-], FreindModule);
-exports.FreindModule = FreindModule;
+], FriendModule);
+exports.FriendModule = FriendModule;
 //# sourceMappingURL=freind.module.js.map

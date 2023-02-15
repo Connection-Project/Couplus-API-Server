@@ -1,33 +1,34 @@
-import { Freind, FreindStatus } from './../../models/Freind.entity';
 import { Injectable } from '@nestjs/common';
+import { Friend, FriendStatus } from 'src/models/Freind.entity';
 import { User } from 'src/models/User.entity';
-import { FreindRepository } from 'src/repositories/freind.repository';
+import { FriendRepository } from 'src/repositories/friend.repository';
 import { UserRepository } from 'src/repositories/user.repository';
 import { ReturnResDto } from '../common/dto/return/return.res.dto';
-import { CreateFreindReqDto } from './dto/req/create.req.dto';
+import { CreatefriendReqDto } from './dto/req/create.req.dto';
 
 @Injectable()
-export class FreindService {
+export class FriendService {
     constructor(
-        private readonly freindRepository: FreindRepository,
+        private readonly friendRepository: FriendRepository,
         private readonly userRepository: UserRepository,
     ) {}
 
-    async create(userId: number, body: CreateFreindReqDto): Promise<ReturnResDto> {
+    async create(userId: number, body: CreatefriendReqDto): Promise<ReturnResDto> {
         try {
             let resultCode = 0;
-            const { freindId } = body;
+            const { friendId } = body;
+            console.log(friendId);
             const user: User = await this.userRepository.findByKey('id', userId);
-            const freind: User = await this.userRepository.findByKey('id', freindId);
+            const friend: User = await this.userRepository.findByKey('id', friendId);
 
             // ! 나 와 추가하려는 유저가 모두 존재해야 추가가 가능
-            if (!user && !freind) {
+            if (!user && !friend) {
                 resultCode = 1702;
             } else {
-                const newFreind = this.freindRepository.create();
-                newFreind.userId = user.id;
-                newFreind.freindId = freind.id;
-                await this.freindRepository.save(newFreind);
+                const newfriend = this.friendRepository.create();
+                newfriend.userId = user.id;
+                newfriend.friendId = friend.id;
+                await this.friendRepository.save(newfriend);
                 resultCode = 1;
             }
             return { data: { resultCode: resultCode, data: null } };
@@ -37,27 +38,27 @@ export class FreindService {
         }
     }
 
-    async requestConfirm(userId: number, freindId: number): Promise<ReturnResDto> {
+    async requestConfirm(userId: number, friendId: number): Promise<ReturnResDto> {
         try {
             let resultCode = 0;
             const user: User = await this.userRepository.findByKey('id', userId);
-            const freind: User = await this.userRepository.findByKey('id', freindId);
-            if (!user && !freind) {
+            const friend: User = await this.userRepository.findByKey('id', friendId);
+            if (!user && !friend) {
                 resultCode = 1712;
             } else {
-                const newFreind = this.freindRepository.create();
-                newFreind.userId = user.id;
-                newFreind.freindId = freind.id;
-                newFreind.status = FreindStatus.confirmed;
-                await this.freindRepository.save(newFreind);
+                const newfriend = this.friendRepository.create();
+                newfriend.userId = user.id;
+                newfriend.friendId = friend.id;
+                newfriend.status = FriendStatus.confirmed;
+                await this.friendRepository.save(newfriend);
 
                 // ! 요청 보낸 친구의 상태도 변경
-                const requestFreind: Freind = await this.freindRepository.findOneByUserIdAndFreindId(
+                const requestfriend: Friend = await this.friendRepository.findOneByUserIdAndfriendId(
                     user.id,
-                    freind.id,
+                    friend.id,
                 );
-                requestFreind.status = FreindStatus.confirmed;
-                await this.freindRepository.save(requestFreind);
+                requestfriend.status = FriendStatus.confirmed;
+                await this.friendRepository.save(requestfriend);
                 resultCode = 1;
             }
             return { data: { resultCode: resultCode, data: { items: null } } };
@@ -75,20 +76,20 @@ export class FreindService {
             if (!user) {
                 resultCode = 1722;
             } else {
-                const requestFreinds: Freind[] = await this.freindRepository.findManyByStatus(
+                const requestfriends: Friend[] = await this.friendRepository.findManyByStatus(
                     user.id,
                     'request',
                 );
-                for (let i = 0; i < requestFreinds.length; i++) {
+                for (let i = 0; i < requestfriends.length; i++) {
                     // ! 요청 보낸 친구의 정보
-                    const freind: User = await this.userRepository.findByKey(
+                    const friend: User = await this.userRepository.findByKey(
                         'id',
-                        requestFreinds[i].userId,
+                        requestfriends[i].userId,
                     );
                     items[i] = {
-                        freindId: requestFreinds[i].userId,
-                        image: freind.imagePath,
-                        nickName: freind.nickName,
+                        friendId: requestfriends[i].userId,
+                        image: friend.imagePath,
+                        nickName: friend.nickName,
                     };
                 }
             }
@@ -99,24 +100,24 @@ export class FreindService {
         }
     }
 
-    async delete(userId: number, freindId: number): Promise<ReturnResDto> {
+    async delete(userId: number, friendId: number): Promise<ReturnResDto> {
         try {
             let resultCode = 0;
             const user: User = await this.userRepository.findByKey('id', userId);
-            const freind: User = await this.userRepository.findByKey('id', freindId);
-            if (!user && !freind) {
+            const friend: User = await this.userRepository.findByKey('id', friendId);
+            if (!user && !friend) {
                 resultCode = 1732;
             } else {
                 // ! 해당 친구 상태 변경
-                const freindStatus: Freind = await this.freindRepository.findOneByUserIdAndFreindId(
+                const friendStatus: Friend = await this.friendRepository.findOneByUserIdAndfriendId(
                     user.id,
-                    freind.id,
+                    friend.id,
                 );
-                freindStatus.status = FreindStatus.request;
-                await this.freindRepository.save(freindStatus);
+                friendStatus.status = FriendStatus.request;
+                await this.friendRepository.save(friendStatus);
 
                 // ! 선택한 친구 삭제
-                await this.freindRepository.delete(user.id, freind.id);
+                await this.friendRepository.delete(user.id, friend.id);
                 resultCode = 1;
             }
         } catch (err) {

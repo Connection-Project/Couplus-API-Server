@@ -6,5 +6,5 @@ export declare class FeedController {
     constructor(feedService: FeedService);
     create(userId: number, files: File[], body: CreateFeedReqDto): Promise<ReturnResDto>;
     getMyFeeds(userId: number, limit: number): Promise<ReturnResDto>;
-    getFreindFeeds(userId: number, limit: number): Promise<ReturnResDto>;
+    getfriendFeeds(userId: number, limit: number): Promise<ReturnResDto>;
 }

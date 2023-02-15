@@ -93,14 +93,14 @@ export class FeedService {
     }
 
     // ! 다른 사람 피드(token x)
-    async getFreindFeeds(freindId: number, limit: number): Promise<ReturnResDto> {
+    async getfriendFeeds(friendId: number, limit: number): Promise<ReturnResDto> {
         try {
             const query = this.feedRepository.getQuery();
             const feedWhere = [
                 {
                     key: 'u.id = :userId',
                     value: {
-                        userId: freindId,
+                        userId: friendId,
                     },
                 },
             ];

@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateFreindFailDto {
+export class CreatefriendFailDto {
     @ApiProperty({ default: 1701 })
     resultCode: number;
 

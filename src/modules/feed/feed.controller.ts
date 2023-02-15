@@ -55,14 +55,14 @@ export class FeedController {
     }
 
     // ? 파람을 두개 넘길 수 있나??
-    @Get('freind/:userId/:limit')
+    @Get('friend/:userId/:limit')
     @ApiOperation({ summary: '친구 피드 리스트' })
     @ApiResponse({ status: 200, type: GetFeedsSuccessDto, description: '친구 피드 리스트 성공' })
     @ApiResponse({ status: 400, type: GetFeedsFailDto, description: '친구 피드 리스트 실패' })
-    async getFreindFeeds(
+    async getfriendFeeds(
         @Param('userId', ParseIntPipe) userId: number,
         @Param('limit', ParseIntPipe) limit: number,
     ): Promise<ReturnResDto> {
-        return await this.feedService.getFreindFeeds(userId, limit);
+        return await this.feedService.getfriendFeeds(userId, limit);
     }
 }

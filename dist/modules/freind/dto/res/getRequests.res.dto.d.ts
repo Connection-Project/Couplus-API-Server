@@ -1,16 +1,16 @@
-export declare class GetReuestFreindsObj {
-    freindId: number;
+export declare class GetReuestfriendsObj {
+    friendId: number;
     image: string;
     nickName: string;
 }
-export declare class GetRequestFreindSuccessItems {
-    items: GetReuestFreindsObj[];
+export declare class GetRequestfriendSuccessItems {
+    items: GetReuestfriendsObj[];
 }
-export declare class GetRequestFreindSuccessDto {
+export declare class GetRequestfriendSuccessDto {
     resultCode: number;
-    data: GetRequestFreindSuccessItems;
+    data: GetRequestfriendSuccessItems;
 }
-export declare class GetRequestFreindFailDto {
+export declare class GetRequestfriendFailDto {
     resultCode: number;
     data: any;
 }

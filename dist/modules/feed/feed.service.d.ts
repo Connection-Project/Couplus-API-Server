@@ -17,7 +17,7 @@ export declare class FeedService {
     constructor(awsService: AwsService, feedRepository: FeedRepository, feedImageRepository: FeedImageRepository, feedLikedRepository: FeedLikedRepository, userRepository: UserRepository, hashtagRepository: HashTagRepository);
     create(userId: number, files: File[], body: CreateFeedReqDto): Promise<ReturnResDto>;
     getMyFeeds(userId: number, limit: number): Promise<ReturnResDto>;
-    getFreindFeeds(freindId: number, limit: number): Promise<ReturnResDto>;
+    getfriendFeeds(friendId: number, limit: number): Promise<ReturnResDto>;
     getFeed(userId: number, feedId: number): Promise<ReturnResDto>;
     update(userId: number, feedId: number, body: UpdateFeedReqDto): Promise<ReturnResDto>;
     delete(userId: number, feedId: number): Promise<ReturnResDto>;

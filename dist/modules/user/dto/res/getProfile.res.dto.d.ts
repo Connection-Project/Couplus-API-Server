@@ -8,7 +8,7 @@ export declare class GetProfileObj {
     nickName: string;
     image: string;
     feedCount: number;
-    freindCount: number;
+    friendCount: number;
     myPets: MyPetsObj[];
 }
 export declare class GetProfileSuccessDto {

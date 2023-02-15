@@ -1,4 +1,4 @@
-export declare class ConfirmRequestFreindFailDto {
+export declare class ConfirmRequestfriendFailDto {
     resultCode: number;
     data: any;
 }
