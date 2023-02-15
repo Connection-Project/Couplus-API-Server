@@ -113,6 +113,7 @@ export class UserController {
     }
 
     @Get('profile/friend/:userId')
+    @ApiCookieAuth()
     @UseInterceptors(JwtInterceptor)
     @ApiOperation({ summary: '친구 프로필 정보' })
     @ApiResponse({ status: 200, type: GetFriendProfileSuccessDto, description: '친구 프로필 응답 성공' })

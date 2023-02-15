@@ -150,6 +150,7 @@ __decorate([
 ], UserController.prototype, "getMyProfle", null);
 __decorate([
     (0, common_1.Get)('profile/friend/:userId'),
+    (0, swagger_1.ApiCookieAuth)(),
     (0, common_1.UseInterceptors)(jwt_interceptor_1.JwtInterceptor),
     (0, swagger_1.ApiOperation)({ summary: '친구 프로필 정보' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: getFriendProfile_res_dto_1.GetFriendProfileSuccessDto, description: '친구 프로필 응답 성공' }),
