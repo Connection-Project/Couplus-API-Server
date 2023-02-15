@@ -45,11 +45,10 @@ export class FriendController {
     @ApiResponse({ status: 200, type: ResultSuccessDto, description: '친구 요청 수락 성공' })
     @ApiResponse({ status: 400, type: ConfirmRequestfriendFailDto, description: '친구 요청 수락 실패' })
     async requestConfirm(
-        @GetUser() userId: number,
+        @Req() req: Request,
         @Param('friendId', ParseIntPipe) friendId: number,
     ): Promise<ReturnResDto> {
-        console.log(userId);
-        return await this.friendService.requestConfirm(userId, friendId);
+        return await this.friendService.requestConfirm(req.user['userId'], friendId);
     }
 
     @Get('request')

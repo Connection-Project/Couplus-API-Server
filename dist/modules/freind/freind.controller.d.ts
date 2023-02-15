@@ -6,7 +6,7 @@ export declare class FriendController {
     private friendService;
     constructor(friendService: FriendService);
     create(req: Request, body: CreatefriendReqDto): Promise<ReturnResDto>;
-    requestConfirm(userId: number, friendId: number): Promise<ReturnResDto>;
+    requestConfirm(req: Request, friendId: number): Promise<ReturnResDto>;
     getRequests(req: Request): Promise<ReturnResDto>;
     delete(req: Request, friendId: number): Promise<ReturnResDto>;
 }
