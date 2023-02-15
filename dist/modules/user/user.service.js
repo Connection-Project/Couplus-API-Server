@@ -169,7 +169,7 @@ let UserService = class UserService {
                 }
                 items[i] = {
                     userId: user[i].id,
-                    breed: breed,
+                    breed: user[i].pet.length > 1 ? `${breed} 외 ${user[i].pet.length - 1}마리` : breed,
                     name: petName,
                     image: image,
                 };
