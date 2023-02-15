@@ -116,7 +116,7 @@ let PetService = class PetService {
                     myPet.birthDay = new Date(birthDay);
                 if (togetherDay !== '' && birthDay !== null)
                     myPet.togetherDay = new Date(togetherDay);
-                if (JSON.parse(represent)) {
+                if (represent && represent === 'true') {
                     const myPets = await this.myPetRepository.findAll(userId);
                     for (let i = 0; i < myPets.length; i++) {
                         if (myPets[i].represent) {

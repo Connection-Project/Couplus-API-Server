@@ -113,7 +113,7 @@ export class PetService {
                 if (gender !== '') myPet.gender = gender;
                 if (birthDay !== '' && birthDay !== null) myPet.birthDay = new Date(birthDay);
                 if (togetherDay !== '' && birthDay !== null) myPet.togetherDay = new Date(togetherDay);
-                if (JSON.parse(represent)) {
+                if (represent && represent === 'true') {
                     // ! 이미 대표 강아지로 설정된 강아지를 false 처리
                     const myPets: MyPet[] = await this.myPetRepository.findAll(userId);
                     for (let i = 0; i < myPets.length; i++) {
