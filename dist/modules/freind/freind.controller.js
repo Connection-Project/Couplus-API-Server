@@ -55,7 +55,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], FriendController.prototype, "create", null);
 __decorate([
-    (0, common_1.Patch)('confirmed/:friendId'),
+    (0, common_1.Get)('confirmed/:friendId'),
     (0, swagger_1.ApiCookieAuth)(),
     (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
     (0, swagger_1.ApiOperation)({ summary: '친구 요청 수락' }),

@@ -38,7 +38,7 @@ export class FriendController {
         return await this.friendService.create(req.user['userId'], body);
     }
 
-    @Patch('confirmed/:friendId')
+    @Get('confirmed/:friendId')
     @ApiCookieAuth()
     @UseGuards(AccessTokenGuard)
     @ApiOperation({ summary: '친구 요청 수락' })
