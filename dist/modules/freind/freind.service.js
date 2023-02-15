@@ -62,7 +62,7 @@ let FriendService = class FriendService {
                 await this.friendRepository.save(requestfriend);
                 resultCode = 1;
             }
-            return { data: { resultCode: resultCode, data: { items: null } } };
+            return { data: { resultCode: resultCode, data: null } };
         }
         catch (err) {
             console.log(err);
