@@ -31,37 +31,33 @@ export class FeedService {
             let resultCode = 0;
             const { content, hashtag } = body;
             const user: User = await this.userRepository.findByKey('id', userId);
-            if (user) {
-                const feed: Feed = this.feedRepository.create();
-                feed.user = user;
-                feed.content = content;
-                await this.feedRepository.save(feed);
+            const feed: Feed = this.feedRepository.create();
+            feed.user = user;
+            feed.content = content;
+            await this.feedRepository.save(feed);
 
-                // ! 이미지가 존재 할 경우
-                if (files.length > 0) {
-                    for (let i = 0; i < files['feed'].length; i++) {
-                        const { Key, Location } = await this.awsService.uploadImage(files['feed'][i]);
-                        const feedImage: FeedImage = this.feedImageRepository.create();
-                        feedImage.feed = feed;
-                        feedImage.originalName = Key;
-                        feedImage.path = Location;
-                        await this.feedImageRepository.save(feedImage);
-                    }
+            // ! 이미지가 존재 할 경우
+            if (files.length > 0) {
+                for (let i = 0; i < files['feed'].length; i++) {
+                    const { Key, Location } = await this.awsService.uploadImage(files['feed'][i]);
+                    const feedImage: FeedImage = this.feedImageRepository.create();
+                    feedImage.feed = feed;
+                    feedImage.originalName = Key;
+                    feedImage.path = Location;
+                    await this.feedImageRepository.save(feedImage);
                 }
-                // ! 해시태그가 존재 할 경우
-                if (hashtag) {
-                    for (let i = 0; i < hashtag.length; i++) {
-                        const newHashtag: HashTag = this.hashtagRepository.create();
-                        newHashtag.name = hashtag[i];
-                        newHashtag.feed = feed;
-                        await this.hashtagRepository.save(newHashtag);
-                    }
-                }
-
-                resultCode = 1;
-            } else {
-                resultCode = 1802;
             }
+            // ! 해시태그가 존재 할 경우
+            if (hashtag) {
+                for (let i = 0; i < hashtag.length; i++) {
+                    const newHashtag: HashTag = this.hashtagRepository.create();
+                    newHashtag.name = hashtag[i];
+                    newHashtag.feed = feed;
+                    await this.hashtagRepository.save(newHashtag);
+                }
+            }
+
+            resultCode = 1;
             return { data: { resultCode: resultCode, data: null } };
         } catch (err) {
             console.log(err);

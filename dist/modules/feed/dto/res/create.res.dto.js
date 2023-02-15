@@ -9,21 +9,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateFeedReqDto = void 0;
+exports.CreateFeedFailDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
-class CreateFeedReqDto {
+class CreateFeedFailDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ required: true }),
-    __metadata("design:type", String)
-], CreateFeedReqDto.prototype, "content", void 0);
+    (0, swagger_1.ApiProperty)({ default: 1802 }),
+    __metadata("design:type", Number)
+], CreateFeedFailDto.prototype, "resultCode", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ required: false }),
-    __metadata("design:type", Array)
-], CreateFeedReqDto.prototype, "hashtag", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)({ description: 'formdata key의 이름으로 보내주면 됨' }),
-    __metadata("design:type", Array)
-], CreateFeedReqDto.prototype, "feed", void 0);
-exports.CreateFeedReqDto = CreateFeedReqDto;
-//# sourceMappingURL=create.req.dto.js.map
+    (0, swagger_1.ApiProperty)({ default: null }),
+    __metadata("design:type", Object)
+], CreateFeedFailDto.prototype, "data", void 0);
+exports.CreateFeedFailDto = CreateFeedFailDto;
+//# sourceMappingURL=create.res.dto.js.map

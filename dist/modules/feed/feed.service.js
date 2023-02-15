@@ -32,34 +32,29 @@ let FeedService = class FeedService {
             let resultCode = 0;
             const { content, hashtag } = body;
             const user = await this.userRepository.findByKey('id', userId);
-            if (user) {
-                const feed = this.feedRepository.create();
-                feed.user = user;
-                feed.content = content;
-                await this.feedRepository.save(feed);
-                if (files.length > 0) {
-                    for (let i = 0; i < files['feed'].length; i++) {
-                        const { Key, Location } = await this.awsService.uploadImage(files['feed'][i]);
-                        const feedImage = this.feedImageRepository.create();
-                        feedImage.feed = feed;
-                        feedImage.originalName = Key;
-                        feedImage.path = Location;
-                        await this.feedImageRepository.save(feedImage);
-                    }
+            const feed = this.feedRepository.create();
+            feed.user = user;
+            feed.content = content;
+            await this.feedRepository.save(feed);
+            if (files.length > 0) {
+                for (let i = 0; i < files['feed'].length; i++) {
+                    const { Key, Location } = await this.awsService.uploadImage(files['feed'][i]);
+                    const feedImage = this.feedImageRepository.create();
+                    feedImage.feed = feed;
+                    feedImage.originalName = Key;
+                    feedImage.path = Location;
+                    await this.feedImageRepository.save(feedImage);
                 }
-                if (hashtag) {
-                    for (let i = 0; i < hashtag.length; i++) {
-                        const newHashtag = this.hashtagRepository.create();
-                        newHashtag.name = hashtag[i];
-                        newHashtag.feed = feed;
-                        await this.hashtagRepository.save(newHashtag);
-                    }
+            }
+            if (hashtag) {
+                for (let i = 0; i < hashtag.length; i++) {
+                    const newHashtag = this.hashtagRepository.create();
+                    newHashtag.name = hashtag[i];
+                    newHashtag.feed = feed;
+                    await this.hashtagRepository.save(newHashtag);
                 }
-                resultCode = 1;
             }
-            else {
-                resultCode = 1802;
-            }
+            resultCode = 1;
             return { data: { resultCode: resultCode, data: null } };
         }
         catch (err) {

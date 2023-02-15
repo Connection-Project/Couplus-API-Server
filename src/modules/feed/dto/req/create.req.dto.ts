@@ -7,6 +7,6 @@ export class CreateFeedReqDto {
     @ApiProperty({ required: false })
     hashtag?: string[];
 
-    @ApiProperty({ type: File, description: 'formdata key의 이름으로 보내주면 됨' })
+    @ApiProperty({ description: 'formdata key의 이름으로 보내주면 됨' })
     feed?: File[];
 }

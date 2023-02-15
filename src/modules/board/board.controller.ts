@@ -8,12 +8,11 @@ import {
     Patch,
     Post,
     Req,
-    UploadedFile,
     UploadedFiles,
     UseGuards,
     UseInterceptors,
 } from '@nestjs/common';
-import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
+import { FilesInterceptor } from '@nestjs/platform-express';
 import { ApiConsumes, ApiCookieAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
 import { AccessTokenGuard } from 'src/lib/jwt/guards/accessToken.guard';
