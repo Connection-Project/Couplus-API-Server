@@ -49,14 +49,14 @@ let UserController = class UserController {
     async delete(req) {
         return this.userService.delete(req.user['userId']);
     }
-    async getUserRandom(req) {
-        return await this.userService.getUserRandom(req.user['userId']);
+    async getUserRandom(userId) {
+        return await this.userService.getUserRandom(userId);
     }
-    async getMyProfle(userId) {
-        return await this.userService.getProfile(userId);
+    async getMyProfle(req) {
+        return await this.userService.getProfile(req.user['userId']);
     }
-    async getfriendProfle(req, friendId) {
-        return await this.userService.getFriendProfile(req.user['userId'], friendId);
+    async getfriendProfle(userId, friendId) {
+        return await this.userService.getFriendProfile(userId, friendId);
     }
 };
 __decorate([
@@ -133,9 +133,9 @@ __decorate([
     (0, swagger_1.ApiOperation)({ summary: '랜덤 유저 리스트' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: getManyRandom_res_dto_1.GetManyRandomUserSuccessDto, description: '랜덤 유저 리스트 성공' }),
     (0, swagger_1.ApiResponse)({ status: 400, type: getManyRandom_res_dto_1.GetManyRandomUserFailDto, description: '랜덤 유저 리스트 실패' }),
-    __param(0, (0, common_1.Req)()),
+    __param(0, (0, getUser_decorator_1.GetUser)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getUserRandom", null);
 __decorate([
@@ -145,9 +145,9 @@ __decorate([
     (0, swagger_1.ApiOperation)({ summary: '나의 프로필 정보' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: getProfile_res_dto_1.GetProfileSuccessDto, description: '프로필 응답 성공' }),
     (0, swagger_1.ApiResponse)({ status: 400, type: getProfile_res_dto_1.GetProfileFailDto, description: '프로필 응답 실패' }),
-    __param(0, (0, getUser_decorator_1.GetUser)()),
+    __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getMyProfle", null);
 __decorate([
@@ -157,10 +157,10 @@ __decorate([
     (0, swagger_1.ApiOperation)({ summary: '친구 프로필 정보' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: getFriendProfile_res_dto_1.GetFriendProfileSuccessDto, description: '친구 프로필 응답 성공' }),
     (0, swagger_1.ApiResponse)({ status: 400, type: getFriendProfile_res_dto_1.GetFriendProfileFailDto, description: '친구 프로필 응답 실패' }),
-    __param(0, (0, common_1.Req)()),
+    __param(0, (0, getUser_decorator_1.GetUser)()),
     __param(1, (0, common_1.Param)('userId', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Number]),
+    __metadata("design:paramtypes", [Number, Number]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getfriendProfle", null);
 UserController = __decorate([

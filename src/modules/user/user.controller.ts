@@ -99,8 +99,8 @@ export class UserController {
     @ApiOperation({ summary: '랜덤 유저 리스트' })
     @ApiResponse({ status: 200, type: GetManyRandomUserSuccessDto, description: '랜덤 유저 리스트 성공' })
     @ApiResponse({ status: 400, type: GetManyRandomUserFailDto, description: '랜덤 유저 리스트 실패' })
-    async getUserRandom(@Req() req: Request): Promise<ReturnResDto> {
-        return await this.userService.getUserRandom(req.user['userId']);
+    async getUserRandom(@GetUser() userId: number): Promise<ReturnResDto> {
+        return await this.userService.getUserRandom(userId);
     }
 
     @Get('profile')
@@ -109,8 +109,8 @@ export class UserController {
     @ApiOperation({ summary: '나의 프로필 정보' })
     @ApiResponse({ status: 200, type: GetProfileSuccessDto, description: '프로필 응답 성공' })
     @ApiResponse({ status: 400, type: GetProfileFailDto, description: '프로필 응답 실패' })
-    async getMyProfle(@GetUser() userId: number): Promise<ReturnResDto> {
-        return await this.userService.getProfile(userId);
+    async getMyProfle(@Req() req: Request): Promise<ReturnResDto> {
+        return await this.userService.getProfile(req.user['userId']);
     }
 
     @Get('profile/friend/:userId')
@@ -120,9 +120,9 @@ export class UserController {
     @ApiResponse({ status: 200, type: GetFriendProfileSuccessDto, description: '친구 프로필 응답 성공' })
     @ApiResponse({ status: 400, type: GetFriendProfileFailDto, description: '친구 프로필 응답 실패' })
     async getfriendProfle(
-        @Req() req: Request,
+        @GetUser() userId: number,
         @Param('userId', ParseIntPipe) friendId: number,
     ): Promise<ReturnResDto> {
-        return await this.userService.getFriendProfile(req.user['userId'], friendId);
+        return await this.userService.getFriendProfile(userId, friendId);
     }
 }
