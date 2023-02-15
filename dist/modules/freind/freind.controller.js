@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.FriendController = void 0;
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
+const getUser_decorator_1 = require("../../decorator/getUser.decorator");
 const accessToken_guard_1 = require("../../lib/jwt/guards/accessToken.guard");
 const result_res_dto_1 = require("../common/dto/res/result.res.dto");
 const create_req_dto_1 = require("./dto/req/create.req.dto");
@@ -30,8 +31,9 @@ let FriendController = class FriendController {
     async create(req, body) {
         return await this.friendService.create(req.user['userId'], body);
     }
-    async requestConfirm(req, friendId) {
-        return await this.friendService.requestConfirm(req.user['userId'], friendId);
+    async requestConfirm(userId, friendId) {
+        console.log(userId);
+        return await this.friendService.requestConfirm(userId, friendId);
     }
     async getRequests(req) {
         return await this.friendService.getRequests(req.user['userId']);
@@ -60,10 +62,10 @@ __decorate([
     (0, swagger_1.ApiOperation)({ summary: '친구 요청 수락' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: result_res_dto_1.ResultSuccessDto, description: '친구 요청 수락 성공' }),
     (0, swagger_1.ApiResponse)({ status: 400, type: getConfirm_res_dto_1.ConfirmRequestfriendFailDto, description: '친구 요청 수락 실패' }),
-    __param(0, (0, common_1.Req)()),
+    __param(0, (0, getUser_decorator_1.GetUser)()),
     __param(1, (0, common_1.Param)('friendId', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Number]),
+    __metadata("design:paramtypes", [Number, Number]),
     __metadata("design:returntype", Promise)
 ], FriendController.prototype, "requestConfirm", null);
 __decorate([

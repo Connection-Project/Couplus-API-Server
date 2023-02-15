@@ -11,15 +11,16 @@ const common_1 = require("@nestjs/common");
 const passport_1 = require("@nestjs/passport");
 let AccessTokenGuard = class AccessTokenGuard extends (0, passport_1.AuthGuard)('jwt') {
     handleRequest(err, user) {
-        if (err || !user) {
+        if (user) {
+            console.log(user);
+            return user;
+        }
+        else {
             console.log(err);
             throw new common_1.UnauthorizedException({
                 status: 403,
                 data: { resultCode: -30, data: null },
             });
-        }
-        else {
-            return user;
         }
     }
 };

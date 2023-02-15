@@ -12,6 +12,7 @@ import {
 } from '@nestjs/common';
 import { ApiCookieAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
+import { GetUser } from 'src/decorator/getUser.decorator';
 import { AccessTokenGuard } from 'src/lib/jwt/guards/accessToken.guard';
 import { ResultSuccessDto } from '../common/dto/res/result.res.dto';
 import { ReturnResDto } from '../common/dto/return/return.res.dto';
@@ -44,10 +45,11 @@ export class FriendController {
     @ApiResponse({ status: 200, type: ResultSuccessDto, description: '친구 요청 수락 성공' })
     @ApiResponse({ status: 400, type: ConfirmRequestfriendFailDto, description: '친구 요청 수락 실패' })
     async requestConfirm(
-        @Req() req: Request,
+        @GetUser() userId: number,
         @Param('friendId', ParseIntPipe) friendId: number,
     ): Promise<ReturnResDto> {
-        return await this.friendService.requestConfirm(req.user['userId'], friendId);
+        console.log(userId);
+        return await this.friendService.requestConfirm(userId, friendId);
     }
 
     @Get('request')

@@ -5,14 +5,15 @@ import { AuthGuard } from '@nestjs/passport';
 export class AccessTokenGuard extends AuthGuard('jwt') {
     handleRequest(err: any, user: any) {
         // You can throw an exception based on either "info" or "err" arguments
-        if (err || !user) {
+        if (user) {
+            console.log(user);
+            return user;
+        } else {
             console.log(err);
             throw new UnauthorizedException({
                 status: 403,
                 data: { resultCode: -30, data: null },
             });
-        } else {
-            return user;
         }
     }
 }
