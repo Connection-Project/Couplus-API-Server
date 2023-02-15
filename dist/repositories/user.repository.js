@@ -55,7 +55,7 @@ let UserRepository = class UserRepository {
             .createQueryBuilder('u')
             .leftJoinAndSelect('u.pet', 'p')
             .orderBy('RAND()')
-            .limit(4)
+            .limit(6)
             .getMany();
     }
 };
