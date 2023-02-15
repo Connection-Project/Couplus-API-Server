@@ -42,7 +42,7 @@ __decorate([
     __metadata("design:type", Date)
 ], Friend.prototype, "updatedAt", void 0);
 Friend = __decorate([
-    (0, typeorm_1.Entity)({ name: 'friends' }),
+    (0, typeorm_1.Entity)({ name: 'Friends' }),
     __metadata("design:paramtypes", [Object])
 ], Friend);
 exports.Friend = Friend;

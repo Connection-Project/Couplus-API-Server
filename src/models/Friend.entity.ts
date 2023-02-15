@@ -5,7 +5,7 @@ export enum FriendStatus {
     confirmed = 'confirmed', // ! 친구
 }
 
-@Entity({ name: 'friends' })
+@Entity({ name: 'Friends' })
 export class Friend {
     @PrimaryColumn()
     userId: number;
