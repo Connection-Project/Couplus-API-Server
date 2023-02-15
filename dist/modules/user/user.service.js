@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
 const common_1 = require("@nestjs/common");
 const aws_service_1 = require("../../lib/aws/src/aws.service");
+const Freind_entity_1 = require("../../models/Freind.entity");
 const feed_repository_1 = require("../../repositories/feed.repository");
 const friend_repository_1 = require("../../repositories/friend.repository");
 const myPet_repository_1 = require("../../repositories/myPet.repository");
@@ -197,6 +198,43 @@ let UserService = class UserService {
                 image: image,
                 feedCount: await this.feedRepository.getCount(userId),
                 friendCount: await this.friendRepository.getCount(userId),
+                myPets: myPets,
+            };
+            return { data: { resultCode: 1, data: data } };
+        }
+        catch (err) {
+            console.log(err);
+            return { data: { resultCode: 1051, data: null } };
+        }
+    }
+    async getFriendProfile(userId, friendId) {
+        try {
+            const user = await this.userRepository.findByKey('id', friendId);
+            const myPet = (await this.myPetRepository.findAll(friendId)).reverse();
+            const myPets = [];
+            let image = null;
+            for (let i = 0; i < myPet.length; i++) {
+                if (myPet[i].represent)
+                    image = myPet[i].imagePath;
+                myPets[i] = {
+                    myPetId: myPet[i].id,
+                    breed: myPet[i].breed,
+                    name: myPet[i].name,
+                };
+            }
+            let friendStatus = 0;
+            if (userId) {
+                const friend = await this.friendRepository.findOneByUserIdAndfriendId(userId, friendId);
+                if (friend)
+                    friendStatus = friend.status === Freind_entity_1.FriendStatus.request ? -1 : 1;
+            }
+            const data = {
+                userId: user.id,
+                nickName: user.nickName,
+                image: image,
+                feedCount: await this.feedRepository.getCount(userId),
+                friendCount: await this.friendRepository.getCount(userId),
+                friendStatus: friendStatus,
                 myPets: myPets,
             };
             return { data: { resultCode: 1, data: data } };

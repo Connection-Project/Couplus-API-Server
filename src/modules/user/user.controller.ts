@@ -27,6 +27,9 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { ReturnResDto } from '../common/dto/return/return.res.dto';
 import { GetManyRandomUserFailDto, GetManyRandomUserSuccessDto } from './dto/res/getManyRandom.res.dto';
 import { GetProfileFailDto, GetProfileSuccessDto } from './dto/res/getProfile.res.dto';
+import { GetUser } from 'src/decorator/getUser.decorator';
+import { JwtInterceptor } from 'src/interceptors/jwt.interceptor';
+import { GetFriendProfileFailDto, GetFriendProfileSuccessDto } from './dto/res/getFriendProfile.res.dto';
 
 @ApiTags('유저 정보')
 @Controller('user')
@@ -104,16 +107,20 @@ export class UserController {
     @ApiCookieAuth()
     @ApiOperation({ summary: '나의 프로필 정보' })
     @ApiResponse({ status: 200, type: GetProfileSuccessDto, description: '프로필 응답 성공' })
-    @ApiResponse({ status: 400, type: GetProfileFailDto, description: '프로필 실패' })
-    async getMyProfle(@Req() req: Request): Promise<ReturnResDto> {
-        return await this.userService.getProfile(req.user['userId']);
+    @ApiResponse({ status: 400, type: GetProfileFailDto, description: '프로필 응답 실패' })
+    async getMyProfle(@GetUser() userId: number): Promise<ReturnResDto> {
+        return await this.userService.getProfile(userId);
     }
 
     @Get('profile/friend/:userId')
+    @UseInterceptors(JwtInterceptor)
     @ApiOperation({ summary: '친구 프로필 정보' })
-    @ApiResponse({ status: 200, type: GetProfileSuccessDto, description: '프로필 성공' })
-    @ApiResponse({ status: 400, type: GetProfileFailDto, description: '프로필 실패' })
-    async getfriendProfle(@Param('userId', ParseIntPipe) userId: number): Promise<ReturnResDto> {
-        return await this.userService.getProfile(userId);
+    @ApiResponse({ status: 200, type: GetFriendProfileSuccessDto, description: '친구 프로필 응답 성공' })
+    @ApiResponse({ status: 400, type: GetFriendProfileFailDto, description: '친구 프로필 응답 실패' })
+    async getfriendProfle(
+        @GetUser() userId: number,
+        @Param('userId', ParseIntPipe) friendId: number,
+    ): Promise<ReturnResDto> {
+        return await this.userService.getFriendProfile(userId, friendId);
     }
 }

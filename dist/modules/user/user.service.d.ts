@@ -20,4 +20,5 @@ export declare class UserService {
     delete(userId: number): Promise<ReturnResDto>;
     getUserRandom(): Promise<ReturnResDto>;
     getProfile(userId: number): Promise<ReturnResDto>;
+    getFriendProfile(userId: number, friendId: number): Promise<ReturnResDto>;
 }

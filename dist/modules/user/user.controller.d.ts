@@ -12,6 +12,6 @@ export declare class UserController {
     update(req: Request, file: any, body: UpdateUserReqDto): Promise<ReturnResDto>;
     delete(req: Request): Promise<ReturnResDto>;
     getUserRandom(): Promise<ReturnResDto>;
-    getMyProfle(req: Request): Promise<ReturnResDto>;
-    getfriendProfle(userId: number): Promise<ReturnResDto>;
+    getMyProfle(userId: number): Promise<ReturnResDto>;
+    getfriendProfle(userId: number, friendId: number): Promise<ReturnResDto>;
 }

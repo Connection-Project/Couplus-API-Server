@@ -27,6 +27,9 @@ const accessToken_guard_1 = require("../../lib/jwt/guards/accessToken.guard");
 const platform_express_1 = require("@nestjs/platform-express");
 const getManyRandom_res_dto_1 = require("./dto/res/getManyRandom.res.dto");
 const getProfile_res_dto_1 = require("./dto/res/getProfile.res.dto");
+const getUser_decorator_1 = require("../../decorator/getUser.decorator");
+const jwt_interceptor_1 = require("../../interceptors/jwt.interceptor");
+const getFriendProfile_res_dto_1 = require("./dto/res/getFriendProfile.res.dto");
 let UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
@@ -49,11 +52,11 @@ let UserController = class UserController {
     async getUserRandom() {
         return await this.userService.getUserRandom();
     }
-    async getMyProfle(req) {
-        return await this.userService.getProfile(req.user['userId']);
-    }
-    async getfriendProfle(userId) {
+    async getMyProfle(userId) {
         return await this.userService.getProfile(userId);
+    }
+    async getfriendProfle(userId, friendId) {
+        return await this.userService.getFriendProfile(userId, friendId);
     }
 };
 __decorate([
@@ -139,20 +142,22 @@ __decorate([
     (0, swagger_1.ApiCookieAuth)(),
     (0, swagger_1.ApiOperation)({ summary: '나의 프로필 정보' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: getProfile_res_dto_1.GetProfileSuccessDto, description: '프로필 응답 성공' }),
-    (0, swagger_1.ApiResponse)({ status: 400, type: getProfile_res_dto_1.GetProfileFailDto, description: '프로필 실패' }),
-    __param(0, (0, common_1.Req)()),
+    (0, swagger_1.ApiResponse)({ status: 400, type: getProfile_res_dto_1.GetProfileFailDto, description: '프로필 응답 실패' }),
+    __param(0, (0, getUser_decorator_1.GetUser)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getMyProfle", null);
 __decorate([
     (0, common_1.Get)('profile/friend/:userId'),
+    (0, common_1.UseInterceptors)(jwt_interceptor_1.JwtInterceptor),
     (0, swagger_1.ApiOperation)({ summary: '친구 프로필 정보' }),
-    (0, swagger_1.ApiResponse)({ status: 200, type: getProfile_res_dto_1.GetProfileSuccessDto, description: '프로필 성공' }),
-    (0, swagger_1.ApiResponse)({ status: 400, type: getProfile_res_dto_1.GetProfileFailDto, description: '프로필 실패' }),
-    __param(0, (0, common_1.Param)('userId', common_1.ParseIntPipe)),
+    (0, swagger_1.ApiResponse)({ status: 200, type: getFriendProfile_res_dto_1.GetFriendProfileSuccessDto, description: '친구 프로필 응답 성공' }),
+    (0, swagger_1.ApiResponse)({ status: 400, type: getFriendProfile_res_dto_1.GetFriendProfileFailDto, description: '친구 프로필 응답 실패' }),
+    __param(0, (0, getUser_decorator_1.GetUser)()),
+    __param(1, (0, common_1.Param)('userId', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Number, Number]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getfriendProfle", null);
 UserController = __decorate([
