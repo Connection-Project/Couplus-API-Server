@@ -18,8 +18,8 @@ let AccessTokenGuard = class AccessTokenGuard extends (0, passport_1.AuthGuard)(
         else {
             console.log(err);
             throw new common_1.UnauthorizedException({
-                status: 403,
-                data: { resultCode: -30, data: null },
+                resultCode: -30,
+                data: 'TOKEN EXPIRE',
             });
         }
     }

@@ -11,8 +11,8 @@ export class AccessTokenGuard extends AuthGuard('jwt') {
         } else {
             console.log(err);
             throw new UnauthorizedException({
-                status: 403,
-                data: { resultCode: -30, data: null },
+                resultCode: -30,
+                data: 'TOKEN EXPIRE',
             });
         }
     }
