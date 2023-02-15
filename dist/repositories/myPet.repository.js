@@ -58,6 +58,14 @@ let MyPetRepository = class MyPetRepository {
             .andWhere('userId = :userId', { userId: userId })
             .execute();
     }
+    async getRepresentPetOne(userId) {
+        return await this.myPetRepository
+            .createQueryBuilder('mp')
+            .innerJoinAndSelect('mp.user', 'u')
+            .where('u.id = :userId', { userId: userId })
+            .andWhere('mp.represent = :represent', { represent: true })
+            .getOne();
+    }
     async save(myPet) {
         await this.myPetRepository.save(myPet);
     }

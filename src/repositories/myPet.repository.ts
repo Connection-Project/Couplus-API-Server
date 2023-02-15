@@ -53,6 +53,15 @@ export class MyPetRepository {
             .execute();
     }
 
+    async getRepresentPetOne(userId: number): Promise<MyPet> {
+        return await this.myPetRepository
+            .createQueryBuilder('mp')
+            .innerJoinAndSelect('mp.user', 'u')
+            .where('u.id = :userId', { userId: userId })
+            .andWhere('mp.represent = :represent', { represent: true })
+            .getOne();
+    }
+
     async save(myPet: MyPet): Promise<void> {
         await this.myPetRepository.save(myPet);
     }

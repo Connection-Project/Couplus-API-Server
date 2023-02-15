@@ -166,21 +166,16 @@ export class UserService {
             const user: User[] = await this.userRepository.getManyRandomUser();
             const items = [];
             for (let i = 0; i < user.length; i++) {
-                let breed = null;
-                let petName = null;
-                let image = null;
-                for (let j = 0; j < user[i].pet.length; j++) {
-                    if (user[i].pet[j].represent) {
-                        breed = user[i].pet[j].breed;
-                        image = user[i].pet[j].imagePath;
-                        petName = user[i].pet[j].name;
-                    }
-                }
+                const pet: MyPet = await this.myPetRepository.getRepresentPetOne(user[i].id);
+                console.log(user[i].id + ',' + user[i].pet.length);
                 items[i] = {
                     userId: user[i].id,
-                    breed: user[i].pet.length > 1 ? `${breed} 외 ${user[i].pet.length - 1}마리` : breed,
-                    name: petName,
-                    image: image,
+                    breed:
+                        user[i].pet.length > 1
+                            ? `${pet.breed} 외 ${user[i].pet.length - 1}마리`
+                            : pet.breed,
+                    name: pet.name,
+                    image: pet.imagePath,
                 };
             }
             return { data: { resultCode: 1, data: { items: items } } };

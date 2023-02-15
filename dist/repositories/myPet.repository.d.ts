@@ -8,5 +8,6 @@ export declare class MyPetRepository {
     findAll(userId: number): Promise<MyPet[]>;
     findOneById(userId: number, myPetId: number): Promise<MyPet>;
     delete(myPetId: number, userId: number): Promise<void>;
+    getRepresentPetOne(userId: number): Promise<MyPet>;
     save(myPet: MyPet): Promise<void>;
 }
