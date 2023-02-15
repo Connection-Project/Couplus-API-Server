@@ -107,6 +107,7 @@ let UserService = class UserService {
             if (password.replace(/ /g, '') !== '') {
                 user.password = (0, crypto_1.GenDigestPwd)(password);
             }
+            console.log(body);
             if (name.replace(/ /g, '') !== '')
                 user.name = name;
             if (nickName.replace(/ /g, '') !== '')
