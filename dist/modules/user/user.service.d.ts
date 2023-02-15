@@ -18,7 +18,7 @@ export declare class UserService {
     getInfo(userId: number): Promise<ReturnResDto>;
     update(userId: number, file: File, body: UpdateUserReqDto): Promise<ReturnResDto>;
     delete(userId: number): Promise<ReturnResDto>;
-    getUserRandom(): Promise<ReturnResDto>;
+    getUserRandom(userId: number): Promise<ReturnResDto>;
     getProfile(userId: number): Promise<ReturnResDto>;
     getFriendProfile(userId: number, friendId: number): Promise<ReturnResDto>;
 }

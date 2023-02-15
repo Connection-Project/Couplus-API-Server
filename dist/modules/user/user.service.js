@@ -154,10 +154,19 @@ let UserService = class UserService {
             return { data: { resultCode: 1031, data: null } };
         }
     }
-    async getUserRandom() {
+    async getUserRandom(userId) {
         try {
-            const user = await this.userRepository.getManyRandomUser();
-            console.log(user.length);
+            const query = this.userRepository.getQuery();
+            const userWhere = [];
+            if (userId) {
+                userWhere[0] = {
+                    key: 'id != userId',
+                    value: {
+                        userId: userId,
+                    },
+                };
+            }
+            const user = await this.userRepository.getManyRandomUser(query, userWhere);
             const items = [];
             for (let i = 0; i < user.length; i++) {
                 const pet = await this.myPetRepository.getRepresentPetOne(user[i].id);

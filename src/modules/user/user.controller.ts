@@ -95,11 +95,12 @@ export class UserController {
     }
 
     @Get()
+    @UseInterceptors(JwtInterceptor)
     @ApiOperation({ summary: '랜덤 유저 리스트' })
     @ApiResponse({ status: 200, type: GetManyRandomUserSuccessDto, description: '랜덤 유저 리스트 성공' })
     @ApiResponse({ status: 400, type: GetManyRandomUserFailDto, description: '랜덤 유저 리스트 실패' })
-    async getUserRandom(): Promise<ReturnResDto> {
-        return await this.userService.getUserRandom();
+    async getUserRandom(@GetUser() userId: number): Promise<ReturnResDto> {
+        return await this.userService.getUserRandom(userId);
     }
 
     @Get('profile')

@@ -50,8 +50,16 @@ let UserRepository = class UserRepository {
     async save(user) {
         await this.userRepository.save(user);
     }
-    async getManyRandomUser() {
-        return this.userRepository.createQueryBuilder('u').orderBy('RAND()').limit(6).getMany();
+    getQuery() {
+        return this.userRepository.createQueryBuilder('u');
+    }
+    async getManyRandomUser(query, addWhere) {
+        for (let i = 0; i < addWhere.length; i++) {
+            query.where(addWhere[i].key, addWhere[i].value);
+        }
+        query.orderBy('RAND()');
+        query.limit(6);
+        return query.getMany();
     }
 };
 UserRepository = __decorate([

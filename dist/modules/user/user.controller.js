@@ -49,8 +49,8 @@ let UserController = class UserController {
     async delete(req) {
         return this.userService.delete(req.user['userId']);
     }
-    async getUserRandom() {
-        return await this.userService.getUserRandom();
+    async getUserRandom(userId) {
+        return await this.userService.getUserRandom(userId);
     }
     async getMyProfle(userId) {
         return await this.userService.getProfile(userId);
@@ -129,11 +129,13 @@ __decorate([
 ], UserController.prototype, "delete", null);
 __decorate([
     (0, common_1.Get)(),
+    (0, common_1.UseInterceptors)(jwt_interceptor_1.JwtInterceptor),
     (0, swagger_1.ApiOperation)({ summary: '랜덤 유저 리스트' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: getManyRandom_res_dto_1.GetManyRandomUserSuccessDto, description: '랜덤 유저 리스트 성공' }),
     (0, swagger_1.ApiResponse)({ status: 400, type: getManyRandom_res_dto_1.GetManyRandomUserFailDto, description: '랜덤 유저 리스트 실패' }),
+    __param(0, (0, getUser_decorator_1.GetUser)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getUserRandom", null);
 __decorate([

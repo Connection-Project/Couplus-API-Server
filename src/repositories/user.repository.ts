@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/models/User.entity';
 import { CreateTypesDto } from 'src/modules/user/dto/types/create.types';
 import { GenDigestPwd } from 'src/utils/crypto';
-import { Repository } from 'typeorm';
+import { Repository, SelectQueryBuilder } from 'typeorm';
 
 @Injectable()
 export class UserRepository {
@@ -42,7 +42,15 @@ export class UserRepository {
         await this.userRepository.save(user);
     }
 
-    async getManyRandomUser(): Promise<User[]> {
-        return this.userRepository.createQueryBuilder('u').orderBy('RAND()').limit(6).getMany();
+    getQuery(): SelectQueryBuilder<User> {
+        return this.userRepository.createQueryBuilder('u');
+    }
+    async getManyRandomUser(query: SelectQueryBuilder<User>, addWhere: any[]): Promise<User[]> {
+        for (let i = 0; i < addWhere.length; i++) {
+            query.where(addWhere[i].key, addWhere[i].value);
+        }
+        query.orderBy('RAND()');
+        query.limit(6);
+        return query.getMany();
     }
 }
