@@ -1,4 +1,4 @@
-import { Friend } from 'src/models/Freind.entity';
+import { Friend } from 'src/models/Friend.entity';
 import { Repository } from 'typeorm';
 export declare class FriendRepository {
     private friendRepository;

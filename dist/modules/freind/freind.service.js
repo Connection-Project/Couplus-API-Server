@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FriendService = void 0;
 const common_1 = require("@nestjs/common");
-const Freind_entity_1 = require("../../models/Freind.entity");
+const Friend_entity_1 = require("../../models/Friend.entity");
 const friend_repository_1 = require("../../repositories/friend.repository");
 const user_repository_1 = require("../../repositories/user.repository");
 let FriendService = class FriendService {
@@ -55,10 +55,10 @@ let FriendService = class FriendService {
                 const newfriend = this.friendRepository.create();
                 newfriend.userId = user.id;
                 newfriend.friendId = friend.id;
-                newfriend.status = Freind_entity_1.FriendStatus.confirmed;
+                newfriend.status = Friend_entity_1.FriendStatus.confirmed;
                 await this.friendRepository.save(newfriend);
                 const requestfriend = await this.friendRepository.findOneByUserIdAndfriendId(user.id, friend.id);
-                requestfriend.status = Freind_entity_1.FriendStatus.confirmed;
+                requestfriend.status = Friend_entity_1.FriendStatus.confirmed;
                 await this.friendRepository.save(requestfriend);
                 resultCode = 1;
             }
@@ -105,7 +105,7 @@ let FriendService = class FriendService {
             }
             else {
                 const friendStatus = await this.friendRepository.findOneByUserIdAndfriendId(user.id, friend.id);
-                friendStatus.status = Freind_entity_1.FriendStatus.request;
+                friendStatus.status = Friend_entity_1.FriendStatus.request;
                 await this.friendRepository.save(friendStatus);
                 await this.friendRepository.delete(user.id, friend.id);
                 resultCode = 1;

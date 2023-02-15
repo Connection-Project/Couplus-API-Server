@@ -19,12 +19,12 @@ const feed_repository_1 = require("../../repositories/feed.repository");
 const MyPets_entity_1 = require("../../models/MyPets.entity");
 const myPet_repository_1 = require("../../repositories/myPet.repository");
 const friend_repository_1 = require("../../repositories/friend.repository");
-const Freind_entity_1 = require("../../models/Freind.entity");
+const Friend_entity_1 = require("../../models/Friend.entity");
 let UserModule = class UserModule {
 };
 UserModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([User_entity_1.User, Freind_entity_1.Friend, Feed_entity_1.Feed, MyPets_entity_1.MyPet])],
+        imports: [typeorm_1.TypeOrmModule.forFeature([User_entity_1.User, Friend_entity_1.Friend, Feed_entity_1.Feed, MyPets_entity_1.MyPet])],
         controllers: [user_controller_1.UserController],
         providers: [user_service_1.UserService, aws_service_1.AwsService, user_repository_1.UserRepository, friend_repository_1.FriendRepository, feed_repository_1.FeedRepository, myPet_repository_1.MyPetRepository],
     })

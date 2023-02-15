@@ -46,4 +46,4 @@ Friend = __decorate([
     __metadata("design:paramtypes", [Object])
 ], Friend);
 exports.Friend = Friend;
-//# sourceMappingURL=Freind.entity.js.map
+//# sourceMappingURL=Friend.entity.js.map

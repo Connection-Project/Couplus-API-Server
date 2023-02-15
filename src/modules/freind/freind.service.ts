@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Friend, FriendStatus } from 'src/models/Freind.entity';
+import { Friend, FriendStatus } from 'src/models/Friend.entity';
 import { User } from 'src/models/User.entity';
 import { FriendRepository } from 'src/repositories/friend.repository';
 import { UserRepository } from 'src/repositories/user.repository';

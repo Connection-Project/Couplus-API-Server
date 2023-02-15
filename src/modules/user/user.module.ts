@@ -10,7 +10,7 @@ import { FeedRepository } from 'src/repositories/feed.repository';
 import { MyPet } from 'src/models/MyPets.entity';
 import { MyPetRepository } from 'src/repositories/myPet.repository';
 import { FriendRepository } from 'src/repositories/friend.repository';
-import { Friend } from 'src/models/Freind.entity';
+import { Friend } from 'src/models/Friend.entity';
 
 @Module({
     imports: [TypeOrmModule.forFeature([User, Friend, Feed, MyPet])],

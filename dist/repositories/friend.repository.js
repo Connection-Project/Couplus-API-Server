@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.FriendRepository = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
-const Freind_entity_1 = require("../models/Freind.entity");
+const Friend_entity_1 = require("../models/Friend.entity");
 const typeorm_2 = require("typeorm");
 let FriendRepository = class FriendRepository {
     constructor(friendRepository) {
@@ -69,14 +69,14 @@ let FriendRepository = class FriendRepository {
     async getCount(userId) {
         return await this.friendRepository
             .createQueryBuilder('f')
-            .where('status = :status', { status: Freind_entity_1.FriendStatus.confirmed })
+            .where('status = :status', { status: Friend_entity_1.FriendStatus.confirmed })
             .andWhere('userId = :userId', { userId: userId })
             .getCount();
     }
 };
 FriendRepository = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, typeorm_1.InjectRepository)(Freind_entity_1.Friend)),
+    __param(0, (0, typeorm_1.InjectRepository)(Friend_entity_1.Friend)),
     __metadata("design:paramtypes", [typeorm_2.Repository])
 ], FriendRepository);
 exports.FriendRepository = FriendRepository;

@@ -9,7 +9,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.FriendModule = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
-const Freind_entity_1 = require("../../models/Freind.entity");
+const Friend_entity_1 = require("../../models/Friend.entity");
 const User_entity_1 = require("../../models/User.entity");
 const friend_repository_1 = require("../../repositories/friend.repository");
 const user_repository_1 = require("../../repositories/user.repository");
@@ -19,7 +19,7 @@ let FriendModule = class FriendModule {
 };
 FriendModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([User_entity_1.User, Freind_entity_1.Friend])],
+        imports: [typeorm_1.TypeOrmModule.forFeature([User_entity_1.User, Friend_entity_1.Friend])],
         providers: [freind_service_1.FriendService, user_repository_1.UserRepository, friend_repository_1.FriendRepository],
         controllers: [freind_controller_1.FriendController],
     })

@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { AwsService } from 'src/lib/aws/src/aws.service';
-import { Friend, FriendStatus } from 'src/models/Freind.entity';
+import { Friend, FriendStatus } from 'src/models/Friend.entity';
 import { MyPet } from 'src/models/MyPets.entity';
 import { User } from 'src/models/User.entity';
 import { FeedRepository } from 'src/repositories/feed.repository';
