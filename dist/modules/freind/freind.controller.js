@@ -32,7 +32,6 @@ let FriendController = class FriendController {
         return await this.friendService.create(req.user['userId'], body);
     }
     async requestConfirm(userId, friendId) {
-        console.log(userId);
         return await this.friendService.requestConfirm(userId, friendId);
     }
     async getRequests(req) {
