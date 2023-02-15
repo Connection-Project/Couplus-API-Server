@@ -38,6 +38,10 @@ __decorate([
 ], GetProfileObj.prototype, "nickName", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], GetProfileObj.prototype, "image", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Number)
 ], GetProfileObj.prototype, "feedCount", void 0);
 __decorate([

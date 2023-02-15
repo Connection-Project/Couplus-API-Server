@@ -6,6 +6,7 @@ export declare class MyPetsObj {
 export declare class GetProfileObj {
     userId: number;
     nickName: string;
+    image: string;
     feedCount: number;
     freindCount: number;
     myPets: MyPetsObj[];

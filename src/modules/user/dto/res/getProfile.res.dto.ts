@@ -19,6 +19,9 @@ export class GetProfileObj {
     nickName: string;
 
     @ApiProperty()
+    image: string;
+
+    @ApiProperty()
     feedCount: number;
 
     @ApiProperty()

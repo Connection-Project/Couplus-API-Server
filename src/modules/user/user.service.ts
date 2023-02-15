@@ -190,7 +190,9 @@ export class UserService {
             const user: User = await this.userRepository.findByKey('id', userId);
             const myPet: MyPet[] = (await this.myPetRepository.findAll(userId)).reverse();
             const myPets = [];
+            let image = null;
             for (let i = 0; i < myPet.length; i++) {
+                if (myPet[i].represent) image = myPet[i].imagePath;
                 myPets[i] = {
                     myPetId: myPet[i].id,
                     breed: myPet[i].breed,
@@ -200,6 +202,7 @@ export class UserService {
             const data = {
                 userId: user.id,
                 nickName: user.nickName,
+                image: image,
                 feedCount: await this.feedRepository.getCount(userId),
                 freindCount: await this.freindRepository.getCount(userId),
                 myPets: myPets,
