@@ -164,6 +164,7 @@ export class UserService {
     async getUserRandom(): Promise<ReturnResDto> {
         try {
             const user: User[] = await this.userRepository.getManyRandomUser();
+            console.log(user.length);
             const items = [];
             for (let i = 0; i < user.length; i++) {
                 const pet: MyPet = await this.myPetRepository.getRepresentPetOne(user[i].id);

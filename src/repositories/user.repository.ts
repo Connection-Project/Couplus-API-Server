@@ -43,11 +43,6 @@ export class UserRepository {
     }
 
     async getManyRandomUser(): Promise<User[]> {
-        return this.userRepository
-            .createQueryBuilder('u')
-            .leftJoinAndSelect('u.pet', 'p')
-            .orderBy('RAND()')
-            .limit(6)
-            .getMany();
+        return this.userRepository.createQueryBuilder('u').orderBy('RAND()').limit(6).getMany();
     }
 }
