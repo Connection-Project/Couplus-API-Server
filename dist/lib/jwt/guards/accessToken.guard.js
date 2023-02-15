@@ -12,7 +12,6 @@ const passport_1 = require("@nestjs/passport");
 let AccessTokenGuard = class AccessTokenGuard extends (0, passport_1.AuthGuard)('jwt') {
     handleRequest(err, user) {
         if (user) {
-            console.log(user);
             return user;
         }
         else {
