@@ -101,7 +101,6 @@ let PetService = class PetService {
     async update(userId, myPetId, file, body) {
         try {
             const { name, represent, breed, gender, birthDay, togetherDay } = body;
-            console.log(typeof represent);
             let status = 0;
             let resultCode = 0;
             const myPet = await this.myPetRepository.findOneById(userId, myPetId);

@@ -103,7 +103,6 @@ export class PetService {
     async update(userId: number, myPetId: number, file: File, body: UpdateMyPetReqDto): Promise<any> {
         try {
             const { name, represent, breed, gender, birthDay, togetherDay } = body;
-            console.log(typeof represent);
             let status = 0;
             let resultCode = 0;
             const myPet: MyPet = await this.myPetRepository.findOneById(userId, myPetId);
