@@ -161,8 +161,6 @@ let UserService = class UserService {
                 const pet = await this.myPetRepository.getRepresentPetOne(user[i].id);
                 const pets = await this.myPetRepository.findAll(user[i].id);
                 let breed = pet ? pet.breed : null;
-                console.log(user[i].id + ',' + user[i].pet.length);
-                console.log(user[i].pet);
                 items[i] = {
                     userId: user[i].id,
                     breed: pets.length > 1 ? `${breed} 외 ${pets.length - 1}마리` : breed,
