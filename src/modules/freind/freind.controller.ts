@@ -48,6 +48,7 @@ export class FriendController {
         @GetUser() userId: number,
         @Param('friendId', ParseIntPipe) friendId: number,
     ): Promise<ReturnResDto> {
+        console.log(userId);
         return await this.friendService.requestConfirm(userId, friendId);
     }
 

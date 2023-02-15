@@ -6,6 +6,7 @@ export class AccessTokenGuard extends AuthGuard('jwt') {
     handleRequest(err: any, user: any) {
         // You can throw an exception based on either "info" or "err" arguments
         if (user) {
+            console.log(user);
             return user;
         } else {
             console.log(err);
