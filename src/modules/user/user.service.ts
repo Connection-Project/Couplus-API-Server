@@ -174,8 +174,8 @@ export class UserService {
                 items[i] = {
                     userId: user[i].id,
                     breed: user[i].pet.length > 1 ? `${breed} 외 ${user[i].pet.length - 1}마리` : breed,
-                    name: pet.name,
-                    image: pet.imagePath,
+                    name: pet ? pet.name : null,
+                    image: pet ? pet.imagePath : null,
                 };
             }
             return { data: { resultCode: 1, data: { items: items } } };
