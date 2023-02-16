@@ -156,6 +156,7 @@ let UserService = class UserService {
     }
     async getUserRandom(userId) {
         try {
+            console.log(userId);
             const query = this.userRepository.getQuery();
             const userWhere = [];
             if (userId) {
@@ -166,6 +167,7 @@ let UserService = class UserService {
                     },
                 };
             }
+            console.log(userWhere);
             const user = await this.userRepository.getManyRandomUser(query, userWhere);
             const items = [];
             for (let i = 0; i < user.length; i++) {

@@ -2,9 +2,9 @@ import { UserRepository } from 'src/repositories/user.repository';
 import { AwsService } from 'src/lib/aws/src/aws.service';
 import { BoardRepository } from 'src/repositories/board.repository';
 import { BoardImageRepository } from 'src/repositories/boardImage.repository';
-import { CreateBoardReqDto } from './dto/req/create.req.dto';
-import { GetManyBoardReqDto } from './dto/req/getMany.req.dto';
-import { UpdateBoardReqDto } from './dto/req/update.req.dto';
+import { CreateBoardReqDto } from '../board/dto/req/create.req.dto';
+import { GetManyBoardReqDto } from '../board/dto/req/getMany.req.dto';
+import { UpdateBoardReqDto } from '../board/dto/req/update.req.dto';
 import { BoardLikedRepository } from 'src/repositories/boardLiked.repository';
 export declare class BoardService {
     private readonly boardRepository;

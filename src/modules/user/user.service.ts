@@ -164,6 +164,7 @@ export class UserService {
 
     async getUserRandom(userId: number): Promise<ReturnResDto> {
         try {
+            console.log(userId);
             const query = this.userRepository.getQuery();
             const userWhere = [];
             if (userId) {
@@ -174,6 +175,7 @@ export class UserService {
                     },
                 };
             }
+            console.log(userWhere);
             const user: User[] = await this.userRepository.getManyRandomUser(query, userWhere);
             const items = [];
             for (let i = 0; i < user.length; i++) {
