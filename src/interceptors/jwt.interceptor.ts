@@ -14,7 +14,6 @@ export class JwtInterceptor implements NestInterceptor {
     intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
         const request = context.switchToHttp().getRequest();
         const token = request.headers['x-access-auth'];
-        console.log(token);
         if (token) {
             console.log('토큰 있음');
             const jwtSecret = process.env.JWT_SECERET;

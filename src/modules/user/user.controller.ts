@@ -95,6 +95,7 @@ export class UserController {
     }
 
     @Get()
+    @ApiCookieAuth()
     @UseInterceptors(JwtInterceptor)
     @ApiOperation({ summary: '랜덤 유저 리스트' })
     @ApiResponse({ status: 200, type: GetManyRandomUserSuccessDto, description: '랜덤 유저 리스트 성공' })

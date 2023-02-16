@@ -13,7 +13,6 @@ let JwtInterceptor = class JwtInterceptor {
     intercept(context, next) {
         const request = context.switchToHttp().getRequest();
         const token = request.headers['x-access-auth'];
-        console.log(token);
         if (token) {
             console.log('토큰 있음');
             const jwtSecret = process.env.JWT_SECERET;

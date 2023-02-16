@@ -129,6 +129,7 @@ __decorate([
 ], UserController.prototype, "delete", null);
 __decorate([
     (0, common_1.Get)(),
+    (0, swagger_1.ApiCookieAuth)(),
     (0, common_1.UseInterceptors)(jwt_interceptor_1.JwtInterceptor),
     (0, swagger_1.ApiOperation)({ summary: '랜덤 유저 리스트' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: getManyRandom_res_dto_1.GetManyRandomUserSuccessDto, description: '랜덤 유저 리스트 성공' }),
