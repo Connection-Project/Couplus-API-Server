@@ -242,15 +242,15 @@ export class UserService {
             if (userId) {
                 console.log('유저 존재');
                 const checkFriend: Friend = await this.friendRepository.findOneByUserIdAndfriendId(
-                    friendId,
                     userId,
+                    friendId,
                 );
                 // ! 친구 추가하려던 친구도 나를 친구 요청을 보내지 않아야 함
                 if (!checkFriend) {
                     console.log('상대 친구도 나를 추가하지 않음');
                     const friend: Friend = await this.friendRepository.findOneByUserIdAndfriendId(
-                        userId,
                         friendId,
+                        userId,
                     );
                     console.log('userId: ' + userId + ' , ' + 'friendId: ' + friendId);
                     console.log(friend);

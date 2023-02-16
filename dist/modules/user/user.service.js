@@ -233,10 +233,10 @@ let UserService = class UserService {
             let friendStatus = 0;
             if (userId) {
                 console.log('유저 존재');
-                const checkFriend = await this.friendRepository.findOneByUserIdAndfriendId(friendId, userId);
+                const checkFriend = await this.friendRepository.findOneByUserIdAndfriendId(userId, friendId);
                 if (!checkFriend) {
                     console.log('상대 친구도 나를 추가하지 않음');
-                    const friend = await this.friendRepository.findOneByUserIdAndfriendId(userId, friendId);
+                    const friend = await this.friendRepository.findOneByUserIdAndfriendId(friendId, userId);
                     console.log('userId: ' + userId + ' , ' + 'friendId: ' + friendId);
                     console.log(friend);
                     if (friend) {

@@ -22,8 +22,8 @@ export class FriendRepository {
     async findOneByUserIdAndfriendId(userId: number, friendId: number): Promise<Friend> {
         return await this.friendRepository
             .createQueryBuilder('f')
-            .where('userId = :userId', { userId: friendId })
-            .andWhere('friendId = :friendId', { friendId: userId })
+            .where('userId = :userId', { userId: friendId }) // ! 추가 한 사람
+            .andWhere('friendId = :friendId', { friendId: userId }) // ! 추가 당한 사람
             .getOne();
     }
 
