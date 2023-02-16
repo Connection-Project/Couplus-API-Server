@@ -108,13 +108,8 @@ export class FriendService {
             if (!user && !friend) {
                 resultCode = 1732;
             } else {
-                // ! 해당 친구 상태 변경
-                const friendStatus: Friend = await this.friendRepository.findOneByUserIdAndfriendId(
-                    user.id,
-                    friend.id,
-                );
-                friendStatus.status = FriendStatus.request;
-                await this.friendRepository.save(friendStatus);
+                // ! 해당 친구 나 삭제
+                await this.friendRepository.delete(friend.id, user.id);
 
                 // ! 선택한 친구 삭제
                 await this.friendRepository.delete(user.id, friend.id);

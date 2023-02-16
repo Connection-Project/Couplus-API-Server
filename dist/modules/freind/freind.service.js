@@ -104,9 +104,7 @@ let FriendService = class FriendService {
                 resultCode = 1732;
             }
             else {
-                const friendStatus = await this.friendRepository.findOneByUserIdAndfriendId(user.id, friend.id);
-                friendStatus.status = Friend_entity_1.FriendStatus.request;
-                await this.friendRepository.save(friendStatus);
+                await this.friendRepository.delete(friend.id, user.id);
                 await this.friendRepository.delete(user.id, friend.id);
                 resultCode = 1;
             }
