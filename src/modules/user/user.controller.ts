@@ -64,8 +64,8 @@ export class UserController {
     @ApiOperation({ summary: '유저 정보' })
     @ApiResponse({ status: 200, type: GetInfoSuccessDto, description: '유저 정보 호출 성공' })
     @ApiResponse({ status: 400, type: GetInfoFailDto, description: '유저 정보 호출 실패' })
-    async getInfo(@Req() req: Request): Promise<ReturnResDto> {
-        return this.userService.getInfo(req.user['userId']);
+    async getInfo(@GetUser() userId: number): Promise<ReturnResDto> {
+        return this.userService.getInfo(userId);
     }
 
     @UseGuards(AccessTokenGuard)
@@ -77,11 +77,11 @@ export class UserController {
     @ApiResponse({ status: 200, type: ResultSuccessDto, description: '유저 정보 수정 성공' })
     @ApiResponse({ status: 400, type: UpdateUserFailDto, description: '유저 정보 수정 실패' })
     async update(
-        @Req() req: Request,
+        @GetUser() userId: number,
         @UploadedFile() file,
         @Body() body: UpdateUserReqDto,
     ): Promise<ReturnResDto> {
-        return this.userService.update(req.user['userId'], file, body);
+        return this.userService.update(userId, file, body);
     }
 
     @UseGuards(AccessTokenGuard)
@@ -90,8 +90,8 @@ export class UserController {
     @ApiOperation({ summary: '회원 탈퇴' })
     @ApiResponse({ status: 200, type: ResultSuccessDto, description: '회원 탈퇴 성공' })
     @ApiResponse({ status: 400, type: WithdrawUserFailDto, description: '회원 탈퇴 실패' })
-    async delete(@Req() req: Request): Promise<ReturnResDto> {
-        return this.userService.delete(req.user['userId']);
+    async delete(@GetUser() userId: number): Promise<ReturnResDto> {
+        return this.userService.delete(userId);
     }
 
     @Get()
@@ -109,8 +109,8 @@ export class UserController {
     @ApiOperation({ summary: '나의 프로필 정보' })
     @ApiResponse({ status: 200, type: GetProfileSuccessDto, description: '프로필 응답 성공' })
     @ApiResponse({ status: 400, type: GetProfileFailDto, description: '프로필 응답 실패' })
-    async getMyProfle(@Req() req: Request): Promise<ReturnResDto> {
-        return await this.userService.getProfile(req.user['userId']);
+    async getMyProfle(@GetUser() userId: number): Promise<ReturnResDto> {
+        return await this.userService.getProfile(userId);
     }
 
     @Get('profile/friend/:userId')

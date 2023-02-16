@@ -112,7 +112,6 @@ export class UserService {
             if (password.replace(/ /g, '') !== '') {
                 user.password = GenDigestPwd(password);
             }
-            console.log(body);
             if (name.replace(/ /g, '') !== '') user.name = name;
             if (nickName.replace(/ /g, '') !== '') user.nickName = nickName;
             if (phone.replace(/ /g, '') !== '') user.phone = phone;

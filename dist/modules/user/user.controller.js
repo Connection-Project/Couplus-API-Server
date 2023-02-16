@@ -40,20 +40,20 @@ let UserController = class UserController {
     async socialSignUp(file, body) {
         return this.userService.socialSignUp(file, body);
     }
-    async getInfo(req) {
-        return this.userService.getInfo(req.user['userId']);
+    async getInfo(userId) {
+        return this.userService.getInfo(userId);
     }
-    async update(req, file, body) {
-        return this.userService.update(req.user['userId'], file, body);
+    async update(userId, file, body) {
+        return this.userService.update(userId, file, body);
     }
-    async delete(req) {
-        return this.userService.delete(req.user['userId']);
+    async delete(userId) {
+        return this.userService.delete(userId);
     }
     async getUserRandom(userId) {
         return await this.userService.getUserRandom(userId);
     }
-    async getMyProfle(req) {
-        return await this.userService.getProfile(req.user['userId']);
+    async getMyProfle(userId) {
+        return await this.userService.getProfile(userId);
     }
     async getfriendProfle(userId, friendId) {
         return await this.userService.getFriendProfile(userId, friendId);
@@ -94,9 +94,9 @@ __decorate([
     (0, swagger_1.ApiOperation)({ summary: '유저 정보' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: getInfo_res_dto_1.GetInfoSuccessDto, description: '유저 정보 호출 성공' }),
     (0, swagger_1.ApiResponse)({ status: 400, type: getInfo_res_dto_1.GetInfoFailDto, description: '유저 정보 호출 실패' }),
-    __param(0, (0, common_1.Req)()),
+    __param(0, (0, getUser_decorator_1.GetUser)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getInfo", null);
 __decorate([
@@ -108,11 +108,11 @@ __decorate([
     (0, swagger_1.ApiOperation)({ summary: '유저 정보 수정' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: result_res_dto_1.ResultSuccessDto, description: '유저 정보 수정 성공' }),
     (0, swagger_1.ApiResponse)({ status: 400, type: update_res_dto_1.UpdateUserFailDto, description: '유저 정보 수정 실패' }),
-    __param(0, (0, common_1.Req)()),
+    __param(0, (0, getUser_decorator_1.GetUser)()),
     __param(1, (0, common_1.UploadedFile)()),
     __param(2, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Object, update_dto_1.UpdateUserReqDto]),
+    __metadata("design:paramtypes", [Number, Object, update_dto_1.UpdateUserReqDto]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "update", null);
 __decorate([
@@ -122,9 +122,9 @@ __decorate([
     (0, swagger_1.ApiOperation)({ summary: '회원 탈퇴' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: result_res_dto_1.ResultSuccessDto, description: '회원 탈퇴 성공' }),
     (0, swagger_1.ApiResponse)({ status: 400, type: delete_res_dto_1.WithdrawUserFailDto, description: '회원 탈퇴 실패' }),
-    __param(0, (0, common_1.Req)()),
+    __param(0, (0, getUser_decorator_1.GetUser)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "delete", null);
 __decorate([
@@ -145,9 +145,9 @@ __decorate([
     (0, swagger_1.ApiOperation)({ summary: '나의 프로필 정보' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: getProfile_res_dto_1.GetProfileSuccessDto, description: '프로필 응답 성공' }),
     (0, swagger_1.ApiResponse)({ status: 400, type: getProfile_res_dto_1.GetProfileFailDto, description: '프로필 응답 실패' }),
-    __param(0, (0, common_1.Req)()),
+    __param(0, (0, getUser_decorator_1.GetUser)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getMyProfle", null);
 __decorate([
