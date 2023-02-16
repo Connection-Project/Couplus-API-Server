@@ -253,6 +253,7 @@ export class UserService {
                         friendId,
                     );
                     console.log('userId: ' + userId + ' , ' + 'friendId: ' + friendId);
+                    console.log(friend);
                     if (friend) {
                         console.log('내가 친구 요청 한 친구');
                         console.log(friend.status);

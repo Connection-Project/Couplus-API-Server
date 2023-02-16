@@ -238,6 +238,7 @@ let UserService = class UserService {
                     console.log('상대 친구도 나를 추가하지 않음');
                     const friend = await this.friendRepository.findOneByUserIdAndfriendId(userId, friendId);
                     console.log('userId: ' + userId + ' , ' + 'friendId: ' + friendId);
+                    console.log(friend);
                     if (friend) {
                         console.log('내가 친구 요청 한 친구');
                         console.log(friend.status);
