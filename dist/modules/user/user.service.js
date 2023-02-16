@@ -232,9 +232,16 @@ let UserService = class UserService {
             }
             let friendStatus = 0;
             if (userId) {
-                const friend = await this.friendRepository.findOneByUserIdAndfriendId(userId, friendId);
-                if (friend)
-                    friendStatus = friend.status === Friend_entity_1.FriendStatus.request ? -1 : 1;
+                console.log('유저 존재');
+                const checkFriend = await this.friendRepository.findOneByUserIdAndfriendId(friendId, userId);
+                if (!checkFriend) {
+                    console.log('상대 친구도 나를 추가하지 않음');
+                    const friend = await this.friendRepository.findOneByUserIdAndfriendId(userId, friendId);
+                    console.log('userId: ' + userId + ' , ' + 'friendId: ' + friendId);
+                    console.log(friend.status);
+                    if (friend)
+                        friendStatus = friend.status === Friend_entity_1.FriendStatus.request ? -1 : 1;
+                }
             }
             const data = {
                 userId: user.id,
