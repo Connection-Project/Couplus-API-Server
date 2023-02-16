@@ -115,6 +115,7 @@ export class FriendService {
                 await this.friendRepository.delete(user.id, friend.id);
                 resultCode = 1;
             }
+            return { data: { resultCode: resultCode, data: null } };
         } catch (err) {
             console.log(err);
             return { data: { resultCode: 1731, data: null } };
