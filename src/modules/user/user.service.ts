@@ -253,8 +253,11 @@ export class UserService {
                         friendId,
                     );
                     console.log('userId: ' + userId + ' , ' + 'friendId: ' + friendId);
-                    console.log(friend.status);
-                    if (friend) friendStatus = friend.status === FriendStatus.request ? -1 : 1;
+                    if (friend) {
+                        console.log('내가 친구 요청 한 친구');
+                        console.log(friend.status);
+                        friendStatus = friend.status === FriendStatus.request ? -1 : 1;
+                    }
                 }
             }
             const data = {
