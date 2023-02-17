@@ -37,8 +37,8 @@ let FeedService = class FeedService {
             feed.content = content;
             await this.feedRepository.save(feed);
             if (files.length > 0) {
-                for (let i = 0; i < files['feed'].length; i++) {
-                    const { Key, Location } = await this.awsService.uploadImage(files['feed'][i]);
+                for (let i = 0; i < files.length; i++) {
+                    const { Key, Location } = await this.awsService.uploadImage(files[i]);
                     const feedImage = this.feedImageRepository.create();
                     feedImage.feed = feed;
                     feedImage.originalName = Key;

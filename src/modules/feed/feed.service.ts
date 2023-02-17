@@ -38,8 +38,8 @@ export class FeedService {
 
             // ! 이미지가 존재 할 경우
             if (files.length > 0) {
-                for (let i = 0; i < files['feed'].length; i++) {
-                    const { Key, Location } = await this.awsService.uploadImage(files['feed'][i]);
+                for (let i = 0; i < files.length; i++) {
+                    const { Key, Location } = await this.awsService.uploadImage(files[i]);
                     const feedImage: FeedImage = this.feedImageRepository.create();
                     feedImage.feed = feed;
                     feedImage.originalName = Key;
