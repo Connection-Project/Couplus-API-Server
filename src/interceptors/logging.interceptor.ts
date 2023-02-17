@@ -13,7 +13,8 @@ export class LoggingInterceptor implements NestInterceptor {
         return next.handle().pipe(
             // tap(() => Logger.log(`[${formatDate()}] Response from ${method} ${url} \n`)),
             catchError(async (err) =>
-                Logger.error(`[${formatDate()}] Error from ${method} ${url} : ${err} \n`),
+                // Logger.error(`[${formatDate()}] Error from ${method} ${url} : ${err} \n`),
+                console.log(err),
             ),
         );
     }

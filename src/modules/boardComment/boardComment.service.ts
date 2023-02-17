@@ -21,7 +21,6 @@ export class CommentService {
 
     async create(userId: number, body: CreateCommentReqDto): Promise<any> {
         try {
-            let status = 0;
             let resultCode = 0;
             const { content, boardId } = body;
             const query = this.boardRepository.getQuery();
@@ -35,7 +34,6 @@ export class CommentService {
             ];
             const board: Board = await this.boardRepository.findOne(query, boardWhere);
             if (!board) {
-                status = 201;
                 resultCode = 1502;
             } else {
                 const user: User = await this.userRepository.findByKey('id', userId);
@@ -45,13 +43,12 @@ export class CommentService {
                 boardComment.content = content;
                 await this.boardCommentRepository.save(boardComment);
 
-                status = 200;
                 resultCode = 1;
             }
-            return { status: status, data: { resultCode: resultCode, data: null } };
+            return { data: { resultCode: resultCode, data: null } };
         } catch (err) {
             console.log(err);
-            return { status: 401, data: { resultCode: 1501, data: null } };
+            return { data: { resultCode: 1501, data: null } };
         }
     }
 

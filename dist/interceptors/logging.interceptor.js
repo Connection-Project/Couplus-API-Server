@@ -14,7 +14,7 @@ let LoggingInterceptor = class LoggingInterceptor {
     intercept(context, next) {
         const { method, url } = context.getArgByIndex(0);
         common_1.Logger.log(`[${(0, date_1.formatDate)()}] Request to ${method} ${url}`);
-        return next.handle().pipe((0, operators_1.catchError)(async (err) => common_1.Logger.error(`[${(0, date_1.formatDate)()}] Error from ${method} ${url} : ${err} \n`)));
+        return next.handle().pipe((0, operators_1.catchError)(async (err) => console.log(err)));
     }
 };
 LoggingInterceptor = __decorate([
