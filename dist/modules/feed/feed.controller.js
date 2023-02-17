@@ -33,13 +33,14 @@ let FeedController = class FeedController {
         this.feedService = feedService;
     }
     async create(userId, files, body) {
+        console.log(body);
         return await this.feedService.create(userId, files, body);
     }
-    async getMyFeeds(userId, limit) {
-        return await this.feedService.getMyFeeds(userId, limit);
+    async getMyFeeds(userId) {
+        return await this.feedService.getMyFeeds(userId);
     }
-    async getfriendFeeds(userId, limit) {
-        return await this.feedService.getfriendFeeds(userId, limit);
+    async getfriendFeeds(userId) {
+        return await this.feedService.getfriendFeeds(userId);
     }
     async update(userId, feedId, body) {
         return await this.feedService.update(userId, feedId, body);
@@ -68,27 +69,25 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], FeedController.prototype, "create", null);
 __decorate([
-    (0, common_1.Get)('list/:limit'),
+    (0, common_1.Get)('list'),
     (0, swagger_1.ApiCookieAuth)(),
     (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
     (0, swagger_1.ApiOperation)({ summary: '나의 피드 리스트' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: getFeeds_res_dto_1.GetFeedsSuccessDto, description: '나의 피드 리스트 성공' }),
     (0, swagger_1.ApiResponse)({ status: 400, type: getFeeds_res_dto_1.GetFeedsFailDto, description: '나의 피드 리스트 실패' }),
     __param(0, (0, getUser_decorator_1.GetUser)()),
-    __param(1, (0, common_1.Param)('limit', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, Number]),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], FeedController.prototype, "getMyFeeds", null);
 __decorate([
-    (0, common_1.Get)('friend/:userId/:limit'),
+    (0, common_1.Get)('friend/:userId'),
     (0, swagger_1.ApiOperation)({ summary: '친구 피드 리스트' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: getFeeds_res_dto_1.GetFeedsSuccessDto, description: '친구 피드 리스트 성공' }),
     (0, swagger_1.ApiResponse)({ status: 400, type: getFeeds_res_dto_1.GetFeedsFailDto, description: '친구 피드 리스트 실패' }),
     __param(0, (0, common_1.Param)('userId', common_1.ParseIntPipe)),
-    __param(1, (0, common_1.Param)('limit', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, Number]),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], FeedController.prototype, "getfriendFeeds", null);
 __decorate([

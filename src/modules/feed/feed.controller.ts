@@ -45,32 +45,27 @@ export class FeedController {
         @UploadedFiles() files: File[],
         @Body() body: CreateFeedReqDto,
     ): Promise<ReturnResDto> {
+        console.log(body);
         return await this.feedService.create(userId, files, body);
     }
 
-    @Get('list/:limit')
+    @Get('list')
     @ApiCookieAuth()
     @UseGuards(AccessTokenGuard)
     @ApiOperation({ summary: '나의 피드 리스트' })
     @ApiResponse({ status: 200, type: GetFeedsSuccessDto, description: '나의 피드 리스트 성공' })
     @ApiResponse({ status: 400, type: GetFeedsFailDto, description: '나의 피드 리스트 실패' })
-    async getMyFeeds(
-        @GetUser() userId: number,
-        @Param('limit', ParseIntPipe) limit: number,
-    ): Promise<ReturnResDto> {
-        return await this.feedService.getMyFeeds(userId, limit);
+    async getMyFeeds(@GetUser() userId: number): Promise<ReturnResDto> {
+        return await this.feedService.getMyFeeds(userId);
     }
 
     // ? 파람을 두개 넘길 수 있나??
-    @Get('friend/:userId/:limit')
+    @Get('friend/:userId')
     @ApiOperation({ summary: '친구 피드 리스트' })
     @ApiResponse({ status: 200, type: GetFeedsSuccessDto, description: '친구 피드 리스트 성공' })
     @ApiResponse({ status: 400, type: GetFeedsFailDto, description: '친구 피드 리스트 실패' })
-    async getfriendFeeds(
-        @Param('userId', ParseIntPipe) userId: number,
-        @Param('limit', ParseIntPipe) limit: number,
-    ): Promise<ReturnResDto> {
-        return await this.feedService.getfriendFeeds(userId, limit);
+    async getfriendFeeds(@Param('userId', ParseIntPipe) userId: number): Promise<ReturnResDto> {
+        return await this.feedService.getfriendFeeds(userId);
     }
 
     @Patch(':feedId')

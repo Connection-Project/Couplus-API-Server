@@ -6,8 +6,8 @@ export declare class FeedController {
     private feedService;
     constructor(feedService: FeedService);
     create(userId: number, files: File[], body: CreateFeedReqDto): Promise<ReturnResDto>;
-    getMyFeeds(userId: number, limit: number): Promise<ReturnResDto>;
-    getfriendFeeds(userId: number, limit: number): Promise<ReturnResDto>;
+    getMyFeeds(userId: number): Promise<ReturnResDto>;
+    getfriendFeeds(userId: number): Promise<ReturnResDto>;
     update(userId: number, feedId: number, body: UpdateFeedReqDto): Promise<ReturnResDto>;
     getFeed(userId: number, feedId: number): Promise<ReturnResDto>;
     delete(userId: number, feedId: number): Promise<ReturnResDto>;

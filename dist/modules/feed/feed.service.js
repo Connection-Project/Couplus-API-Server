@@ -62,7 +62,7 @@ let FeedService = class FeedService {
             return { data: { resultCode: 1801, data: null } };
         }
     }
-    async getMyFeeds(userId, limit) {
+    async getMyFeeds(userId) {
         try {
             const query = this.feedRepository.getQuery();
             const feedWhere = [
@@ -73,7 +73,7 @@ let FeedService = class FeedService {
                     },
                 },
             ];
-            const [row, cnt] = await this.feedRepository.findMany(query, feedWhere, limit);
+            const [row, cnt] = await this.feedRepository.findMany(query, feedWhere);
             const items = [];
             for (let i = 0; i < row.length; i++) {
                 items[i] = {
@@ -88,7 +88,7 @@ let FeedService = class FeedService {
             return { data: { resultCode: 1811, data: null } };
         }
     }
-    async getfriendFeeds(friendId, limit) {
+    async getfriendFeeds(friendId) {
         try {
             const query = this.feedRepository.getQuery();
             const feedWhere = [
@@ -99,7 +99,7 @@ let FeedService = class FeedService {
                     },
                 },
             ];
-            const [row, cnt] = await this.feedRepository.findMany(query, feedWhere, limit);
+            const [row, cnt] = await this.feedRepository.findMany(query, feedWhere);
             const items = [];
             for (let i = 0; i < row.length; i++) {
                 items[i] = {

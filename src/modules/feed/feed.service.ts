@@ -66,7 +66,7 @@ export class FeedService {
     }
 
     // ! 나의 피드 리스트
-    async getMyFeeds(userId: number, limit: number): Promise<ReturnResDto> {
+    async getMyFeeds(userId: number): Promise<ReturnResDto> {
         try {
             const query = this.feedRepository.getQuery();
             const feedWhere = [
@@ -77,7 +77,7 @@ export class FeedService {
                     },
                 },
             ];
-            const [row, cnt] = await this.feedRepository.findMany(query, feedWhere, limit);
+            const [row, cnt] = await this.feedRepository.findMany(query, feedWhere);
             const items = [];
             for (let i = 0; i < row.length; i++) {
                 items[i] = {
@@ -93,7 +93,7 @@ export class FeedService {
     }
 
     // ! 다른 사람 피드(token x)
-    async getfriendFeeds(friendId: number, limit: number): Promise<ReturnResDto> {
+    async getfriendFeeds(friendId: number): Promise<ReturnResDto> {
         try {
             const query = this.feedRepository.getQuery();
             const feedWhere = [
@@ -104,7 +104,7 @@ export class FeedService {
                     },
                 },
             ];
-            const [row, cnt] = await this.feedRepository.findMany(query, feedWhere, limit);
+            const [row, cnt] = await this.feedRepository.findMany(query, feedWhere);
             const items = [];
             for (let i = 0; i < row.length; i++) {
                 items[i] = {

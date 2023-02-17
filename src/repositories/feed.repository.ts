@@ -55,16 +55,10 @@ export class FeedRepository {
         return query.getOne();
     }
 
-    async findMany(
-        query: SelectQueryBuilder<Feed>,
-        addWhere: any[],
-        limit: number,
-    ): Promise<[Feed[], number]> {
+    async findMany(query: SelectQueryBuilder<Feed>, addWhere: any[]): Promise<[Feed[], number]> {
         for (let i = 0; i < addWhere.length; i++) {
             query.andWhere(addWhere[i].key, addWhere[i].value);
         }
-        query.skip(0);
-        query.take(limit);
         query.orderBy('f.createdAt', 'DESC');
         return query.getManyAndCount();
     }
