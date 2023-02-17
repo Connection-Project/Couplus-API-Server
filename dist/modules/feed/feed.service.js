@@ -78,7 +78,7 @@ let FeedService = class FeedService {
             for (let i = 0; i < row.length; i++) {
                 items[i] = {
                     feedId: row[i].id,
-                    image: row[i].image[0].path,
+                    image: row[i].image.length > 0 ? row[i].image[0].path : null,
                 };
             }
             return { data: { resultCode: 1, data: { items: items, count: cnt } } };
