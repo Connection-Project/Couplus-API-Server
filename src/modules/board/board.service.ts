@@ -4,12 +4,12 @@ import { AwsService } from 'src/lib/aws/src/aws.service';
 import { Board } from 'src/models/Board.entity';
 import { BoardRepository } from 'src/repositories/board.repository';
 import { BoardImageRepository } from 'src/repositories/boardImage.repository';
-import { CreateBoardReqDto } from '../board/dto/req/create.req.dto';
+import { CreateBoardReqDto } from './dto/req/create.req.dto';
 import { User } from 'src/models/User.entity';
 import { BoardImage } from 'src/models/BoardImage.entity';
-import { GetManyBoardReqDto } from '../board/dto/req/getMany.req.dto';
+import { GetManyBoardReqDto } from './dto/req/getMany.req.dto';
 import { formatDateParam } from 'src/utils/date';
-import { UpdateBoardReqDto } from '../board/dto/req/update.req.dto';
+import { UpdateBoardReqDto } from './dto/req/update.req.dto';
 import { BoardLiked } from 'src/models/BoardLiked.entity';
 import { BoardLikedRepository } from 'src/repositories/boardLiked.repository';
 

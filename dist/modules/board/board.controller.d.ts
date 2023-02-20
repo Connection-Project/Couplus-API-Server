@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { BoardService } from '../auth/board.service';
+import { BoardService } from './board.service';
 import { CreateBoardReqDto } from './dto/req/create.req.dto';
 import { GetManyBoardReqDto } from './dto/req/getMany.req.dto';
 import { UpdateBoardReqDto } from './dto/req/update.req.dto';

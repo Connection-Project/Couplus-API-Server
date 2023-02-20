@@ -9,7 +9,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.BoardModule = void 0;
 const typeorm_1 = require("@nestjs/typeorm");
 const common_1 = require("@nestjs/common");
-const board_service_1 = require("../auth/board.service");
+const board_service_1 = require("./board.service");
 const board_controller_1 = require("./board.controller");
 const Board_entity_1 = require("../../models/Board.entity");
 const BoardImage_entity_1 = require("../../models/BoardImage.entity");
