@@ -19,6 +19,10 @@ __decorate([
 ], GetFeedObj.prototype, "feedId", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], GetFeedObj.prototype, "nickName", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Array)
 ], GetFeedObj.prototype, "image", void 0);
 __decorate([

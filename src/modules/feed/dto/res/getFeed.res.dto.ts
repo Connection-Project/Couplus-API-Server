@@ -5,6 +5,9 @@ export class GetFeedObj {
     feedId: number;
 
     @ApiProperty()
+    nickName: string;
+
+    @ApiProperty()
     image: string[];
 
     @ApiProperty()

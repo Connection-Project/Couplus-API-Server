@@ -1,5 +1,6 @@
 export declare class GetFeedObj {
     feedId: number;
+    nickName: string;
     image: string[];
     mine: boolean;
     feedLiked: boolean;

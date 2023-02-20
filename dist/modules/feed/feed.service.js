@@ -145,6 +145,7 @@ let FeedService = class FeedService {
                 }
                 data = {
                     feedId: feed.id,
+                    nickName: feed.user.nickName,
                     image: image,
                     mine: feed.user.id === userId ? true : false,
                     feedLiked: liked,
