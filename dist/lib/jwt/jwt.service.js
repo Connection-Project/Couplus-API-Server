@@ -18,10 +18,17 @@ let JwtService = class JwtService {
     }
     getToken(userId) {
         const accessToken = (0, jsonwebtoken_1.sign)({ userId: userId }, this.jwtSecret, { expiresIn: '1d' });
+        const accessTokenVerify = this.verifyToken(accessToken);
         const refreshToken = (0, jsonwebtoken_1.sign)({ userId: userId }, this.jwtSecret, {
             expiresIn: '7d',
         });
-        return { accessToken, refreshToken };
+        const refreshTokenVerify = this.verifyToken(refreshToken);
+        return {
+            accessToken: accessToken,
+            refreshToken: refreshToken,
+            accessTokenExpireIn: accessTokenVerify.user.exp,
+            refreshTokenExpireIn: refreshTokenVerify.user.exp,
+        };
     }
     verifyToken(refreshToken) {
         let data = null;

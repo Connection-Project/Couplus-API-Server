@@ -1,6 +1,8 @@
 export declare class SignInSuccessObj {
     accessToken: string;
+    accessTokenExpireIn: Date;
     refreshToken: string;
+    refreshTokenExpireIn: Date;
 }
 export declare class NotFoundSocialUserObj {
     accountId: string;

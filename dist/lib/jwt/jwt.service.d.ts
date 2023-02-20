@@ -4,6 +4,8 @@ export declare class JwtService {
     getToken(userId: number): {
         accessToken: string;
         refreshToken: string;
+        accessTokenExpireIn: any;
+        refreshTokenExpireIn: any;
     };
     verifyToken(refreshToken: string): any;
 }

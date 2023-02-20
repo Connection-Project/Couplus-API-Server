@@ -10,10 +10,17 @@ export class JwtService {
 
     getToken(userId: number) {
         const accessToken: string = sign({ userId: userId }, this.jwtSecret, { expiresIn: '1d' });
+        const accessTokenVerify = this.verifyToken(accessToken);
         const refreshToken: string = sign({ userId: userId }, this.jwtSecret, {
             expiresIn: '7d',
         });
-        return { accessToken, refreshToken };
+        const refreshTokenVerify = this.verifyToken(refreshToken);
+        return {
+            accessToken: accessToken,
+            refreshToken: refreshToken,
+            accessTokenExpireIn: accessTokenVerify.user.exp,
+            refreshTokenExpireIn: refreshTokenVerify.user.exp,
+        };
     }
 
     verifyToken(refreshToken: string) {

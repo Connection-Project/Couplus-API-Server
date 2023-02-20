@@ -19,8 +19,16 @@ __decorate([
 ], SignInSuccessObj.prototype, "accessToken", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", Date)
+], SignInSuccessObj.prototype, "accessTokenExpireIn", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
 ], SignInSuccessObj.prototype, "refreshToken", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", Date)
+], SignInSuccessObj.prototype, "refreshTokenExpireIn", void 0);
 exports.SignInSuccessObj = SignInSuccessObj;
 class NotFoundSocialUserObj {
 }

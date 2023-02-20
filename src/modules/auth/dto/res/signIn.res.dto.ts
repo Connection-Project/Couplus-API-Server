@@ -5,7 +5,13 @@ export class SignInSuccessObj {
     accessToken: string;
 
     @ApiProperty()
+    accessTokenExpireIn: Date;
+
+    @ApiProperty()
     refreshToken: string;
+
+    @ApiProperty()
+    refreshTokenExpireIn: Date;
 }
 
 export class NotFoundSocialUserObj {

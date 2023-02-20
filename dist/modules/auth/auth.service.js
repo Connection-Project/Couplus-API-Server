@@ -35,10 +35,12 @@ let AuthService = class AuthService {
             if (user) {
                 if ((0, crypto_1.GenDigestPwd)(password) === user.password) {
                     await this.userRepository.save(user);
-                    const { accessToken, refreshToken } = this.jwtServcie.getToken(user.id);
+                    const { accessToken, refreshToken, accessTokenExpireIn, refreshTokenExpireIn } = this.jwtServcie.getToken(user.id);
                     data = {
                         accessToken: accessToken,
+                        accessTokenExpireIn: new Date(accessTokenExpireIn * 1000),
                         refreshToken: refreshToken,
+                        refreshTokenExpireIn: new Date(refreshTokenExpireIn * 1000),
                     };
                     status = 200;
                     resultCode = 1;
