@@ -15,11 +15,13 @@ const FeedComment_entity_1 = require("../../models/FeedComment.entity");
 const FeedImage_entity_1 = require("../../models/FeedImage.entity");
 const FeedLiked_entity_1 = require("../../models/FeedLiked.entity");
 const HashTag_entity_1 = require("../../models/HashTag.entity");
+const MyPets_entity_1 = require("../../models/MyPets.entity");
 const User_entity_1 = require("../../models/User.entity");
 const feed_repository_1 = require("../../repositories/feed.repository");
 const feedImage_repository_1 = require("../../repositories/feedImage.repository");
 const feedLiked_repository_1 = require("../../repositories/feedLiked.repository");
 const hashtag_repository_1 = require("../../repositories/hashtag.repository");
+const myPet_repository_1 = require("../../repositories/myPet.repository");
 const user_repository_1 = require("../../repositories/user.repository");
 const feed_controller_1 = require("./feed.controller");
 const feed_service_1 = require("./feed.service");
@@ -37,6 +39,7 @@ FeedModule = __decorate([
                 HashTag_entity_1.HashTag,
                 FeedLiked_entity_1.FeedLiked,
                 HashTag_entity_1.HashTag,
+                MyPets_entity_1.MyPet,
             ]),
         ],
         controllers: [feed_controller_1.FeedController],
@@ -48,6 +51,7 @@ FeedModule = __decorate([
             feedLiked_repository_1.FeedLikedRepository,
             user_repository_1.UserRepository,
             hashtag_repository_1.HashTagRepository,
+            myPet_repository_1.MyPetRepository,
         ],
     })
 ], FeedModule);

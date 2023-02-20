@@ -4,11 +4,13 @@ import { Feed } from 'src/models/Feed.entity';
 import { FeedImage } from 'src/models/FeedImage.entity';
 import { FeedLiked } from 'src/models/FeedLiked.entity';
 import { HashTag } from 'src/models/HashTag.entity';
+import { MyPet } from 'src/models/MyPets.entity';
 import { User } from 'src/models/User.entity';
 import { FeedRepository } from 'src/repositories/feed.repository';
 import { FeedImageRepository } from 'src/repositories/feedImage.repository';
 import { FeedLikedRepository } from 'src/repositories/feedLiked.repository';
 import { HashTagRepository } from 'src/repositories/hashtag.repository';
+import { MyPetRepository } from 'src/repositories/myPet.repository';
 import { UserRepository } from 'src/repositories/user.repository';
 import { formatDateParam } from 'src/utils/date';
 import { ReturnResDto } from '../common/dto/return/return.res.dto';
@@ -24,6 +26,7 @@ export class FeedService {
         private readonly feedLikedRepository: FeedLikedRepository,
         private readonly userRepository: UserRepository,
         private readonly hashtagRepository: HashTagRepository,
+        private readonly myPetRepository: MyPetRepository,
     ) {}
 
     async create(userId: number, files: File[], body: CreateFeedReqDto): Promise<ReturnResDto> {
@@ -138,6 +141,7 @@ export class FeedService {
                 const image = [];
                 const hashtag = [];
                 let liked = false;
+                let profileImage = null;
 
                 // ! 이미지 경로
                 for (let i = 0; i < feed.image.length; i++) {
@@ -154,9 +158,17 @@ export class FeedService {
                 for (let i = 0; i < feed.hashtag.length; i++) {
                     hashtag.push(feed.hashtag[i].name);
                 }
+
+                // ! pet 대표 이미지
+                const pet: MyPet[] = await this.myPetRepository.findAll(userId);
+                pet.forEach((o) => {
+                    if (o.represent) profileImage = o.imagePath;
+                });
+
                 data = {
                     feedId: feed.id,
                     nickName: feed.user.nickName,
+                    profileImage: profileImage,
                     image: image,
                     mine: feed.user.id === userId ? true : false,
                     feedLiked: liked,

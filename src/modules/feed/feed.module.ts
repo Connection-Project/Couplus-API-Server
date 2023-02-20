@@ -6,11 +6,13 @@ import { FeedComment } from 'src/models/FeedComment.entity';
 import { FeedImage } from 'src/models/FeedImage.entity';
 import { FeedLiked } from 'src/models/FeedLiked.entity';
 import { HashTag } from 'src/models/HashTag.entity';
+import { MyPet } from 'src/models/MyPets.entity';
 import { User } from 'src/models/User.entity';
 import { FeedRepository } from 'src/repositories/feed.repository';
 import { FeedImageRepository } from 'src/repositories/feedImage.repository';
 import { FeedLikedRepository } from 'src/repositories/feedLiked.repository';
 import { HashTagRepository } from 'src/repositories/hashtag.repository';
+import { MyPetRepository } from 'src/repositories/myPet.repository';
 import { UserRepository } from 'src/repositories/user.repository';
 import { FeedController } from './feed.controller';
 import { FeedService } from './feed.service';
@@ -26,6 +28,7 @@ import { FeedService } from './feed.service';
             HashTag,
             FeedLiked,
             HashTag,
+            MyPet,
         ]),
     ],
     controllers: [FeedController],
@@ -37,6 +40,7 @@ import { FeedService } from './feed.service';
         FeedLikedRepository,
         UserRepository,
         HashTagRepository,
+        MyPetRepository,
     ],
 })
 export class FeedModule {}

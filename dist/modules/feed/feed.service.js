@@ -16,16 +16,18 @@ const feed_repository_1 = require("../../repositories/feed.repository");
 const feedImage_repository_1 = require("../../repositories/feedImage.repository");
 const feedLiked_repository_1 = require("../../repositories/feedLiked.repository");
 const hashtag_repository_1 = require("../../repositories/hashtag.repository");
+const myPet_repository_1 = require("../../repositories/myPet.repository");
 const user_repository_1 = require("../../repositories/user.repository");
 const date_1 = require("../../utils/date");
 let FeedService = class FeedService {
-    constructor(awsService, feedRepository, feedImageRepository, feedLikedRepository, userRepository, hashtagRepository) {
+    constructor(awsService, feedRepository, feedImageRepository, feedLikedRepository, userRepository, hashtagRepository, myPetRepository) {
         this.awsService = awsService;
         this.feedRepository = feedRepository;
         this.feedImageRepository = feedImageRepository;
         this.feedLikedRepository = feedLikedRepository;
         this.userRepository = userRepository;
         this.hashtagRepository = hashtagRepository;
+        this.myPetRepository = myPetRepository;
     }
     async create(userId, files, body) {
         try {
@@ -132,6 +134,7 @@ let FeedService = class FeedService {
                 const image = [];
                 const hashtag = [];
                 let liked = false;
+                let profileImage = null;
                 for (let i = 0; i < feed.image.length; i++) {
                     image.push(feed.image[i].path);
                 }
@@ -143,9 +146,15 @@ let FeedService = class FeedService {
                 for (let i = 0; i < feed.hashtag.length; i++) {
                     hashtag.push(feed.hashtag[i].name);
                 }
+                const pet = await this.myPetRepository.findAll(userId);
+                pet.forEach((o) => {
+                    if (o.represent)
+                        profileImage = o.imagePath;
+                });
                 data = {
                     feedId: feed.id,
                     nickName: feed.user.nickName,
+                    profileImage: profileImage,
                     image: image,
                     mine: feed.user.id === userId ? true : false,
                     feedLiked: liked,
@@ -238,7 +247,8 @@ FeedService = __decorate([
         feedImage_repository_1.FeedImageRepository,
         feedLiked_repository_1.FeedLikedRepository,
         user_repository_1.UserRepository,
-        hashtag_repository_1.HashTagRepository])
+        hashtag_repository_1.HashTagRepository,
+        myPet_repository_1.MyPetRepository])
 ], FeedService);
 exports.FeedService = FeedService;
 //# sourceMappingURL=feed.service.js.map

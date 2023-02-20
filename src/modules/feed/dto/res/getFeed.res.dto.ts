@@ -8,6 +8,9 @@ export class GetFeedObj {
     nickName: string;
 
     @ApiProperty()
+    profileImage: string;
+
+    @ApiProperty()
     image: string[];
 
     @ApiProperty()
