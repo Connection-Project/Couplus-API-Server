@@ -11,4 +11,5 @@ export declare class FeedController {
     update(userId: number, feedId: number, body: UpdateFeedReqDto): Promise<ReturnResDto>;
     getFeed(userId: number, feedId: number): Promise<ReturnResDto>;
     delete(userId: number, feedId: number): Promise<ReturnResDto>;
+    createLiked(userId: any, feedId: number): Promise<ReturnResDto>;
 }

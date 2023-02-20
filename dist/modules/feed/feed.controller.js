@@ -23,6 +23,7 @@ const result_res_dto_1 = require("../common/dto/res/result.res.dto");
 const create_req_dto_1 = require("./dto/req/create.req.dto");
 const update_req_dto_1 = require("./dto/req/update.req.dto");
 const create_res_dto_1 = require("./dto/res/create.res.dto");
+const createLiked_res_dto_1 = require("./dto/res/createLiked.res.dto");
 const delete_res_dto_1 = require("./dto/res/delete.res.dto");
 const getFeed_res_dto_1 = require("./dto/res/getFeed.res.dto");
 const getFeeds_res_dto_1 = require("./dto/res/getFeeds.res.dto");
@@ -50,6 +51,9 @@ let FeedController = class FeedController {
     }
     async delete(userId, feedId) {
         return await this.feedService.delete(userId, feedId);
+    }
+    async createLiked(userId, feedId) {
+        return await this.feedService.createLiked(userId, feedId);
     }
 };
 __decorate([
@@ -130,6 +134,19 @@ __decorate([
     __metadata("design:paramtypes", [Number, Number]),
     __metadata("design:returntype", Promise)
 ], FeedController.prototype, "delete", null);
+__decorate([
+    (0, common_1.Get)(':feedId/like'),
+    (0, swagger_1.ApiCookieAuth)(),
+    (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
+    (0, swagger_1.ApiOperation)({ summary: '피드 좋아요 / 좋아요 취소' }),
+    (0, swagger_1.ApiResponse)({ status: 200, type: createLiked_res_dto_1.CreateFeedLikedSuccessDto, description: '피드 좋아요/취소 성공' }),
+    (0, swagger_1.ApiResponse)({ status: 400, type: createLiked_res_dto_1.CreateFeedLikedFailDto, description: '피드 좋아요/취소 실패' }),
+    __param(0, (0, getUser_decorator_1.GetUser)()),
+    __param(1, (0, common_1.Param)('feedId', common_1.ParseIntPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Number]),
+    __metadata("design:returntype", Promise)
+], FeedController.prototype, "createLiked", null);
 FeedController = __decorate([
     (0, swagger_1.ApiTags)('피드 관리'),
     (0, common_1.Controller)('feed'),

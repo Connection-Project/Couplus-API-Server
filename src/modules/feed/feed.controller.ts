@@ -21,6 +21,7 @@ import { ReturnResDto } from '../common/dto/return/return.res.dto';
 import { CreateFeedReqDto } from './dto/req/create.req.dto';
 import { UpdateFeedReqDto } from './dto/req/update.req.dto';
 import { CreateFeedFailDto } from './dto/res/create.res.dto';
+import { CreateFeedLikedFailDto, CreateFeedLikedSuccessDto } from './dto/res/createLiked.res.dto';
 import { DeleteFeedFailDto } from './dto/res/delete.res.dto';
 import { GetFeedFailDto, GetFeedSuccessDto } from './dto/res/getFeed.res.dto';
 import { GetFeedsFailDto, GetFeedsSuccessDto } from './dto/res/getFeeds.res.dto';
@@ -106,5 +107,15 @@ export class FeedController {
         @Param('feedId', ParseIntPipe) feedId: number,
     ): Promise<ReturnResDto> {
         return await this.feedService.delete(userId, feedId);
+    }
+
+    @Get(':feedId/like')
+    @ApiCookieAuth()
+    @UseGuards(AccessTokenGuard)
+    @ApiOperation({ summary: '피드 좋아요 / 좋아요 취소' })
+    @ApiResponse({ status: 200, type: CreateFeedLikedSuccessDto, description: '피드 좋아요/취소 성공' })
+    @ApiResponse({ status: 400, type: CreateFeedLikedFailDto, description: '피드 좋아요/취소 실패' })
+    async createLiked(@GetUser() userId, @Param('feedId', ParseIntPipe) feedId: number) {
+        return await this.feedService.createLiked(userId, feedId);
     }
 }

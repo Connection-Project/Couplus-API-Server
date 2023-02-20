@@ -215,4 +215,26 @@ export class FeedService {
             return { data: { resultCode: 1841, data: null } };
         }
     }
+
+    async createLiked(userId: number, feedId: number): Promise<ReturnResDto> {
+        try {
+            const feedLiked: FeedLiked = await this.feedLikedRepository.findOne(userId, feedId);
+            let liked = false;
+            let likedCount = 0;
+            if (feedLiked) {
+                await this.feedLikedRepository.delete(userId, feedId);
+            } else {
+                const newLiked: FeedLiked = this.feedLikedRepository.create();
+                newLiked.userId = userId;
+                newLiked.feedId = feedId;
+                await this.feedLikedRepository.save(newLiked);
+                liked = true;
+            }
+            likedCount = await this.feedLikedRepository.getCount(feedId);
+            return { data: { resultCode: 1, data: { liked, likedCount } } };
+        } catch (err) {
+            console.log(err);
+            return { data: { resultCode: 1851, data: null } };
+        }
+    }
 }

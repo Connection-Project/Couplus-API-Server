@@ -21,4 +21,5 @@ export declare class FeedService {
     getFeed(userId: number, feedId: number): Promise<ReturnResDto>;
     update(userId: number, feedId: number, body: UpdateFeedReqDto): Promise<ReturnResDto>;
     delete(userId: number, feedId: number): Promise<ReturnResDto>;
+    createLiked(userId: number, feedId: number): Promise<ReturnResDto>;
 }
