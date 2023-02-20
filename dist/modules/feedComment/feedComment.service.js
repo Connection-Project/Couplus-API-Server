@@ -14,6 +14,7 @@ const common_1 = require("@nestjs/common");
 const feed_repository_1 = require("../../repositories/feed.repository");
 const feedComment_repository_1 = require("../../repositories/feedComment.repository");
 const user_repository_1 = require("../../repositories/user.repository");
+const date_1 = require("../../utils/date");
 let FeedCommentService = class FeedCommentService {
     constructor(feedRepository, feedCommentRepository, userRepository) {
         this.feedRepository = feedRepository;
@@ -22,7 +23,7 @@ let FeedCommentService = class FeedCommentService {
     }
     async create(userId, body) {
         try {
-            let resultCode = 0;
+            let resultCode = 1;
             const { content, feedId } = body;
             const query = this.feedRepository.getQuery();
             const commentWhere = [
@@ -44,7 +45,6 @@ let FeedCommentService = class FeedCommentService {
                 feedComment.user = user;
                 feedComment.content = content;
                 await this.feedCommentRepository.save(feedComment);
-                resultCode = 1;
             }
             return { data: { resultCode: resultCode, data: null } };
         }
@@ -63,12 +63,55 @@ let FeedCommentService = class FeedCommentService {
                     commentMine = true;
                 items[i] = {
                     commentId: feedComment[i].id,
+                    writer: feedComment[i].user.nickName,
+                    content: feedComment[i].content,
+                    mine: commentMine,
+                    createdAt: (0, date_1.formatDateParam)(feedComment[i].createdAt),
                 };
             }
+            return { data: { resultCode: 1, data: { items: items } } };
         }
         catch (err) {
             console.log(err);
             return { data: { resultCode: 1911, data: null } };
+        }
+    }
+    async update(userId, commentId, body) {
+        try {
+            let resultCode = 1;
+            const { content } = body;
+            const feedComment = await this.feedCommentRepository.findOneByIdAndUserId(commentId, userId);
+            if (feedComment) {
+                if (content !== '' && content !== feedComment.content) {
+                    feedComment.content = content;
+                    await this.feedCommentRepository.save(feedComment);
+                }
+            }
+            else {
+                resultCode = 1922;
+            }
+            return { data: { resultCode: resultCode, data: null } };
+        }
+        catch (err) {
+            console.log(err);
+            return { data: { resultCode: 1921, data: null } };
+        }
+    }
+    async delete(userId, commentId) {
+        try {
+            let resultCode = 1;
+            const feedComment = await this.feedCommentRepository.findOneByIdAndUserId(commentId, userId);
+            if (feedComment) {
+                await this.feedCommentRepository.delete(userId, commentId);
+            }
+            else {
+                resultCode = 1932;
+            }
+            return { data: { resultCode: resultCode, data: null } };
+        }
+        catch (err) {
+            console.log(err);
+            return { data: { resultCode: 1931, data: null } };
         }
     }
 };

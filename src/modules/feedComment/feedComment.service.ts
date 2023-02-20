@@ -5,8 +5,10 @@ import { User } from 'src/models/User.entity';
 import { FeedRepository } from 'src/repositories/feed.repository';
 import { FeedCommentRepository } from 'src/repositories/feedComment.repository';
 import { UserRepository } from 'src/repositories/user.repository';
+import { formatDateParam } from 'src/utils/date';
 import { ReturnResDto } from '../common/dto/return/return.res.dto';
 import { CreateFeedCommentReqDto } from './dto/req/create.req.dto';
+import { UpdateFeedCommentReqDto } from './dto/req/update.req.dto';
 
 @Injectable()
 export class FeedCommentService {
@@ -18,7 +20,7 @@ export class FeedCommentService {
 
     async create(userId: number, body: CreateFeedCommentReqDto): Promise<ReturnResDto> {
         try {
-            let resultCode = 0;
+            let resultCode = 1;
             const { content, feedId } = body;
             const query = this.feedRepository.getQuery();
             const commentWhere = [
@@ -39,7 +41,6 @@ export class FeedCommentService {
                 feedComment.user = user;
                 feedComment.content = content;
                 await this.feedCommentRepository.save(feedComment);
-                resultCode = 1;
             }
             return { data: { resultCode: resultCode, data: null } };
         } catch (err) {
@@ -58,11 +59,58 @@ export class FeedCommentService {
 
                 items[i] = {
                     commentId: feedComment[i].id,
+                    writer: feedComment[i].user.nickName,
+                    content: feedComment[i].content,
+                    mine: commentMine,
+                    createdAt: formatDateParam(feedComment[i].createdAt),
                 };
             }
+            return { data: { resultCode: 1, data: { items: items } } };
         } catch (err) {
             console.log(err);
             return { data: { resultCode: 1911, data: null } };
+        }
+    }
+
+    async update(userId: number, commentId: number, body: UpdateFeedCommentReqDto): Promise<ReturnResDto> {
+        try {
+            let resultCode = 1;
+            const { content } = body;
+            const feedComment: FeedComment = await this.feedCommentRepository.findOneByIdAndUserId(
+                commentId,
+                userId,
+            );
+            if (feedComment) {
+                if (content !== '' && content !== feedComment.content) {
+                    feedComment.content = content;
+                    await this.feedCommentRepository.save(feedComment);
+                }
+            } else {
+                resultCode = 1922;
+            }
+            return { data: { resultCode: resultCode, data: null } };
+        } catch (err) {
+            console.log(err);
+            return { data: { resultCode: 1921, data: null } };
+        }
+    }
+
+    async delete(userId: number, commentId: number): Promise<ReturnResDto> {
+        try {
+            let resultCode = 1;
+            const feedComment: FeedComment = await this.feedCommentRepository.findOneByIdAndUserId(
+                commentId,
+                userId,
+            );
+            if (feedComment) {
+                await this.feedCommentRepository.delete(userId, commentId);
+            } else {
+                resultCode = 1932;
+            }
+            return { data: { resultCode: resultCode, data: null } };
+        } catch (err) {
+            console.log(err);
+            return { data: { resultCode: 1931, data: null } };
         }
     }
 }
