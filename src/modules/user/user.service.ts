@@ -208,6 +208,7 @@ export class UserService {
                     name: myPet[i].name,
                 };
             }
+            console.log(await this.friendRepository.getCount(userId));
             const data = {
                 userId: user.id,
                 nickName: user.nickName,
@@ -263,8 +264,8 @@ export class UserService {
                 userId: user.id,
                 nickName: user.nickName,
                 image: image,
-                feedCount: await this.feedRepository.getCount(userId),
-                friendCount: await this.friendRepository.getCount(userId),
+                feedCount: await this.feedRepository.getCount(friendId),
+                friendCount: await this.friendRepository.getCount(friendId),
                 friendStatus: friendStatus,
                 myPets: myPets,
             };
