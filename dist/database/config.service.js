@@ -8,7 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TypeOrmConfigServcie = void 0;
 const common_1 = require("@nestjs/common");
-const typeorm_log_1 = require("../logger/typeorm.log");
 let TypeOrmConfigServcie = class TypeOrmConfigServcie {
     createTypeOrmOptions() {
         return {
@@ -20,8 +19,6 @@ let TypeOrmConfigServcie = class TypeOrmConfigServcie {
             database: process.env.DB_NAME,
             entities: ['dist/**/*.entity.{ts,js}'],
             synchronize: JSON.parse(process.env.DB_SYNC),
-            logging: true,
-            logger: new typeorm_log_1.CustomLogger(),
         };
     }
 };

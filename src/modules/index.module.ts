@@ -18,8 +18,8 @@ import { FeedCommentModule } from './feedComment/feedComment.module';
         CommentModule,
         BoardCommentReplyModule,
         FeedModule,
-        FriendModule,
         FeedCommentModule,
+        FriendModule,
     ],
 })
 export class IndexModule {}

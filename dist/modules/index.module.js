@@ -29,8 +29,8 @@ IndexModule = __decorate([
             boardComment_module_1.CommentModule,
             boardCommentReply_module_1.BoardCommentReplyModule,
             feed_module_1.FeedModule,
-            freind_module_1.FriendModule,
             feedComment_module_1.FeedCommentModule,
+            freind_module_1.FriendModule,
         ],
     })
 ], IndexModule);
