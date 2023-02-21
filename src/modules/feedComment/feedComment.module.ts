@@ -8,10 +8,12 @@ import { User } from 'src/models/User.entity';
 import { FeedRepository } from 'src/repositories/feed.repository';
 import { FeedCommentRepository } from 'src/repositories/feedComment.repository';
 import { UserRepository } from 'src/repositories/user.repository';
+import { MyPetRepository } from 'src/repositories/myPet.repository';
+import { MyPet } from 'src/models/MyPets.entity';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Feed, FeedComment, User])],
-    providers: [FeedCommentService, FeedRepository, FeedCommentRepository, UserRepository],
+    imports: [TypeOrmModule.forFeature([Feed, FeedComment, User, MyPet])],
+    providers: [FeedCommentService, FeedRepository, FeedCommentRepository, UserRepository, MyPetRepository],
     controllers: [FeedCommentController],
 })
 export class FeedCommentModule {}

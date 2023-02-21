@@ -20,6 +20,10 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
+], GetFeedCommentsObj.prototype, "profileImage", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
 ], GetFeedCommentsObj.prototype, "writer", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),

@@ -13,13 +13,15 @@ exports.FeedCommentService = void 0;
 const common_1 = require("@nestjs/common");
 const feed_repository_1 = require("../../repositories/feed.repository");
 const feedComment_repository_1 = require("../../repositories/feedComment.repository");
+const myPet_repository_1 = require("../../repositories/myPet.repository");
 const user_repository_1 = require("../../repositories/user.repository");
 const date_1 = require("../../utils/date");
 let FeedCommentService = class FeedCommentService {
-    constructor(feedRepository, feedCommentRepository, userRepository) {
+    constructor(feedRepository, feedCommentRepository, userRepository, myPetRepository) {
         this.feedRepository = feedRepository;
         this.feedCommentRepository = feedCommentRepository;
         this.userRepository = userRepository;
+        this.myPetRepository = myPetRepository;
     }
     async create(userId, body) {
         try {
@@ -61,8 +63,15 @@ let FeedCommentService = class FeedCommentService {
                 let commentMine = false;
                 if (userId && userId === feedComment[i].user.id)
                     commentMine = true;
+                let profileImage = null;
+                const pet = await this.myPetRepository.findAll(feedComment[i].user.id);
+                pet.forEach((o) => {
+                    if (o.represent)
+                        profileImage = o.imagePath;
+                });
                 items[i] = {
                     commentId: feedComment[i].id,
+                    profileImage: profileImage,
                     writer: feedComment[i].user.nickName,
                     content: feedComment[i].content,
                     mine: commentMine,
@@ -119,7 +128,8 @@ FeedCommentService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [feed_repository_1.FeedRepository,
         feedComment_repository_1.FeedCommentRepository,
-        user_repository_1.UserRepository])
+        user_repository_1.UserRepository,
+        myPet_repository_1.MyPetRepository])
 ], FeedCommentService);
 exports.FeedCommentService = FeedCommentService;
 //# sourceMappingURL=feedComment.service.js.map

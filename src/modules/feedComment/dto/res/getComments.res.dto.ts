@@ -5,6 +5,9 @@ export class GetFeedCommentsObj {
     commentId: number;
 
     @ApiProperty()
+    profileImage: string;
+
+    @ApiProperty()
     writer: string;
 
     @ApiProperty()

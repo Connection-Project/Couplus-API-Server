@@ -1,5 +1,6 @@
 export declare class GetFeedCommentsObj {
     commentId: number;
+    profileImage: string;
     writer: string;
     content: string;
     mine: boolean;

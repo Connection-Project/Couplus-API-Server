@@ -17,12 +17,14 @@ const User_entity_1 = require("../../models/User.entity");
 const feed_repository_1 = require("../../repositories/feed.repository");
 const feedComment_repository_1 = require("../../repositories/feedComment.repository");
 const user_repository_1 = require("../../repositories/user.repository");
+const myPet_repository_1 = require("../../repositories/myPet.repository");
+const MyPets_entity_1 = require("../../models/MyPets.entity");
 let FeedCommentModule = class FeedCommentModule {
 };
 FeedCommentModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([Feed_entity_1.Feed, FeedComment_entity_1.FeedComment, User_entity_1.User])],
-        providers: [feedComment_service_1.FeedCommentService, feed_repository_1.FeedRepository, feedComment_repository_1.FeedCommentRepository, user_repository_1.UserRepository],
+        imports: [typeorm_1.TypeOrmModule.forFeature([Feed_entity_1.Feed, FeedComment_entity_1.FeedComment, User_entity_1.User, MyPets_entity_1.MyPet])],
+        providers: [feedComment_service_1.FeedCommentService, feed_repository_1.FeedRepository, feedComment_repository_1.FeedCommentRepository, user_repository_1.UserRepository, myPet_repository_1.MyPetRepository],
         controllers: [feedComment_controller_1.FeedCommentController],
     })
 ], FeedCommentModule);

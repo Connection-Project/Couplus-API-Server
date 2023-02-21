@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { Feed } from 'src/models/Feed.entity';
 import { FeedComment } from 'src/models/FeedComment.entity';
+import { MyPet } from 'src/models/MyPets.entity';
 import { User } from 'src/models/User.entity';
 import { FeedRepository } from 'src/repositories/feed.repository';
 import { FeedCommentRepository } from 'src/repositories/feedComment.repository';
+import { MyPetRepository } from 'src/repositories/myPet.repository';
 import { UserRepository } from 'src/repositories/user.repository';
 import { formatDateParam } from 'src/utils/date';
 import { ReturnResDto } from '../common/dto/return/return.res.dto';
@@ -16,6 +18,7 @@ export class FeedCommentService {
         private readonly feedRepository: FeedRepository,
         private readonly feedCommentRepository: FeedCommentRepository,
         private readonly userRepository: UserRepository,
+        private readonly myPetRepository: MyPetRepository,
     ) {}
 
     async create(userId: number, body: CreateFeedCommentReqDto): Promise<ReturnResDto> {
@@ -57,8 +60,16 @@ export class FeedCommentService {
                 let commentMine = false;
                 if (userId && userId === feedComment[i].user.id) commentMine = true;
 
+                // ! pet 대표 이미지
+                let profileImage = null;
+                const pet: MyPet[] = await this.myPetRepository.findAll(feedComment[i].user.id);
+                pet.forEach((o) => {
+                    if (o.represent) profileImage = o.imagePath;
+                });
+
                 items[i] = {
                     commentId: feedComment[i].id,
+                    profileImage: profileImage,
                     writer: feedComment[i].user.nickName,
                     content: feedComment[i].content,
                     mine: commentMine,
