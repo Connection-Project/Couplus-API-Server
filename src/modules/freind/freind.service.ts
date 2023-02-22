@@ -89,7 +89,7 @@ export class FriendService {
 
                     // ! pet 대표 이미지
                     let profileImage = null;
-                    let pet: MyPet[] = await this.myPetRepository.findAll(userId);
+                    let pet: MyPet[] = await this.myPetRepository.findAll(requestfriends[i].userId);
                     pet.forEach((o) => {
                         if (o.represent) profileImage = o.imagePath;
                     });

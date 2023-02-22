@@ -84,7 +84,7 @@ let FriendService = class FriendService {
                 for (let i = 0; i < requestfriends.length; i++) {
                     let friend = await this.userRepository.findByKey('id', requestfriends[i].userId);
                     let profileImage = null;
-                    let pet = await this.myPetRepository.findAll(userId);
+                    let pet = await this.myPetRepository.findAll(requestfriends[i].userId);
                     pet.forEach((o) => {
                         if (o.represent)
                             profileImage = o.imagePath;
