@@ -12,6 +12,7 @@ import { MyPet } from './MyPets.entity';
 import { BoardCommentReply } from './BoardCommentReply.entity';
 import { Feed } from './Feed.entity';
 import { FeedComment } from './FeedComment.entity';
+import { Calendar } from './Calendar.entity';
 
 @Entity({ name: 'Users' })
 export class User {
@@ -68,6 +69,9 @@ export class User {
 
     @OneToMany(() => FeedComment, (comment) => comment.user)
     feedComment: FeedComment[];
+
+    @OneToMany(() => Calendar, (calendar) => calendar.user, { cascade: true })
+    calendar: Calendar[];
 
     constructor(partial: Partial<User>) {
         Object.assign(this, partial);
