@@ -8,6 +8,7 @@ import { BoardCommentReplyModule } from './boardCommentReply/boardCommentReply.m
 import { FeedModule } from './feed/feed.module';
 import { FriendModule } from './freind/freind.module';
 import { FeedCommentModule } from './feedComment/feedComment.module';
+import { TodoModule } from './todo/todo.module';
 
 @Module({
     imports: [
@@ -20,6 +21,7 @@ import { FeedCommentModule } from './feedComment/feedComment.module';
         FeedModule,
         FeedCommentModule,
         FriendModule,
+        TodoModule,
     ],
 })
 export class IndexModule {}

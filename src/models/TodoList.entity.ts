@@ -7,7 +7,7 @@ import {
     PrimaryGeneratedColumn,
     UpdateDateColumn,
 } from 'typeorm';
-import { Calendar } from './Calendar.entity';
+import { User } from './User.entity';
 
 export enum ToDoStatus {
     todo = 'todo', // ! 할 일
@@ -25,9 +25,12 @@ export class ToDoList {
     @Column({ type: 'enum', enum: ToDoStatus, default: ToDoStatus.todo })
     status: ToDoStatus;
 
-    @ManyToOne(() => Calendar, (calendar) => calendar.todo, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+    @Column({ nullable: false })
+    date: string;
+
+    @ManyToOne(() => User, (user) => user.todo, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     @JoinColumn()
-    calendar: Calendar;
+    user: User;
 
     @CreateDateColumn({ type: 'timestamp' })
     createdAt: Date;

@@ -9,9 +9,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ToDoList = void 0;
+exports.ToDoList = exports.ToDoStatus = void 0;
 const typeorm_1 = require("typeorm");
-const Calendar_entity_1 = require("./Calendar.entity");
+const User_entity_1 = require("./User.entity");
+var ToDoStatus;
+(function (ToDoStatus) {
+    ToDoStatus["todo"] = "todo";
+    ToDoStatus["done"] = "done";
+})(ToDoStatus = exports.ToDoStatus || (exports.ToDoStatus = {}));
 let ToDoList = class ToDoList {
     constructor(partial) {
         Object.assign(this, partial);
@@ -26,10 +31,18 @@ __decorate([
     __metadata("design:type", String)
 ], ToDoList.prototype, "content", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => Calendar_entity_1.Calendar, (calendar) => calendar.todo, { onDelete: 'CASCADE', onUpdate: 'CASCADE' }),
+    (0, typeorm_1.Column)({ type: 'enum', enum: ToDoStatus, default: ToDoStatus.todo }),
+    __metadata("design:type", String)
+], ToDoList.prototype, "status", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ nullable: false }),
+    __metadata("design:type", String)
+], ToDoList.prototype, "date", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => User_entity_1.User, (user) => user.todo, { onDelete: 'CASCADE', onUpdate: 'CASCADE' }),
     (0, typeorm_1.JoinColumn)(),
-    __metadata("design:type", Calendar_entity_1.Calendar)
-], ToDoList.prototype, "calendar", void 0);
+    __metadata("design:type", User_entity_1.User)
+], ToDoList.prototype, "user", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)({ type: 'timestamp' }),
     __metadata("design:type", Date)

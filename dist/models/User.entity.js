@@ -17,7 +17,7 @@ const MyPets_entity_1 = require("./MyPets.entity");
 const BoardCommentReply_entity_1 = require("./BoardCommentReply.entity");
 const Feed_entity_1 = require("./Feed.entity");
 const FeedComment_entity_1 = require("./FeedComment.entity");
-const Calendar_entity_1 = require("./Calendar.entity");
+const TodoList_entity_1 = require("./TodoList.entity");
 let User = class User {
     constructor(partial) {
         Object.assign(this, partial);
@@ -96,9 +96,9 @@ __decorate([
     __metadata("design:type", Array)
 ], User.prototype, "feedComment", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => Calendar_entity_1.Calendar, (calendar) => calendar.user, { cascade: true }),
+    (0, typeorm_1.OneToMany)(() => TodoList_entity_1.ToDoList, (todo) => todo.user, { cascade: true }),
     __metadata("design:type", Array)
-], User.prototype, "calendar", void 0);
+], User.prototype, "todo", void 0);
 User = __decorate([
     (0, typeorm_1.Entity)({ name: 'Users' }),
     __metadata("design:paramtypes", [Object])

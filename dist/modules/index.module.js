@@ -17,6 +17,7 @@ const boardCommentReply_module_1 = require("./boardCommentReply/boardCommentRepl
 const feed_module_1 = require("./feed/feed.module");
 const freind_module_1 = require("./freind/freind.module");
 const feedComment_module_1 = require("./feedComment/feedComment.module");
+const todo_module_1 = require("./todo/todo.module");
 let IndexModule = class IndexModule {
 };
 IndexModule = __decorate([
@@ -31,6 +32,7 @@ IndexModule = __decorate([
             feed_module_1.FeedModule,
             feedComment_module_1.FeedCommentModule,
             freind_module_1.FriendModule,
+            todo_module_1.TodoModule,
         ],
     })
 ], IndexModule);
