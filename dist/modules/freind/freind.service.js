@@ -13,11 +13,13 @@ exports.FriendService = void 0;
 const common_1 = require("@nestjs/common");
 const Friend_entity_1 = require("../../models/Friend.entity");
 const friend_repository_1 = require("../../repositories/friend.repository");
+const myPet_repository_1 = require("../../repositories/myPet.repository");
 const user_repository_1 = require("../../repositories/user.repository");
 let FriendService = class FriendService {
-    constructor(friendRepository, userRepository) {
+    constructor(friendRepository, userRepository, myPetRepository) {
         this.friendRepository = friendRepository;
         this.userRepository = userRepository;
+        this.myPetRepository = myPetRepository;
     }
     async create(userId, body) {
         try {
@@ -80,10 +82,16 @@ let FriendService = class FriendService {
             else {
                 const requestfriends = await this.friendRepository.findManyByStatus(user.id, 'request');
                 for (let i = 0; i < requestfriends.length; i++) {
-                    const friend = await this.userRepository.findByKey('id', requestfriends[i].userId);
+                    let friend = await this.userRepository.findByKey('id', requestfriends[i].userId);
+                    let profileImage = null;
+                    let pet = await this.myPetRepository.findAll(userId);
+                    pet.forEach((o) => {
+                        if (o.represent)
+                            profileImage = o.imagePath;
+                    });
                     items[i] = {
                         friendId: requestfriends[i].userId,
-                        image: friend.imagePath,
+                        image: profileImage,
                         nickName: friend.nickName,
                     };
                 }
@@ -119,7 +127,8 @@ let FriendService = class FriendService {
 FriendService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [friend_repository_1.FriendRepository,
-        user_repository_1.UserRepository])
+        user_repository_1.UserRepository,
+        myPet_repository_1.MyPetRepository])
 ], FriendService);
 exports.FriendService = FriendService;
 //# sourceMappingURL=freind.service.js.map

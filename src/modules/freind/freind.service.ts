@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { Friend, FriendStatus } from 'src/models/Friend.entity';
+import { MyPet } from 'src/models/MyPets.entity';
 import { User } from 'src/models/User.entity';
 import { FriendRepository } from 'src/repositories/friend.repository';
+import { MyPetRepository } from 'src/repositories/myPet.repository';
 import { UserRepository } from 'src/repositories/user.repository';
 import { ReturnResDto } from '../common/dto/return/return.res.dto';
 import { CreatefriendReqDto } from './dto/req/create.req.dto';
@@ -11,6 +13,7 @@ export class FriendService {
     constructor(
         private readonly friendRepository: FriendRepository,
         private readonly userRepository: UserRepository,
+        private readonly myPetRepository: MyPetRepository,
     ) {}
 
     async create(userId: number, body: CreatefriendReqDto): Promise<ReturnResDto> {
@@ -82,13 +85,17 @@ export class FriendService {
                 );
                 for (let i = 0; i < requestfriends.length; i++) {
                     // ! 요청 보낸 친구의 정보
-                    const friend: User = await this.userRepository.findByKey(
-                        'id',
-                        requestfriends[i].userId,
-                    );
+                    let friend: User = await this.userRepository.findByKey('id', requestfriends[i].userId);
+
+                    // ! pet 대표 이미지
+                    let profileImage = null;
+                    let pet: MyPet[] = await this.myPetRepository.findAll(userId);
+                    pet.forEach((o) => {
+                        if (o.represent) profileImage = o.imagePath;
+                    });
                     items[i] = {
                         friendId: requestfriends[i].userId,
-                        image: friend.imagePath,
+                        image: profileImage,
                         nickName: friend.nickName,
                     };
                 }
