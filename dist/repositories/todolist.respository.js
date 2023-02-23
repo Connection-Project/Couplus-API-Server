@@ -33,7 +33,6 @@ let ToDoListRepository = class ToDoListRepository {
         return await this.todoListRepository
             .createQueryBuilder('tl')
             .innerJoinAndSelect('tl.user', 'u')
-            .innerJoinAndSelect('tl.calendar', 'ca')
             .where('tl.id = :todoId', { todoId: todoId })
             .andWhere('u.id = :userId', { userId: userId })
             .getOne();
@@ -42,7 +41,6 @@ let ToDoListRepository = class ToDoListRepository {
         return await this.todoListRepository
             .createQueryBuilder('tl')
             .innerJoinAndSelect('tl.user', 'u')
-            .innerJoinAndSelect('tl.calendar', 'ca')
             .where('u.id = :userId', { userId: userId })
             .getMany();
     }
@@ -50,7 +48,6 @@ let ToDoListRepository = class ToDoListRepository {
         return await this.todoListRepository
             .createQueryBuilder('tl')
             .innerJoinAndSelect('tl.user', 'u')
-            .innerJoinAndSelect('tl.calendar', 'ca')
             .where('tl.date = :date', { date: date })
             .andWhere('u.id = :userId', { userId: userId })
             .getMany();
