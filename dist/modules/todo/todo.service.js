@@ -39,7 +39,7 @@ let TodoService = class TodoService {
     async getTodoList(userId, year, month) {
         try {
             const date = year + (parseInt(month) < 10 ? '0' + parseInt(month) : month);
-            const todoList = await this.todoListRepository.findAllByDateAndUserId(userId, date);
+            const todoList = await this.todoListRepository.getAllByLikeDate(userId, date);
             const items = [];
             for (let i = 0; i < todoList.length; i++) {
                 items[i] = {
@@ -54,6 +54,62 @@ let TodoService = class TodoService {
         catch (err) {
             console.log(err);
             return { data: { resultCode: 2011, data: null } };
+        }
+    }
+    async getTodo(userId, date) {
+        try {
+            const todoList = await this.todoListRepository.getAllByDate(userId, date);
+            const items = [];
+            for (let i = 0; i < todoList.length; i++) {
+                items[i] = {
+                    todoId: todoList[i].id,
+                    content: todoList[i].content,
+                    status: todoList[i].status,
+                };
+            }
+            return { data: { resultCode: 1, data: { items: items } } };
+        }
+        catch (err) {
+            console.log(err);
+            return { data: { resultCode: 2021, data: null } };
+        }
+    }
+    async update(userId, todoId, body) {
+        try {
+            let resultCode = 1;
+            const { content } = body;
+            const todo = await this.todoListRepository.findOneByIdAndUserId(userId, todoId);
+            if (todo) {
+                if (content !== '' && content !== todo.content) {
+                    todo.content = content;
+                    await this.todoListRepository.save(todo);
+                }
+            }
+            else {
+                resultCode = 2032;
+            }
+            return { data: { resultCode: resultCode, data: null } };
+        }
+        catch (err) {
+            console.log(err);
+            return { data: { resultCode: 2031, data: null } };
+        }
+    }
+    async delete(userId, todoId) {
+        try {
+            let resultCode = 1;
+            const todo = await this.todoListRepository.findOneByIdAndUserId(userId, todoId);
+            if (todo) {
+                await this.todoListRepository.delete(userId, todoId);
+            }
+            else {
+                resultCode = 2042;
+            }
+            return { data: { resultCode: resultCode, data: null } };
+        }
+        catch (err) {
+            console.log(err);
+            return { data: { resultCode: 2041, data: null } };
         }
     }
 };

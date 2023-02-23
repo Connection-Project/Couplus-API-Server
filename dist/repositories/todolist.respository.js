@@ -38,7 +38,7 @@ let ToDoListRepository = class ToDoListRepository {
             .andWhere('u.id = :userId', { userId: userId })
             .getOne();
     }
-    async findAllByDateAndUserId(userId, date) {
+    async getAllByLikeDate(userId, date) {
         return await this.todoListRepository
             .createQueryBuilder('tl')
             .innerJoinAndSelect('tl.user', 'u')
@@ -47,12 +47,23 @@ let ToDoListRepository = class ToDoListRepository {
             .andWhere('u.id = :userId', { userId: userId })
             .getMany();
     }
-    async delete(todoId) {
+    async getAllByDate(userId, date) {
+        return await this.todoListRepository
+            .createQueryBuilder('tl')
+            .innerJoinAndSelect('tl.user', 'u')
+            .innerJoinAndSelect('tl.calendar', 'ca')
+            .where('tl.date = :date', { date: date })
+            .andWhere('u.id = :userId', { userId: userId })
+            .getMany();
+    }
+    async delete(userId, todoId) {
         await this.todoListRepository
             .createQueryBuilder('tl')
             .delete()
             .where('id = :todoId', { todoId: todoId })
+            .andWhere('userId = :userId', { userId: userId })
             .execute();
+        return;
     }
 };
 ToDoListRepository = __decorate([

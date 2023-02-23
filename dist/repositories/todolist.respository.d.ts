@@ -6,6 +6,7 @@ export declare class ToDoListRepository {
     create(): ToDoList;
     save(todoList: ToDoList): Promise<void>;
     findOneByIdAndUserId(userId: number, todoId: number): Promise<ToDoList>;
-    findAllByDateAndUserId(userId: number, date: string): Promise<ToDoList[]>;
-    delete(todoId: number): Promise<void>;
+    getAllByLikeDate(userId: number, date: string): Promise<ToDoList[]>;
+    getAllByDate(userId: number, date: string): Promise<ToDoList[]>;
+    delete(userId: number, todoId: number): Promise<void>;
 }
