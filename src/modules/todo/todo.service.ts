@@ -33,11 +33,11 @@ export class TodoService {
         }
     }
 
-    async getTodoList(userId: number, year: string, month: string): Promise<ReturnResDto> {
+    async getTodoList(userId: number): Promise<ReturnResDto> {
         try {
             // * 년 월 계산
-            const date = year + (parseInt(month) < 10 ? '0' + parseInt(month) : month);
-            const todoList: ToDoList[] = await this.todoListRepository.getAllByLikeDate(userId, date);
+            // const date = year + (parseInt(month) < 10 ? '0' + parseInt(month) : month);
+            const todoList: ToDoList[] = await this.todoListRepository.getAllByUserId(userId);
             const items = [];
             for (let i = 0; i < todoList.length; i++) {
                 items[i] = {

@@ -33,8 +33,8 @@ let TodoController = class TodoController {
     async create(userId, body) {
         return await this.todoService.create(userId, body);
     }
-    async getTodoList(userId, year, month) {
-        return await this.todoService.getTodoList(userId, year, month);
+    async getTodoList(userId) {
+        return await this.todoService.getTodoList(userId);
     }
     async getTodo(userId, date) {
         return await this.todoService.getTodo(userId, date);
@@ -67,10 +67,8 @@ __decorate([
     (0, swagger_1.ApiResponse)({ status: 200, type: getTodos_res_dto_1.GetToDoListSuccessDto, description: '년월 일정 리스트 성공' }),
     (0, swagger_1.ApiResponse)({ status: 400, type: getTodos_res_dto_1.GetToDoListFailDto, description: '년월 일정 리스트 실패' }),
     __param(0, (0, getUser_decorator_1.GetUser)()),
-    __param(1, (0, common_1.Query)('year')),
-    __param(2, (0, common_1.Query)('month')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, String, String]),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], TodoController.prototype, "getTodoList", null);
 __decorate([

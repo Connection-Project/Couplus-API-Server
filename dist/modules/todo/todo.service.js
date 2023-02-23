@@ -36,10 +36,9 @@ let TodoService = class TodoService {
             return { data: { resultCode: 2001, data: null } };
         }
     }
-    async getTodoList(userId, year, month) {
+    async getTodoList(userId) {
         try {
-            const date = year + (parseInt(month) < 10 ? '0' + parseInt(month) : month);
-            const todoList = await this.todoListRepository.getAllByLikeDate(userId, date);
+            const todoList = await this.todoListRepository.getAllByUserId(userId);
             const items = [];
             for (let i = 0; i < todoList.length; i++) {
                 items[i] = {

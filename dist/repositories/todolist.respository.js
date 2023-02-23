@@ -38,13 +38,12 @@ let ToDoListRepository = class ToDoListRepository {
             .andWhere('u.id = :userId', { userId: userId })
             .getOne();
     }
-    async getAllByLikeDate(userId, date) {
+    async getAllByUserId(userId) {
         return await this.todoListRepository
             .createQueryBuilder('tl')
             .innerJoinAndSelect('tl.user', 'u')
             .innerJoinAndSelect('tl.calendar', 'ca')
-            .where('tl.date LIKE :date', { date: `%${date}%` })
-            .andWhere('u.id = :userId', { userId: userId })
+            .where('u.id = :userId', { userId: userId })
             .getMany();
     }
     async getAllByDate(userId, date) {

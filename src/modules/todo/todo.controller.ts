@@ -45,12 +45,8 @@ export class TodoController {
     @ApiOperation({ summary: '년월 일정 리스트' })
     @ApiResponse({ status: 200, type: GetToDoListSuccessDto, description: '년월 일정 리스트 성공' })
     @ApiResponse({ status: 400, type: GetToDoListFailDto, description: '년월 일정 리스트 실패' })
-    async getTodoList(
-        @GetUser() userId: number,
-        @Query('year') year: string,
-        @Query('month') month: string,
-    ): Promise<ReturnResDto> {
-        return await this.todoService.getTodoList(userId, year, month);
+    async getTodoList(@GetUser() userId: number): Promise<ReturnResDto> {
+        return await this.todoService.getTodoList(userId);
     }
 
     @Get('date')

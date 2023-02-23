@@ -30,13 +30,12 @@ export class ToDoListRepository {
             .getOne();
     }
 
-    async getAllByLikeDate(userId: number, date: string): Promise<ToDoList[]> {
+    async getAllByUserId(userId: number): Promise<ToDoList[]> {
         return await this.todoListRepository
             .createQueryBuilder('tl')
             .innerJoinAndSelect('tl.user', 'u')
             .innerJoinAndSelect('tl.calendar', 'ca')
-            .where('tl.date LIKE :date', { date: `%${date}%` })
-            .andWhere('u.id = :userId', { userId: userId })
+            .where('u.id = :userId', { userId: userId })
             .getMany();
     }
 

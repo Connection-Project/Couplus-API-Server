@@ -10,7 +10,7 @@ export declare class TodoService {
     private readonly myPetRepository;
     constructor(userRepository: UserRepository, todoListRepository: ToDoListRepository, myPetRepository: MyPetRepository);
     create(userId: number, body: CreateToDoReqDto): Promise<ReturnResDto>;
-    getTodoList(userId: number, year: string, month: string): Promise<ReturnResDto>;
+    getTodoList(userId: number): Promise<ReturnResDto>;
     getTodo(userId: number, date: string): Promise<ReturnResDto>;
     update(userId: number, todoId: number, body: UpdateTodoReqDto): Promise<ReturnResDto>;
     delete(userId: number, todoId: number): Promise<ReturnResDto>;
