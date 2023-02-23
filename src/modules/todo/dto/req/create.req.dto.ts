@@ -5,5 +5,5 @@ export class CreateToDoReqDto {
     date: string;
 
     @ApiProperty()
-    content;
+    content: string;
 }

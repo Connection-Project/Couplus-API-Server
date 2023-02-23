@@ -19,7 +19,7 @@ __decorate([
 ], CreateToDoReqDto.prototype, "date", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", Object)
+    __metadata("design:type", String)
 ], CreateToDoReqDto.prototype, "content", void 0);
 exports.CreateToDoReqDto = CreateToDoReqDto;
 //# sourceMappingURL=create.req.dto.js.map
