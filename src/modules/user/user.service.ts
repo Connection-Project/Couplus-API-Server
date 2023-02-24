@@ -242,23 +242,34 @@ export class UserService {
             let friendStatus = 0;
             if (userId) {
                 console.log('유저 존재');
+                // ! 친구가 나를 추가했는지 확인
                 const checkFriend: Friend = await this.friendRepository.findOneByUserIdAndfriendId(
                     userId,
                     friendId,
                 );
-                // ! 친구 추가하려던 친구도 나를 친구 요청을 보내지 않아야 함
-                if (!checkFriend) {
-                    console.log('상대 친구도 나를 추가하지 않음');
-                    const friend: Friend = await this.friendRepository.findOneByUserIdAndfriendId(
-                        friendId,
-                        userId,
-                    );
-                    console.log('userId: ' + userId + ' , ' + 'friendId: ' + friendId);
-                    if (friend) {
-                        console.log('내가 친구 요청 한 친구');
-                        friendStatus = friend.status === FriendStatus.request ? -1 : 1;
-                    }
-                }
+                // ! 내가 친구를 추가 했는지 확인
+                const friend: Friend = await this.friendRepository.findOneByUserIdAndfriendId(
+                    friendId,
+                    userId,
+                );
+
+                // TODO : 판별 코드 효율성
+                if (friend && checkFriend) friendStatus = 1;
+                else if ((friend && !checkFriend) || (!friend && checkFriend)) friendStatus = -1;
+                else if (!friend && !checkFriend) friendStatus = 0;
+                // // ! 친구 추가하려던 친구도 나를 친구 요청을 보내지 않아야 함
+                // if (!checkFriend) {
+                //     console.log('상대 친구도 나를 추가하지 않음');
+                //     const friend: Friend = await this.friendRepository.findOneByUserIdAndfriendId(
+                //         friendId,
+                //         userId,
+                //     );
+                //     console.log('userId: ' + userId + ' , ' + 'friendId: ' + friendId);
+                //     if (friend) {
+                //         console.log('내가 친구 요청 한 친구');
+                //     }
+                // }
+                // friendStatus = friend.status === FriendStatus.request ? -1 : 1;
             }
             const data = {
                 userId: user.id,

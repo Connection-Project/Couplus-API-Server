@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
 const common_1 = require("@nestjs/common");
 const aws_service_1 = require("../../lib/aws/src/aws.service");
-const Friend_entity_1 = require("../../models/Friend.entity");
 const feed_repository_1 = require("../../repositories/feed.repository");
 const friend_repository_1 = require("../../repositories/friend.repository");
 const myPet_repository_1 = require("../../repositories/myPet.repository");
@@ -235,15 +234,13 @@ let UserService = class UserService {
             if (userId) {
                 console.log('유저 존재');
                 const checkFriend = await this.friendRepository.findOneByUserIdAndfriendId(userId, friendId);
-                if (!checkFriend) {
-                    console.log('상대 친구도 나를 추가하지 않음');
-                    const friend = await this.friendRepository.findOneByUserIdAndfriendId(friendId, userId);
-                    console.log('userId: ' + userId + ' , ' + 'friendId: ' + friendId);
-                    if (friend) {
-                        console.log('내가 친구 요청 한 친구');
-                        friendStatus = friend.status === Friend_entity_1.FriendStatus.request ? -1 : 1;
-                    }
-                }
+                const friend = await this.friendRepository.findOneByUserIdAndfriendId(friendId, userId);
+                if (friend && checkFriend)
+                    friendStatus = 1;
+                else if ((friend && !checkFriend) || (!friend && checkFriend))
+                    friendStatus = -1;
+                else if (!friend && !checkFriend)
+                    friendStatus = 0;
             }
             const data = {
                 userId: user.id,
