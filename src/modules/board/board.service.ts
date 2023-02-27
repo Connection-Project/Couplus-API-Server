@@ -109,7 +109,6 @@ export class BoardService {
             ];
             const board: Board = await this.boardRepository.findOne(query, boardWhere);
             const images = [];
-            console.log(board);
             board.image.forEach((o) => {
                 images.push(o.path);
             });
