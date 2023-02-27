@@ -15,6 +15,8 @@ import {
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { ApiConsumes, ApiCookieAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
+import { GetUser } from 'src/decorator/getUser.decorator';
+import { JwtInterceptor } from 'src/interceptors/jwt.interceptor';
 import { AccessTokenGuard } from 'src/lib/jwt/guards/accessToken.guard';
 import { ResultSuccessDto } from '../common/dto/res/result.res.dto';
 import { BoardService } from './board.service';
@@ -48,22 +50,22 @@ export class BoardController {
 
     @Post('list')
     @ApiCookieAuth()
-    @UseGuards(AccessTokenGuard)
+    @UseInterceptors(JwtInterceptor)
     @ApiOperation({ summary: '게시글 리스트' })
     @ApiResponse({ status: 200, type: GetManyBoardSuccessDto, description: '게시글 리스트 성공' })
     @ApiResponse({ status: 400, type: GetManyBoardFailDto, description: '게시글 리스트 실패' })
-    async getBoards(@Req() req: Request, @Body() body: GetManyBoardReqDto) {
-        return await this.boardService.getBoards(req.user['userId'], body);
+    async getBoards(@GetUser() userId: number, @Body() body: GetManyBoardReqDto) {
+        return await this.boardService.getBoards(userId, body);
     }
 
     @Get(':boardId')
     @ApiCookieAuth()
-    @UseGuards(AccessTokenGuard)
+    @UseInterceptors(JwtInterceptor)
     @ApiOperation({ summary: '게시글 상세보기' })
     @ApiResponse({ status: 200, type: GetOneBoardSuccessDto, description: '게시글 상세보기 성공' })
     @ApiResponse({ status: 400, type: GetOneBoardFailDto, description: '게시글 상세보기 실패' })
-    async getMyPet(@Req() req: Request, @Param('boardId', ParseIntPipe) boardId: number) {
-        return await this.boardService.getOneBoard(req.user['userId'], boardId);
+    async getMyPet(@GetUser() userId: number, @Param('boardId', ParseIntPipe) boardId: number) {
+        return await this.boardService.getOneBoard(userId, boardId);
     }
 
     @Patch(':boardId')

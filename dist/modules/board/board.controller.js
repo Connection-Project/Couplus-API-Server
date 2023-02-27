@@ -16,6 +16,8 @@ exports.BoardController = void 0;
 const common_1 = require("@nestjs/common");
 const platform_express_1 = require("@nestjs/platform-express");
 const swagger_1 = require("@nestjs/swagger");
+const getUser_decorator_1 = require("../../decorator/getUser.decorator");
+const jwt_interceptor_1 = require("../../interceptors/jwt.interceptor");
 const accessToken_guard_1 = require("../../lib/jwt/guards/accessToken.guard");
 const result_res_dto_1 = require("../common/dto/res/result.res.dto");
 const board_service_1 = require("./board.service");
@@ -36,11 +38,11 @@ let BoardController = class BoardController {
         console.log(files);
         return await this.boardService.create(req.user['userId'], files, body);
     }
-    async getBoards(req, body) {
-        return await this.boardService.getBoards(req.user['userId'], body);
+    async getBoards(userId, body) {
+        return await this.boardService.getBoards(userId, body);
     }
-    async getMyPet(req, boardId) {
-        return await this.boardService.getOneBoard(req.user['userId'], boardId);
+    async getMyPet(userId, boardId) {
+        return await this.boardService.getOneBoard(userId, boardId);
     }
     async update(req, files, boardId, body) {
         return await this.boardService.update(req.user['userId'], files, boardId, body);
@@ -71,27 +73,27 @@ __decorate([
 __decorate([
     (0, common_1.Post)('list'),
     (0, swagger_1.ApiCookieAuth)(),
-    (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
+    (0, common_1.UseInterceptors)(jwt_interceptor_1.JwtInterceptor),
     (0, swagger_1.ApiOperation)({ summary: '게시글 리스트' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: getMany_res_dto_1.GetManyBoardSuccessDto, description: '게시글 리스트 성공' }),
     (0, swagger_1.ApiResponse)({ status: 400, type: getMany_res_dto_1.GetManyBoardFailDto, description: '게시글 리스트 실패' }),
-    __param(0, (0, common_1.Req)()),
+    __param(0, (0, getUser_decorator_1.GetUser)()),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, getMany_req_dto_1.GetManyBoardReqDto]),
+    __metadata("design:paramtypes", [Number, getMany_req_dto_1.GetManyBoardReqDto]),
     __metadata("design:returntype", Promise)
 ], BoardController.prototype, "getBoards", null);
 __decorate([
     (0, common_1.Get)(':boardId'),
     (0, swagger_1.ApiCookieAuth)(),
-    (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
+    (0, common_1.UseInterceptors)(jwt_interceptor_1.JwtInterceptor),
     (0, swagger_1.ApiOperation)({ summary: '게시글 상세보기' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: getOne_res_dto_1.GetOneBoardSuccessDto, description: '게시글 상세보기 성공' }),
     (0, swagger_1.ApiResponse)({ status: 400, type: getOne_res_dto_1.GetOneBoardFailDto, description: '게시글 상세보기 실패' }),
-    __param(0, (0, common_1.Req)()),
+    __param(0, (0, getUser_decorator_1.GetUser)()),
     __param(1, (0, common_1.Param)('boardId', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Number]),
+    __metadata("design:paramtypes", [Number, Number]),
     __metadata("design:returntype", Promise)
 ], BoardController.prototype, "getMyPet", null);
 __decorate([

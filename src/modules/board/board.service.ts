@@ -68,11 +68,15 @@ export class BoardService {
             for (let i = 0; i < row.length; i++) {
                 // ! 게시글의 좋아요를 판별(내 좋아요 유무)
                 let liked = false;
-                const boardLiked: BoardLiked = await this.boardLikedRepository.findOne(userId, row[i].id);
+                if (userId !== 0) {
+                    const boardLiked: BoardLiked = await this.boardLikedRepository.findOne(
+                        userId,
+                        row[i].id,
+                    );
+                    if (boardLiked) liked = true;
+                }
                 const boardLikeds = await this.boardLikedRepository.getCount(row[i].id);
 
-                // ! 해당 게시글에 좋아요를 눌렀다면 true
-                if (boardLiked) liked = true;
                 items[i] = {
                     boardId: row[i].id,
                     writer: row[i].user.nickName,
@@ -95,26 +99,27 @@ export class BoardService {
     async getOneBoard(userId: number, boardId: number): Promise<any> {
         try {
             const query = this.boardRepository.getQuery();
-            const boardWhere = [
+            let boardWhere = [
                 {
                     key: 'b.id = :boardId',
                     value: {
                         boardId: boardId,
                     },
                 },
-                {
-                    key: 'u.id = :userId',
-                    value: {
-                        userId: userId,
-                    },
-                },
             ];
             const board: Board = await this.boardRepository.findOne(query, boardWhere);
             const images = [];
+            console.log(board);
             board.image.forEach((o) => {
                 images.push(o.path);
             });
-            const boardLiked: BoardLiked = await this.boardLikedRepository.findOne(userId, board.id);
+            let liked = false;
+            let mine = false;
+            if (userId !== 0) {
+                const boardLiked: BoardLiked = await this.boardLikedRepository.findOne(userId, board.id);
+                if (boardLiked) liked = true;
+                if (board.user.id === userId) mine = true;
+            }
             const boardLikeds = await this.boardLikedRepository.getCount(board.id);
             const data = {
                 boardId: board.id,
@@ -123,10 +128,10 @@ export class BoardService {
                 title: board.title,
                 content: board.content,
                 images: images,
-                liked: boardLiked ? true : false,
+                liked: liked,
                 likedCount: boardLikeds,
                 commentCount: board.comment.length,
-                mine: board.user.id === userId ? true : false,
+                mine: mine,
                 createdAt: formatDateParam(board.createdAt),
             };
             return { status: 200, data: { resultCode: 1, data: data } };

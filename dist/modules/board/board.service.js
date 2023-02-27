@@ -69,10 +69,12 @@ let BoardService = class BoardService {
             const items = [];
             for (let i = 0; i < row.length; i++) {
                 let liked = false;
-                const boardLiked = await this.boardLikedRepository.findOne(userId, row[i].id);
+                if (userId !== 0) {
+                    const boardLiked = await this.boardLikedRepository.findOne(userId, row[i].id);
+                    if (boardLiked)
+                        liked = true;
+                }
                 const boardLikeds = await this.boardLikedRepository.getCount(row[i].id);
-                if (boardLiked)
-                    liked = true;
                 items[i] = {
                     boardId: row[i].id,
                     writer: row[i].user.nickName,
@@ -95,26 +97,29 @@ let BoardService = class BoardService {
     async getOneBoard(userId, boardId) {
         try {
             const query = this.boardRepository.getQuery();
-            const boardWhere = [
+            let boardWhere = [
                 {
                     key: 'b.id = :boardId',
                     value: {
                         boardId: boardId,
                     },
                 },
-                {
-                    key: 'u.id = :userId',
-                    value: {
-                        userId: userId,
-                    },
-                },
             ];
             const board = await this.boardRepository.findOne(query, boardWhere);
             const images = [];
+            console.log(board);
             board.image.forEach((o) => {
                 images.push(o.path);
             });
-            const boardLiked = await this.boardLikedRepository.findOne(userId, board.id);
+            let liked = false;
+            let mine = false;
+            if (userId !== 0) {
+                const boardLiked = await this.boardLikedRepository.findOne(userId, board.id);
+                if (boardLiked)
+                    liked = true;
+                if (board.user.id === userId)
+                    mine = true;
+            }
             const boardLikeds = await this.boardLikedRepository.getCount(board.id);
             const data = {
                 boardId: board.id,
@@ -123,10 +128,10 @@ let BoardService = class BoardService {
                 title: board.title,
                 content: board.content,
                 images: images,
-                liked: boardLiked ? true : false,
+                liked: liked,
                 likedCount: boardLikeds,
                 commentCount: board.comment.length,
-                mine: board.user.id === userId ? true : false,
+                mine: mine,
                 createdAt: (0, date_1.formatDateParam)(board.createdAt),
             };
             return { status: 200, data: { resultCode: 1, data: data } };
