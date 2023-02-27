@@ -107,7 +107,6 @@ let BoardService = class BoardService {
             ];
             const board = await this.boardRepository.findOne(query, boardWhere);
             const images = [];
-            console.log(board);
             board.image.forEach((o) => {
                 images.push(o.path);
             });
