@@ -75,7 +75,7 @@ let CommentService = class CommentService {
                         writer: commentReply[j].user.nickName,
                         content: commentReply[j].content,
                         mine: replyMine,
-                        createdAt: (0, date_1.formatDateParam)(boardComment[i].reply[j].createdAt),
+                        createdAt: (0, date_1.formatDateParam)(commentReply[j].createdAt),
                     };
                 }
                 items[i] = {

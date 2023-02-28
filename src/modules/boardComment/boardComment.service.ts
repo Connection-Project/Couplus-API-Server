@@ -76,7 +76,7 @@ export class CommentService {
                         writer: commentReply[j].user.nickName,
                         content: commentReply[j].content,
                         mine: replyMine,
-                        createdAt: formatDateParam(boardComment[i].reply[j].createdAt),
+                        createdAt: formatDateParam(commentReply[j].createdAt),
                     };
                 }
                 items[i] = {
