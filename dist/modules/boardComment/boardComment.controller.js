@@ -15,6 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CommentController = void 0;
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
+const getUser_decorator_1 = require("../../decorator/getUser.decorator");
+const jwt_interceptor_1 = require("../../interceptors/jwt.interceptor");
 const accessToken_guard_1 = require("../../lib/jwt/guards/accessToken.guard");
 const result_res_dto_1 = require("../common/dto/res/result.res.dto");
 const boardComment_service_1 = require("./boardComment.service");
@@ -31,8 +33,8 @@ let CommentController = class CommentController {
     async create(req, body) {
         return await this.commentService.create(req.user['userId'], body);
     }
-    async getBoardComments(req, boardId) {
-        return await this.commentService.getBoardComments(req.user['userId'], boardId);
+    async getBoardComments(userId, boardId) {
+        return await this.commentService.getBoardComments(userId, boardId);
     }
     async update(req, commentId, body) {
         return await this.commentService.update(req.user['userId'], commentId, body);
@@ -58,14 +60,14 @@ __decorate([
 __decorate([
     (0, common_1.Get)(':boardId'),
     (0, swagger_1.ApiCookieAuth)(),
-    (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
+    (0, common_1.UseInterceptors)(jwt_interceptor_1.JwtInterceptor),
     (0, swagger_1.ApiOperation)({ summary: '댓글 리스트' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: getComments_res_dto_1.GetBoardCommentsSuccessDto, description: '댓글 리스트 성공' }),
     (0, swagger_1.ApiResponse)({ status: 401, type: getComments_res_dto_1.GetBoardCommentsFailDto, description: '댓글 리스트 실패' }),
-    __param(0, (0, common_1.Req)()),
+    __param(0, (0, getUser_decorator_1.GetUser)()),
     __param(1, (0, common_1.Param)('boardId', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Number]),
+    __metadata("design:paramtypes", [Number, Number]),
     __metadata("design:returntype", Promise)
 ], CommentController.prototype, "getBoardComments", null);
 __decorate([

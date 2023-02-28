@@ -9,9 +9,12 @@ import {
     Post,
     Req,
     UseGuards,
+    UseInterceptors,
 } from '@nestjs/common';
 import { ApiCookieAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
+import { GetUser } from 'src/decorator/getUser.decorator';
+import { JwtInterceptor } from 'src/interceptors/jwt.interceptor';
 import { AccessTokenGuard } from 'src/lib/jwt/guards/accessToken.guard';
 import { ResultSuccessDto } from '../common/dto/res/result.res.dto';
 import { CommentService } from './boardComment.service';
@@ -41,12 +44,12 @@ export class CommentController {
     // TODO : 차후 비로그인도 볼 수 있게 변경 (interceptor 적용)
     @Get(':boardId')
     @ApiCookieAuth()
-    @UseGuards(AccessTokenGuard)
+    @UseInterceptors(JwtInterceptor)
     @ApiOperation({ summary: '댓글 리스트' })
     @ApiResponse({ status: 200, type: GetBoardCommentsSuccessDto, description: '댓글 리스트 성공' })
     @ApiResponse({ status: 401, type: GetBoardCommentsFailDto, description: '댓글 리스트 실패' })
-    async getBoardComments(@Req() req: Request, @Param('boardId', ParseIntPipe) boardId: number) {
-        return await this.commentService.getBoardComments(req.user['userId'], boardId);
+    async getBoardComments(@GetUser() userId: number, @Param('boardId', ParseIntPipe) boardId: number) {
+        return await this.commentService.getBoardComments(userId, boardId);
     }
 
     @Patch(':commentId')

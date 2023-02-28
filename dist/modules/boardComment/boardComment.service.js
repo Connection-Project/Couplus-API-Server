@@ -65,14 +65,15 @@ let CommentService = class CommentService {
                 if (userId && userId === boardComment[i].user.id)
                     commentMine = true;
                 const reply = [];
-                for (let j = 0; j < boardComment[i].reply.length; j++) {
+                const commentReply = await this.boardCommentReplyRepository.findManyByCommentId(boardComment[i].id);
+                for (let j = 0; j < commentReply.length; j++) {
                     let replyMine = false;
-                    if (userId && userId === boardComment[i].reply[j].user.id)
+                    if (userId && userId === commentReply[j].user.id)
                         replyMine = true;
                     reply[j] = {
-                        replyId: boardComment[i].reply[j].id,
-                        writer: boardComment[i].reply[j].user.nickName,
-                        content: boardComment[i].reply[j].content,
+                        replyId: commentReply[j].id,
+                        writer: commentReply[j].user.nickName,
+                        content: commentReply[j].content,
                         mine: replyMine,
                         createdAt: (0, date_1.formatDateParam)(boardComment[i].reply[j].createdAt),
                     };

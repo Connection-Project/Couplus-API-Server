@@ -46,7 +46,7 @@ export class BoardcommentreplyService {
     async getBoardCommentReplys(userId: number, commentId: number): Promise<any> {
         try {
             const boardCommentReply: BoardCommentReply[] =
-                await this.boardCommentReplyRepository.findManyByBoardId(commentId);
+                await this.boardCommentReplyRepository.findManyByCommentId(commentId);
             const items = [];
             for (let i = 0; i < boardCommentReply.length; i++) {
                 let mine = false;

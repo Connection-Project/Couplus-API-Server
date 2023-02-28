@@ -28,7 +28,7 @@ let BoardCommentReplyRepository = class BoardCommentReplyRepository {
         await this.boardCommentReplyRepository.save(boardCommentReply);
         return;
     }
-    async findManyByBoardId(commentId) {
+    async findManyByCommentId(commentId) {
         const query = this.boardCommentReplyRepository
             .createQueryBuilder('bcr')
             .innerJoinAndSelect('bcr.comment', 'bc')

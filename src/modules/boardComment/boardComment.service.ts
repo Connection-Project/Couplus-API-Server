@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Board } from 'src/models/Board.entity';
 import { BoardComment } from 'src/models/BoardComment.entity';
+import { BoardCommentReply } from 'src/models/BoardCommentReply.entity';
 import { User } from 'src/models/User.entity';
 import { BoardRepository } from 'src/repositories/board.repository';
 import { BoardCommentRepository } from 'src/repositories/boardComment.repository';
@@ -63,15 +64,17 @@ export class CommentService {
                 if (userId && userId === boardComment[i].user.id) commentMine = true;
 
                 const reply = [];
+                const commentReply: BoardCommentReply[] =
+                    await this.boardCommentReplyRepository.findManyByCommentId(boardComment[i].id);
                 // ! 대댓글 리스트
-                for (let j = 0; j < boardComment[i].reply.length; j++) {
+                for (let j = 0; j < commentReply.length; j++) {
                     let replyMine = false;
-                    if (userId && userId === boardComment[i].reply[j].user.id) replyMine = true;
+                    if (userId && userId === commentReply[j].user.id) replyMine = true;
 
                     reply[j] = {
-                        replyId: boardComment[i].reply[j].id,
-                        writer: boardComment[i].reply[j].user.nickName,
-                        content: boardComment[i].reply[j].content,
+                        replyId: commentReply[j].id,
+                        writer: commentReply[j].user.nickName,
+                        content: commentReply[j].content,
                         mine: replyMine,
                         createdAt: formatDateParam(boardComment[i].reply[j].createdAt),
                     };

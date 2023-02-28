@@ -50,7 +50,7 @@ let BoardcommentreplyService = class BoardcommentreplyService {
     }
     async getBoardCommentReplys(userId, commentId) {
         try {
-            const boardCommentReply = await this.boardCommentReplyRepository.findManyByBoardId(commentId);
+            const boardCommentReply = await this.boardCommentReplyRepository.findManyByCommentId(commentId);
             const items = [];
             for (let i = 0; i < boardCommentReply.length; i++) {
                 let mine = false;

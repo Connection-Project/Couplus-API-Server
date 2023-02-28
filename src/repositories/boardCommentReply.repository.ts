@@ -19,7 +19,7 @@ export class BoardCommentReplyRepository {
         return;
     }
 
-    async findManyByBoardId(commentId: number): Promise<BoardCommentReply[]> {
+    async findManyByCommentId(commentId: number): Promise<BoardCommentReply[]> {
         const query = this.boardCommentReplyRepository
             .createQueryBuilder('bcr')
             .innerJoinAndSelect('bcr.comment', 'bc')
