@@ -187,6 +187,8 @@ export class BoardService {
 
     async delete(userId: number, boardId: number): Promise<any> {
         try {
+            console.log(userId);
+            console.log(boardId);
             const board: Board = await this.boardRepository.findOneByIdAndUserId(userId, boardId);
             if (board) {
                 await this.boardRepository.delete(boardId, userId);

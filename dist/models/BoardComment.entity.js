@@ -28,7 +28,7 @@ __decorate([
     __metadata("design:type", String)
 ], BoardComment.prototype, "content", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => Board_entity_1.Board, (board) => board.comment),
+    (0, typeorm_1.ManyToOne)(() => Board_entity_1.Board, (board) => board.comment, { onDelete: 'CASCADE', onUpdate: 'CASCADE' }),
     (0, typeorm_1.JoinColumn)(),
     __metadata("design:type", Board_entity_1.Board)
 ], BoardComment.prototype, "board", void 0);

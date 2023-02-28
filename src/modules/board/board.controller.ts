@@ -93,8 +93,8 @@ export class BoardController {
     @ApiResponse({ status: 200, type: ResultSuccessDto, description: '게시글 삭제하기 성공' })
     @ApiResponse({ status: 201, type: UnauthorizedDeleteBoard, description: '삭제 권한 없음' })
     @ApiResponse({ status: 400, type: DeleteBoardFailDto, description: '게시글 삭제하기 실패' })
-    async delete(@Req() req: Request, @Param('boardId', ParseIntPipe) boardId: number) {
-        return await this.boardService.delete(req.user['userId'], boardId);
+    async delete(@GetUser() userId: number, @Param('boardId', ParseIntPipe) boardId: number) {
+        return await this.boardService.delete(userId, boardId);
     }
 
     @Get(':boardId/like')

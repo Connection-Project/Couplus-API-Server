@@ -47,8 +47,8 @@ let BoardController = class BoardController {
     async update(req, files, boardId, body) {
         return await this.boardService.update(req.user['userId'], files, boardId, body);
     }
-    async delete(req, boardId) {
-        return await this.boardService.delete(req.user['userId'], boardId);
+    async delete(userId, boardId) {
+        return await this.boardService.delete(userId, boardId);
     }
     async createLiked(req, boardId) {
         return await this.boardService.createLiked(req.user['userId'], boardId);
@@ -122,10 +122,10 @@ __decorate([
     (0, swagger_1.ApiResponse)({ status: 200, type: result_res_dto_1.ResultSuccessDto, description: '게시글 삭제하기 성공' }),
     (0, swagger_1.ApiResponse)({ status: 201, type: delete_res_dto_1.UnauthorizedDeleteBoard, description: '삭제 권한 없음' }),
     (0, swagger_1.ApiResponse)({ status: 400, type: delete_res_dto_1.DeleteBoardFailDto, description: '게시글 삭제하기 실패' }),
-    __param(0, (0, common_1.Req)()),
+    __param(0, (0, getUser_decorator_1.GetUser)()),
     __param(1, (0, common_1.Param)('boardId', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Number]),
+    __metadata("design:paramtypes", [Number, Number]),
     __metadata("design:returntype", Promise)
 ], BoardController.prototype, "delete", null);
 __decorate([

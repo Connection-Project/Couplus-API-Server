@@ -20,7 +20,7 @@ export class BoardComment {
     @Column({ nullable: true, length: 2000 })
     content: string;
 
-    @ManyToOne(() => Board, (board) => board.comment)
+    @ManyToOne(() => Board, (board) => board.comment, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     @JoinColumn()
     board: Board;
 

@@ -54,7 +54,7 @@ let BoardRepository = class BoardRepository {
     }
     async delete(boardId, userId) {
         await this.boardRepository
-            .createQueryBuilder('b')
+            .createQueryBuilder()
             .delete()
             .where('id = :boardId', { boardId: boardId })
             .andWhere('userId = :userId', { userId: userId })

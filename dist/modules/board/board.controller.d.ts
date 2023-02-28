@@ -10,6 +10,6 @@ export declare class BoardController {
     getBoards(userId: number, body: GetManyBoardReqDto): Promise<any>;
     getMyPet(userId: number, boardId: number): Promise<any>;
     update(req: Request, files: File[], boardId: number, body: UpdateBoardReqDto): Promise<any>;
-    delete(req: Request, boardId: number): Promise<any>;
+    delete(userId: number, boardId: number): Promise<any>;
     createLiked(req: Request, boardId: number): Promise<any>;
 }
