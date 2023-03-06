@@ -48,11 +48,16 @@ export class AuthController {
     async kakaoCallBack(@Query('code') code: string, @Res() res: Response) {
         const result = await this.authService.kakaoCallBack(code);
         if (result.data.resultCode === 1112) {
+            console.log(
+                `${process.env.REDIRECT_URL}?resultCode=${result.data.resultCode}&accountId=${result.data.data.accountId}&nickName=${result.data.data.nickName}&email=${result.data.data.email}`,
+            );
             res.redirect(
-                `${process.env.REDIRECT_URL}?accountId=${result.data.data.accountId}&nickName=${result.data.data.nickName}&email=${result.data.data.email}`,
+                `${process.env.ADD_INFO_REDIRECT_URL}?resultCode=${result.data.resultCode}&accountId=${result.data.data.accountId}&nickName=${result.data.data.nickName}&email=${result.data.data.email}`,
             );
         } else {
-            return result;
+            res.redirect(
+                `${process.env.REDIRECT_URL}?resultCode=${result.data.resultCode}&accessToken=${result.data.data.accessToken}&refreshToken=${result.data.data.refreshToken}&accessTokenExpireIn=${result.data.data.accessTokenExpireIn}&refreshTokenExpireIn=${result.data.data.refreshTokenExpireIn}`,
+            );
         }
     }
 

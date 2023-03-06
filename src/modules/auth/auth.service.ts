@@ -77,14 +77,15 @@ export class AuthService {
 
             const user: User = await this.userRepository.findByKey('accountId', id);
             if (user) {
-                const { accessToken, refreshToken } = this.jwtServcie.getToken(user.id);
+                const { accessToken, refreshToken, accessTokenExpireIn, refreshTokenExpireIn } =
+                    this.jwtServcie.getToken(user.id);
 
                 data = {
                     accessToken: accessToken,
+                    accessTokenExpireIn: new Date(accessTokenExpireIn * 1000),
                     refreshToken: refreshToken,
+                    refreshTokenExpireIn: new Date(refreshTokenExpireIn * 1000),
                 };
-
-                await this.redisCacheService.set(refreshToken, user.id, 604800);
 
                 status = 200;
                 resultCode = 1;
