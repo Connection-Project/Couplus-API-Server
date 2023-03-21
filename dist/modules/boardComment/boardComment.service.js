@@ -76,7 +76,7 @@ let CommentService = class CommentService {
                     const replyUserPet = await this.myPetRepository.getRepresentPetOne(commentReply[j].user.id);
                     reply[j] = {
                         replyId: commentReply[j].id,
-                        profile: replyUserPet.imagePath,
+                        profile: replyUserPet ? replyUserPet.imagePath : null,
                         writer: commentReply[j].user.nickName,
                         content: commentReply[j].content,
                         mine: replyMine,
@@ -85,7 +85,7 @@ let CommentService = class CommentService {
                 }
                 items[i] = {
                     commentId: boardComment[i].id,
-                    profile: commentUserPet.imagePath,
+                    profile: commentUserPet ? commentUserPet.imagePath : null,
                     writer: boardComment[i].user.nickName,
                     content: boardComment[i].content,
                     mine: commentMine,
