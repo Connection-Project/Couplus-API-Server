@@ -81,7 +81,7 @@ let BoardService = class BoardService {
                 items[i] = {
                     boardId: row[i].id,
                     writer: row[i].user.nickName,
-                    profile: pet.imagePath,
+                    profile: pet ? pet.imagePath : null,
                     image: row[i].image.length > 0 ? row[i].image[0].path : null,
                     title: row[i].title,
                     content: row[i].content,
@@ -127,7 +127,7 @@ let BoardService = class BoardService {
             const pet = await this.myPetRepository.getRepresentPetOne(board.user.id);
             const data = {
                 boardId: board.id,
-                profile: pet.imagePath,
+                profile: pet ? pet.imagePath : null,
                 writer: board.user.nickName,
                 type: board.type,
                 title: board.title,
