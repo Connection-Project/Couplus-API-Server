@@ -5,6 +5,9 @@ export class GetBoardCommentReplyObj {
     replyId: number;
 
     @ApiProperty()
+    profile: string;
+
+    @ApiProperty()
     writer: string;
 
     @ApiProperty()
@@ -20,6 +23,9 @@ export class GetBoardCommentReplyObj {
 export class GetBoardCommentsObj {
     @ApiProperty()
     commentId: number;
+
+    @ApiProperty()
+    profile: string;
 
     @ApiProperty()
     writer: string;

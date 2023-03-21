@@ -20,6 +20,10 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
+], GetBoardCommentReplyObj.prototype, "profile", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
 ], GetBoardCommentReplyObj.prototype, "writer", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
@@ -40,6 +44,10 @@ __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Number)
 ], GetBoardCommentsObj.prototype, "commentId", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], GetBoardCommentsObj.prototype, "profile", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)

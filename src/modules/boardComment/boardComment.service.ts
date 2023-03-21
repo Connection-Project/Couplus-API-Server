@@ -6,6 +6,7 @@ import { User } from 'src/models/User.entity';
 import { BoardRepository } from 'src/repositories/board.repository';
 import { BoardCommentRepository } from 'src/repositories/boardComment.repository';
 import { BoardCommentReplyRepository } from 'src/repositories/boardCommentReply.repository';
+import { MyPetRepository } from 'src/repositories/myPet.repository';
 import { UserRepository } from 'src/repositories/user.repository';
 import { formatDateParam } from 'src/utils/date';
 import { CreateCommentReqDto } from './dto/req/create.req.dto';
@@ -18,6 +19,7 @@ export class CommentService {
         private readonly boardCommentReplyRepository: BoardCommentReplyRepository,
         private readonly boardRepository: BoardRepository,
         private readonly userRepository: UserRepository,
+        private readonly myPetRepository: MyPetRepository,
     ) {}
 
     async create(userId: number, body: CreateCommentReqDto): Promise<any> {
@@ -63,6 +65,10 @@ export class CommentService {
                 let commentMine = false;
                 if (userId && userId === boardComment[i].user.id) commentMine = true;
 
+                const commentUserPet = await this.myPetRepository.getRepresentPetOne(
+                    boardComment[i].user.id,
+                );
+
                 const reply = [];
                 const commentReply: BoardCommentReply[] =
                     await this.boardCommentReplyRepository.findManyByCommentId(boardComment[i].id);
@@ -71,8 +77,13 @@ export class CommentService {
                     let replyMine = false;
                     if (userId && userId === commentReply[j].user.id) replyMine = true;
 
+                    const replyUserPet = await this.myPetRepository.getRepresentPetOne(
+                        commentReply[j].user.id,
+                    );
+
                     reply[j] = {
                         replyId: commentReply[j].id,
+                        profile: replyUserPet.imagePath,
                         writer: commentReply[j].user.nickName,
                         content: commentReply[j].content,
                         mine: replyMine,
@@ -81,6 +92,7 @@ export class CommentService {
                 }
                 items[i] = {
                     commentId: boardComment[i].id,
+                    profile: commentUserPet.imagePath,
                     writer: boardComment[i].user.nickName,
                     content: boardComment[i].content,
                     mine: commentMine,

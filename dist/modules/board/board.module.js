@@ -20,16 +20,19 @@ const user_repository_1 = require("../../repositories/user.repository");
 const User_entity_1 = require("../../models/User.entity");
 const BoardLiked_entity_1 = require("../../models/BoardLiked.entity");
 const boardLiked_repository_1 = require("../../repositories/boardLiked.repository");
+const MyPets_entity_1 = require("../../models/MyPets.entity");
+const myPet_repository_1 = require("../../repositories/myPet.repository");
 let BoardModule = class BoardModule {
 };
 BoardModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([Board_entity_1.Board, BoardImage_entity_1.BoardImage, BoardLiked_entity_1.BoardLiked, User_entity_1.User])],
+        imports: [typeorm_1.TypeOrmModule.forFeature([Board_entity_1.Board, BoardImage_entity_1.BoardImage, BoardLiked_entity_1.BoardLiked, User_entity_1.User, MyPets_entity_1.MyPet])],
         providers: [
             board_service_1.BoardService,
             board_repository_1.BoardRepository,
             boardImage_repository_1.BoardImageRepository,
             boardLiked_repository_1.BoardLikedRepository,
+            myPet_repository_1.MyPetRepository,
             aws_service_1.AwsService,
             user_repository_1.UserRepository,
         ],

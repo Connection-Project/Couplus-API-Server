@@ -5,6 +5,9 @@ export class GetManyBoardItemObj {
     boardId: number;
 
     @ApiProperty()
+    profile: string;
+
+    @ApiProperty()
     writer: string;
 
     @ApiProperty()

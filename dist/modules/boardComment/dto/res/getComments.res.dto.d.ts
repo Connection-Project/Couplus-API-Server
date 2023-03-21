@@ -1,5 +1,6 @@
 export declare class GetBoardCommentReplyObj {
     replyId: number;
+    profile: string;
     writer: string;
     content: string;
     mine: boolean;
@@ -7,6 +8,7 @@ export declare class GetBoardCommentReplyObj {
 }
 export declare class GetBoardCommentsObj {
     commentId: number;
+    profile: string;
     writer: string;
     content: string;
     mine: boolean;

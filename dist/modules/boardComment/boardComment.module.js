@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CommentModule = void 0;
+const myPet_repository_1 = require("../../repositories/myPet.repository");
 const common_1 = require("@nestjs/common");
 const boardComment_service_1 = require("./boardComment.service");
 const boardComment_controller_1 = require("./boardComment.controller");
@@ -19,17 +20,19 @@ const User_entity_1 = require("../../models/User.entity");
 const user_repository_1 = require("../../repositories/user.repository");
 const boardCommentReply_repository_1 = require("../../repositories/boardCommentReply.repository");
 const BoardCommentReply_entity_1 = require("../../models/BoardCommentReply.entity");
+const MyPets_entity_1 = require("../../models/MyPets.entity");
 let CommentModule = class CommentModule {
 };
 CommentModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([BoardComment_entity_1.BoardComment, Board_entity_1.Board, BoardCommentReply_entity_1.BoardCommentReply, User_entity_1.User])],
+        imports: [typeorm_1.TypeOrmModule.forFeature([BoardComment_entity_1.BoardComment, Board_entity_1.Board, BoardCommentReply_entity_1.BoardCommentReply, User_entity_1.User, MyPets_entity_1.MyPet])],
         providers: [
             boardComment_service_1.CommentService,
             board_repository_1.BoardRepository,
             boardComment_repository_1.BoardCommentRepository,
             boardCommentReply_repository_1.BoardCommentReplyRepository,
             user_repository_1.UserRepository,
+            myPet_repository_1.MyPetRepository,
         ],
         controllers: [boardComment_controller_1.CommentController],
     })

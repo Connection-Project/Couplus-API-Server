@@ -11,14 +11,17 @@ import { UserRepository } from 'src/repositories/user.repository';
 import { User } from 'src/models/User.entity';
 import { BoardLiked } from 'src/models/BoardLiked.entity';
 import { BoardLikedRepository } from 'src/repositories/boardLiked.repository';
+import { MyPet } from 'src/models/MyPets.entity';
+import { MyPetRepository } from 'src/repositories/myPet.repository';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Board, BoardImage, BoardLiked, User])],
+    imports: [TypeOrmModule.forFeature([Board, BoardImage, BoardLiked, User, MyPet])],
     providers: [
         BoardService,
         BoardRepository,
         BoardImageRepository,
         BoardLikedRepository,
+        MyPetRepository,
         AwsService,
         UserRepository,
     ],

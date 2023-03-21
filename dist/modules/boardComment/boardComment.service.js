@@ -14,14 +14,16 @@ const common_1 = require("@nestjs/common");
 const board_repository_1 = require("../../repositories/board.repository");
 const boardComment_repository_1 = require("../../repositories/boardComment.repository");
 const boardCommentReply_repository_1 = require("../../repositories/boardCommentReply.repository");
+const myPet_repository_1 = require("../../repositories/myPet.repository");
 const user_repository_1 = require("../../repositories/user.repository");
 const date_1 = require("../../utils/date");
 let CommentService = class CommentService {
-    constructor(boardCommentRepository, boardCommentReplyRepository, boardRepository, userRepository) {
+    constructor(boardCommentRepository, boardCommentReplyRepository, boardRepository, userRepository, myPetRepository) {
         this.boardCommentRepository = boardCommentRepository;
         this.boardCommentReplyRepository = boardCommentReplyRepository;
         this.boardRepository = boardRepository;
         this.userRepository = userRepository;
+        this.myPetRepository = myPetRepository;
     }
     async create(userId, body) {
         try {
@@ -64,14 +66,17 @@ let CommentService = class CommentService {
                 let commentMine = false;
                 if (userId && userId === boardComment[i].user.id)
                     commentMine = true;
+                const commentUserPet = await this.myPetRepository.getRepresentPetOne(boardComment[i].user.id);
                 const reply = [];
                 const commentReply = await this.boardCommentReplyRepository.findManyByCommentId(boardComment[i].id);
                 for (let j = 0; j < commentReply.length; j++) {
                     let replyMine = false;
                     if (userId && userId === commentReply[j].user.id)
                         replyMine = true;
+                    const replyUserPet = await this.myPetRepository.getRepresentPetOne(commentReply[j].user.id);
                     reply[j] = {
                         replyId: commentReply[j].id,
+                        profile: replyUserPet.imagePath,
                         writer: commentReply[j].user.nickName,
                         content: commentReply[j].content,
                         mine: replyMine,
@@ -80,6 +85,7 @@ let CommentService = class CommentService {
                 }
                 items[i] = {
                     commentId: boardComment[i].id,
+                    profile: commentUserPet.imagePath,
                     writer: boardComment[i].user.nickName,
                     content: boardComment[i].content,
                     mine: commentMine,
@@ -146,7 +152,8 @@ CommentService = __decorate([
     __metadata("design:paramtypes", [boardComment_repository_1.BoardCommentRepository,
         boardCommentReply_repository_1.BoardCommentReplyRepository,
         board_repository_1.BoardRepository,
-        user_repository_1.UserRepository])
+        user_repository_1.UserRepository,
+        myPet_repository_1.MyPetRepository])
 ], CommentService);
 exports.CommentService = CommentService;
 //# sourceMappingURL=boardComment.service.js.map

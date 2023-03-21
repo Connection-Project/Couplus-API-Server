@@ -6,13 +6,15 @@ import { CreateBoardReqDto } from './dto/req/create.req.dto';
 import { GetManyBoardReqDto } from './dto/req/getMany.req.dto';
 import { UpdateBoardReqDto } from './dto/req/update.req.dto';
 import { BoardLikedRepository } from 'src/repositories/boardLiked.repository';
+import { MyPetRepository } from 'src/repositories/myPet.repository';
 export declare class BoardService {
     private readonly boardRepository;
     private readonly boardImageRepository;
     private readonly boardLikedRepository;
     private readonly userRepository;
+    private readonly myPetRepository;
     private readonly awsService;
-    constructor(boardRepository: BoardRepository, boardImageRepository: BoardImageRepository, boardLikedRepository: BoardLikedRepository, userRepository: UserRepository, awsService: AwsService);
+    constructor(boardRepository: BoardRepository, boardImageRepository: BoardImageRepository, boardLikedRepository: BoardLikedRepository, userRepository: UserRepository, myPetRepository: MyPetRepository, awsService: AwsService);
     create(userId: number, files: File[], body: CreateBoardReqDto): Promise<any>;
     getBoards(userId: number, body: GetManyBoardReqDto): Promise<any>;
     getOneBoard(userId: number, boardId: number): Promise<any>;

@@ -1,5 +1,6 @@
 export declare class GetOneBoardObj {
     boardId: number;
+    profile: string;
     writer: string;
     type: string;
     title: string;

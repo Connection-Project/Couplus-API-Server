@@ -17,12 +17,14 @@ const board_repository_1 = require("../../repositories/board.repository");
 const boardImage_repository_1 = require("../../repositories/boardImage.repository");
 const date_1 = require("../../utils/date");
 const boardLiked_repository_1 = require("../../repositories/boardLiked.repository");
+const myPet_repository_1 = require("../../repositories/myPet.repository");
 let BoardService = class BoardService {
-    constructor(boardRepository, boardImageRepository, boardLikedRepository, userRepository, awsService) {
+    constructor(boardRepository, boardImageRepository, boardLikedRepository, userRepository, myPetRepository, awsService) {
         this.boardRepository = boardRepository;
         this.boardImageRepository = boardImageRepository;
         this.boardLikedRepository = boardLikedRepository;
         this.userRepository = userRepository;
+        this.myPetRepository = myPetRepository;
         this.awsService = awsService;
     }
     async create(userId, files, body) {
@@ -75,9 +77,11 @@ let BoardService = class BoardService {
                         liked = true;
                 }
                 const boardLikeds = await this.boardLikedRepository.getCount(row[i].id);
+                const pet = await this.myPetRepository.getRepresentPetOne(row[i].user.id);
                 items[i] = {
                     boardId: row[i].id,
                     writer: row[i].user.nickName,
+                    profile: pet.imagePath,
                     image: row[i].image.length > 0 ? row[i].image[0].path : null,
                     title: row[i].title,
                     content: row[i].content,
@@ -120,8 +124,10 @@ let BoardService = class BoardService {
                     mine = true;
             }
             const boardLikeds = await this.boardLikedRepository.getCount(board.id);
+            const pet = await this.myPetRepository.getRepresentPetOne(board.user.id);
             const data = {
                 boardId: board.id,
+                profile: pet.imagePath,
                 writer: board.user.nickName,
                 type: board.type,
                 title: board.title,
@@ -233,6 +239,7 @@ BoardService = __decorate([
         boardImage_repository_1.BoardImageRepository,
         boardLiked_repository_1.BoardLikedRepository,
         user_repository_1.UserRepository,
+        myPet_repository_1.MyPetRepository,
         aws_service_1.AwsService])
 ], BoardService);
 exports.BoardService = BoardService;

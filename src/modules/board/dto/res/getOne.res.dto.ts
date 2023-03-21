@@ -5,6 +5,9 @@ export class GetOneBoardObj {
     boardId: number;
 
     @ApiProperty()
+    profile: string;
+
+    @ApiProperty()
     writer: string;
 
     @ApiProperty()

@@ -12,6 +12,8 @@ import { formatDateParam } from 'src/utils/date';
 import { UpdateBoardReqDto } from './dto/req/update.req.dto';
 import { BoardLiked } from 'src/models/BoardLiked.entity';
 import { BoardLikedRepository } from 'src/repositories/boardLiked.repository';
+import { MyPet } from 'src/models/MyPets.entity';
+import { MyPetRepository } from 'src/repositories/myPet.repository';
 
 @Injectable()
 export class BoardService {
@@ -20,6 +22,7 @@ export class BoardService {
         private readonly boardImageRepository: BoardImageRepository,
         private readonly boardLikedRepository: BoardLikedRepository,
         private readonly userRepository: UserRepository,
+        private readonly myPetRepository: MyPetRepository,
         private readonly awsService: AwsService,
     ) {}
 
@@ -77,9 +80,13 @@ export class BoardService {
                 }
                 const boardLikeds = await this.boardLikedRepository.getCount(row[i].id);
 
+                // ! 마이 펫 대표 이미지
+                const pet: MyPet = await this.myPetRepository.getRepresentPetOne(row[i].user.id);
+
                 items[i] = {
                     boardId: row[i].id,
                     writer: row[i].user.nickName,
+                    profile: pet.imagePath,
                     image: row[i].image.length > 0 ? row[i].image[0].path : null,
                     title: row[i].title,
                     content: row[i].content,
@@ -120,8 +127,13 @@ export class BoardService {
                 if (board.user.id === userId) mine = true;
             }
             const boardLikeds = await this.boardLikedRepository.getCount(board.id);
+
+            // ! 마이 펫 대표 이미지
+            const pet: MyPet = await this.myPetRepository.getRepresentPetOne(board.user.id);
+
             const data = {
                 boardId: board.id,
+                profile: pet.imagePath,
                 writer: board.user.nickName,
                 type: board.type,
                 title: board.title,
